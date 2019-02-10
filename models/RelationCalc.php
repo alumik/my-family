@@ -41,11 +41,44 @@ class RelationCalc extends Model
         $path = [];
         $mark = [];
 
-        $all_person = Person::find()->asArray()->all();
+        $all_person = Person::find()->all();
         foreach ($all_person as $person) {
             $relation_graph[$person['id']] = [];
             $cost[$person['id']] = INF;
             $mark[$person['id']] = false;
+        }
+        foreach ($all_person as $person) {
+            $children = $person->children;
+            foreach ($children as $cld_a) {
+                foreach ($children as $cld_b) {
+                    if ($cld_a != $cld_b) {
+                        $type_1 = null;
+                        $type_2 = null;
+                        switch ($cld_a->gender) {
+                            case Gender::$MALE:
+                                $type_1 = '兄弟';
+                                break;
+                            case Gender::$FEMALE:
+                                $type_1 = '姐妹';
+                                break;
+                        }
+                        switch ($cld_b->gender) {
+                            case Gender::$MALE:
+                                $type_2 = '兄弟';
+                                break;
+                            case Gender::$FEMALE:
+                                $type_2 = '姐妹';
+                                break;
+                        }
+                        if ($type_1) {
+                            array_push($relation_graph[$cld_a->id], [$cld_b->id, $type_1]);
+                        }
+                        if ($type_2) {
+                            array_push($relation_graph[$cld_b->id], [$cld_a->id, $type_2]);
+                        }
+                    }
+                }
+            }
         }
 
         $all_relations = Relationship::find()->asArray()->all();
@@ -129,7 +162,7 @@ class RelationCalc extends Model
 
         $result = $base_person->full_name . ' 是 ' . $target_person->full_name . ' ';
         $current = $this->target;
-        while($path[$current][0]) {
+        while ($path[$current][0]) {
             $result .= '的' . $path[$current][1];
             $current = $path[$current][0];
         }
