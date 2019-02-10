@@ -44,8 +44,10 @@ class Relationship extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'parent' => '父/母',
-            'child' => '子/女',
+            'parent' => '父/母 ID',
+            'child' => '子/女 ID',
+            'parent_name' => '父/母姓名',
+            'child_name' => '子/女姓名',
         ];
     }
 
@@ -63,5 +65,21 @@ class Relationship extends \yii\db\ActiveRecord
     public function getChild0()
     {
         return $this->hasOne(Person::className(), ['id' => 'child']);
+    }
+
+    /**
+     * @return string
+     */
+    public function getParent_name()
+    {
+        return $this->parent0->full_name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getChild_name()
+    {
+        return $this->child0->full_name;
     }
 }
