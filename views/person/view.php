@@ -6,9 +6,9 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Person */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'People', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = $model->full_name;
+$this->params['breadcrumbs'][] = ['label' => '家庭成员', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $model->id;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="person-view">
@@ -16,11 +16,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('修改', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('删除', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => '您确定要删除此项吗？',
                 'method' => 'post',
             ],
         ]) ?>
@@ -33,8 +33,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'family_name',
             'given_name',
             'birth_date',
-            'gender',
-            'alive',
+            [
+                'attribute' => 'gender',
+                'value' => $model->genderName,
+            ],
+            [
+                'attribute' => 'alive',
+                'value' => $model->aliveText,
+            ],
             'my_relationship',
             'description:ntext',
         ],
