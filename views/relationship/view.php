@@ -30,8 +30,16 @@ $this->params['breadcrumbs'][] = $model->id;
         'model' => $model,
         'attributes' => [
             'id',
-            'parent_name',
-            'child_name',
+            [
+                'attribute' => 'parent_name',
+                'value' => Html::a($model->parent_name, ['person/view', 'id' => $model->parent]),
+                'format' => 'raw',
+            ],
+            [
+                'attribute' => 'child_name',
+                'value' => Html::a($model->child_name, ['person/view', 'id' => $model->child]),
+                'format' => 'raw',
+            ],
             [
                 'attribute' => 'type',
                 'value' => $model->type_name,
