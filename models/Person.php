@@ -89,7 +89,7 @@ class Person extends \yii\db\ActiveRecord
     /**
      * @return string
      */
-    public function getAliveText()
+    public function getAlive_text()
     {
         if ($this->alive == 1) {
             return '是';
@@ -108,7 +108,7 @@ class Person extends \yii\db\ActiveRecord
     /**
      * @return string
      */
-    public function getGenderName()
+    public function getGender_name()
     {
         return $this->gender0->name;
     }

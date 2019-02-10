@@ -38,13 +38,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'birth_date',
             [
                 'attribute' => 'gender',
-                'value' => 'genderName',
+                'value' => 'gender_name',
                 'filter' => \app\models\Gender::getGenderList(),
             ],
             'my_relationship',
             [
                 'attribute' => 'alive',
-                'value' => 'aliveText',
+                'value' => 'alive_text',
                 'filter' => [
                     '1' => '是',
                     '0' => '否',
