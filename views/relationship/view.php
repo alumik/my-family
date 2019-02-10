@@ -32,6 +32,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'parent_name',
             'child_name',
+            [
+                'attribute' => 'type',
+                'value' => $model->type_name,
+            ],
         ],
     ]) ?>
 

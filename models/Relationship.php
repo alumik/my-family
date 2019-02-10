@@ -10,9 +10,11 @@ use Yii;
  * @property int $id
  * @property int $parent
  * @property int $child
+ * @property int $type
  *
  * @property Person $parent0
  * @property Person $child0
+ * @property RelationType $type0
  */
 class Relationship extends \yii\db\ActiveRecord
 {
@@ -30,14 +32,15 @@ class Relationship extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['parent', 'child'], 'required'],
-            [['parent', 'child'], 'integer'],
+            [['parent', 'child', 'type'], 'required'],
+            [['parent', 'child', 'type'], 'integer'],
             [['parent', 'child'], 'unique', 'targetAttribute' => ['parent', 'child']],
             [['parent', 'child'], 'validatePair'],
             ['parent', 'compare', 'compareAttribute' => 'child', 'operator' => '!='],
             ['child', 'compare', 'compareAttribute' => 'parent', 'operator' => '!='],
             [['parent'], 'exist', 'skipOnError' => true, 'targetClass' => Person::className(), 'targetAttribute' => ['parent' => 'id']],
             [['child'], 'exist', 'skipOnError' => true, 'targetClass' => Person::className(), 'targetAttribute' => ['child' => 'id']],
+            [['type'], 'exist', 'skipOnError' => true, 'targetClass' => RelationType::className(), 'targetAttribute' => ['type' => 'id']],
         ];
     }
 
@@ -59,10 +62,11 @@ class Relationship extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'parent' => '父/母 ID',
-            'child' => '子/女 ID',
-            'parent_name' => '父/母姓名',
-            'child_name' => '子/女姓名',
+            'parent' => '父/母/夫 ID',
+            'child' => '子/女/妻 ID',
+            'parent_name' => '父/母/夫姓名',
+            'child_name' => '子/女/妻姓名',
+            'type' => '关系类型',
         ];
     }
 
@@ -96,5 +100,21 @@ class Relationship extends \yii\db\ActiveRecord
     public function getChild_name()
     {
         return $this->child0->full_name;
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getType0()
+    {
+        return $this->hasOne(RelationType::className(), ['id' => 'type']);
+    }
+
+    /**
+     * @return string
+     */
+    public function getType_name()
+    {
+        return $this->type0->name;
     }
 }

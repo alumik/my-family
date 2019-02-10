@@ -30,6 +30,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'parent_name',
             'child_name',
+            [
+                'attribute' => 'type',
+                'value' => 'type_name',
+                'filter' => \app\models\RelationType::getRelationTypeList(),
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

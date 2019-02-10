@@ -20,7 +20,7 @@ class RelationshipSearch extends Relationship
     public function rules()
     {
         return [
-            [['id', 'parent', 'child'], 'integer'],
+            [['id', 'parent', 'child', 'type'], 'integer'],
             [['parent_name', 'child_name'], 'safe'],
         ];
     }
@@ -66,6 +66,7 @@ class RelationshipSearch extends Relationship
                     'label' => '子/女姓名',
                     'default' => SORT_ASC,
                 ],
+                'type',
             ],
             'defaultOrder' => ['id' => SORT_ASC],
         ]);
@@ -83,6 +84,7 @@ class RelationshipSearch extends Relationship
             'id' => $this->id,
             'parent' => $this->parent,
             'child' => $this->child,
+            'type' => $this->type,
         ]);
 
         $query->join('LEFT JOIN', 'person as a', 'relationship.parent = a.id');

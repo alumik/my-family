@@ -16,6 +16,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'child')->textInput() ?>
 
+    <?= $form->field($model, 'type')->dropDownList(\app\models\RelationType::getRelationTypeList(), ['prompt' => '请选择']) ?>
+
     <div class="form-group">
         <?= Html::submitButton('保存', ['class' => 'btn btn-success']) ?>
     </div>
