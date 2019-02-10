@@ -31,7 +31,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="relation-calc-result">
 
-        <h3><?= $result ?></h3>
+        <br/>
+        <h2 class="text-center"><?= $result ?></h2>
 
     </div>
 </div>

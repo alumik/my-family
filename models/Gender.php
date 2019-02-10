@@ -13,6 +13,10 @@ use yii\helpers\ArrayHelper;
  */
 class Gender extends \yii\db\ActiveRecord
 {
+    public static $UNKNOWN = 1;
+    public static $MALE = 2;
+    public static $FEMALE = 3;
+
     /**
      * {@inheritdoc}
      */

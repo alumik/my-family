@@ -150,7 +150,7 @@ class Person extends \yii\db\ActiveRecord
             ->viaTable(
                 'relationship', ['parent' => 'id'],
                 function ($query) {
-                    $query->onCondition(['type' => 1]);
+                    $query->onCondition(['type' => RelationType::$QINZI]);
                 }
             );
     }
@@ -165,7 +165,7 @@ class Person extends \yii\db\ActiveRecord
             ->viaTable(
                 'relationship', ['child' => 'id'],
                 function ($query) {
-                    $query->onCondition(['type' => 1]);
+                    $query->onCondition(['type' => RelationType::$QINZI]);
                 }
             );
     }
@@ -180,7 +180,7 @@ class Person extends \yii\db\ActiveRecord
             ->viaTable(
                 'relationship', ['parent' => 'id'],
                 function ($query) {
-                    $query->onCondition(['type' => 2]);
+                    $query->onCondition(['type' => RelationType::$PEIOU]);
                 }
             );
     }
@@ -195,7 +195,7 @@ class Person extends \yii\db\ActiveRecord
             ->viaTable(
                 'relationship', ['child' => 'id'],
                 function ($query) {
-                    $query->onCondition(['type' => 2]);
+                    $query->onCondition(['type' => RelationType::$PEIOU]);
                 }
             );
     }
