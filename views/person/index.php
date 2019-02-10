@@ -30,6 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'family_name',
+                'filter' => \app\models\Person::getFamilyNameList(),
                 'headerOptions' => [
                     'width' => '100',
                 ],

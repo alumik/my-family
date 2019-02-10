@@ -208,4 +208,24 @@ class Person extends \yii\db\ActiveRecord
         }
         return $result;
     }
+
+    /**
+     * @return array
+     */
+    public static function getFamilyNameList()
+    {
+        $result = [];
+        $list = Person::find()
+            ->select('family_name')
+            ->groupBy('family_name')
+            ->orderBy('family_name')
+            ->asArray()
+            ->all();
+        if (!empty($list)) {
+            foreach ($list as $item) {
+                $result[$item['family_name']] = $item['family_name'];
+            }
+        }
+        return $result;
+    }
 }
