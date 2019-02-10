@@ -58,12 +58,13 @@ class PersonSearch extends Person
                     'asc' => ['family_name' => SORT_ASC, 'given_name' => SORT_ASC],
                     'desc' => ['family_name' => SORT_DESC, 'given_name' => SORT_DESC],
                     'label' => '姓名',
-                    'default' => SORT_ASC
+                    'default' => SORT_ASC,
                 ],
                 'birth_date',
                 'gender',
                 'alive',
-            ]
+            ],
+            'defaultOrder' => ['id' => SORT_ASC],
         ]);
 
         $this->load($params);

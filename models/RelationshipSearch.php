@@ -58,15 +58,16 @@ class RelationshipSearch extends Relationship
                     'asc' => ['a.family_name' => SORT_ASC, 'a.given_name' => SORT_ASC],
                     'desc' => ['a.family_name' => SORT_DESC, 'a.given_name' => SORT_DESC],
                     'label' => '父/母姓名',
-                    'default' => SORT_ASC
+                    'default' => SORT_ASC,
                 ],
                 'child_name' => [
                     'asc' => ['b.family_name' => SORT_ASC, 'b.given_name' => SORT_ASC],
                     'desc' => ['b.family_name' => SORT_DESC, 'b.given_name' => SORT_DESC],
                     'label' => '子/女姓名',
-                    'default' => SORT_ASC
+                    'default' => SORT_ASC,
                 ],
-            ]
+            ],
+            'defaultOrder' => ['id' => SORT_ASC],
         ]);
 
         $this->load($params);
