@@ -23,6 +23,8 @@ use yii\helpers\ArrayHelper;
  * @property Relationship[] $relationships0
  * @property Person[] $children
  * @property Person[] $parents
+ * @property Person[] $wives
+ * @property Person[] $husbands
  */
 class Person extends \yii\db\ActiveRecord
 {
@@ -159,6 +161,34 @@ class Person extends \yii\db\ActiveRecord
                 'relationship', ['child' => 'id'],
                 function($query) {
                     $query->onCondition(['type' => 1]);
+                }
+            );
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getWives()
+    {
+        return $this->hasMany(Person::className(), ['id' => 'child'])
+            ->viaTable(
+                'relationship', ['parent' => 'id'],
+                function($query) {
+                    $query->onCondition(['type' => 2]);
+                }
+            );
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getHusbands()
+    {
+        return $this->hasMany(Person::className(), ['id' => 'parent'])
+            ->viaTable(
+                'relationship', ['child' => 'id'],
+                function($query) {
+                    $query->onCondition(['type' => 2]);
                 }
             );
     }
