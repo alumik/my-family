@@ -8,6 +8,7 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'language' => 'zh-CN',
+    'name' => '我的家',
     'timeZone' => 'Asia/Shanghai',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
