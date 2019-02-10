@@ -35,11 +35,11 @@ $this->params['breadcrumbs'][] = $model->id;
             'birth_date',
             [
                 'attribute' => 'gender',
-                'value' => $model->genderName,
+                'value' => $model->gender_name,
             ],
             [
                 'attribute' => 'alive',
-                'value' => $model->aliveText,
+                'value' => $model->alive_text,
             ],
             'my_relationship',
             'description:ntext',

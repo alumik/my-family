@@ -91,10 +91,7 @@ class Person extends \yii\db\ActiveRecord
      */
     public function getAlive_text()
     {
-        if ($this->alive == 1) {
-            return '是';
-        }
-        return '否';
+        return $this->alive == 1 ? '是' : '否';
     }
 
     /**
