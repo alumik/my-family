@@ -44,8 +44,8 @@ class Relationship extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'parent' => 'Parent',
-            'child' => 'Child',
+            'parent' => '父/母',
+            'child' => '子/女',
         ];
     }
 

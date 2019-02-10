@@ -7,16 +7,15 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\RelationshipSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Relationships';
+$this->title = '家庭关系';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="relationship-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Relationship', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('添加新关系', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
