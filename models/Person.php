@@ -55,6 +55,7 @@ class Person extends \yii\db\ActiveRecord
             'given_name' => '名',
             'full_name' => '姓名',
             'birth_date' => '出生日期',
+            'age' => '年龄',
             'gender' => '性别',
             'alive' => '是否健在',
             'my_relationship' => '与我的关系',
@@ -108,5 +109,22 @@ class Person extends \yii\db\ActiveRecord
     public function getGender_name()
     {
         return $this->gender0->name;
+    }
+
+    /**
+     * @return string|integer
+     */
+    public function getAge()
+    {
+        if ($this->birth_date) {
+            $birth_date = $this->birth_date;
+            list($birth_year, $birth_month, $birth_day) = explode('-', $birth_date);
+            $cm = date('n');
+            $cd = date('j');
+            $age = date('Y') - $birth_year - 1;
+            if ($cm > $birth_month || $cm == $birth_month && $cd > $birth_day) $age++;
+            return $age;
+        }
+        return '';
     }
 }

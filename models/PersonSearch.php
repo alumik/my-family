@@ -61,6 +61,10 @@ class PersonSearch extends Person
                     'default' => SORT_ASC,
                 ],
                 'birth_date',
+                'age' => [
+                    'asc' => ['birth_date' => SORT_DESC],
+                    'desc' => ['birth_date' => SORT_ASC],
+                ],
                 'gender',
                 'alive',
             ],

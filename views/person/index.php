@@ -36,6 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'full_name',
             'birth_date',
+            'age',
             [
                 'attribute' => 'gender',
                 'value' => 'gender_name',
