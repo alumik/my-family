@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
 
 /**
  * This is the model class for table "person".
@@ -65,7 +66,9 @@ class Person extends \yii\db\ActiveRecord
             'birth_date' => '出生日期',
             'age' => '年龄',
             'gender' => '性别',
+            'gender_name' => '性别',
             'alive' => '是否健在',
+            'alive_text' => '是否健在',
             'my_relationship' => '与我的关系',
             'phone' => '电话号码',
             'description' => '备注',
@@ -139,6 +142,7 @@ class Person extends \yii\db\ActiveRecord
 
     /**
      * @return \yii\db\ActiveQuery
+     * @throws \yii\base\InvalidConfigException
      */
     public function getChildren()
     {
@@ -153,6 +157,7 @@ class Person extends \yii\db\ActiveRecord
 
     /**
      * @return \yii\db\ActiveQuery
+     * @throws \yii\base\InvalidConfigException
      */
     public function getParents()
     {
@@ -167,6 +172,7 @@ class Person extends \yii\db\ActiveRecord
 
     /**
      * @return \yii\db\ActiveQuery
+     * @throws \yii\base\InvalidConfigException
      */
     public function getWives()
     {
@@ -181,6 +187,7 @@ class Person extends \yii\db\ActiveRecord
 
     /**
      * @return \yii\db\ActiveQuery
+     * @throws \yii\base\InvalidConfigException
      */
     public function getHusbands()
     {
@@ -227,5 +234,39 @@ class Person extends \yii\db\ActiveRecord
             }
         }
         return $result;
+    }
+
+    /**
+     * @param $dataprovider
+     * @return string
+     * @throws \Exception
+     */
+    public static function RelationView($dataprovider)
+    {
+        return \yii\grid\GridView::widget([
+            'dataProvider' => $dataprovider,
+            'showOnEmpty' => false,
+            'emptyText' => '没有相关记录。',
+            'columns' => [
+                [
+                    'attribute' => 'id',
+                    'headerOptions' => [
+                        'width' => '80',
+                    ],
+                ],
+                [
+                    'attribute' => 'full_name',
+                    'value' => function($item) {
+                        return Html::a($item->full_name, ['person/view', 'id' => $item->id]);
+                    },
+                    'format' => 'raw',
+                ],
+                'birth_date',
+                'age',
+                'gender_name',
+                'my_relationship',
+                'alive_text',
+            ],
+        ]);
     }
 }

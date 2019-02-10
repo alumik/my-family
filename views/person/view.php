@@ -5,6 +5,10 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Person */
+/* @var $parents \yii\data\ActiveDataProvider */
+/* @var $children \yii\data\ActiveDataProvider */
+/* @var $wives \yii\data\ActiveDataProvider */
+/* @var $husbands \yii\data\ActiveDataProvider */
 
 $this->title = $model->full_name;
 $this->params['breadcrumbs'][] = ['label' => '家庭成员', 'url' => ['index']];
@@ -47,5 +51,29 @@ $this->params['breadcrumbs'][] = $model->id;
             'description:ntext',
         ],
     ]) ?>
+
+    <p><strong>父母</strong></p>
+    <div class="scrollable">
+        <?= \app\models\Person::RelationView($parents) ?>
+    </div>
+    <br/>
+
+    <p><strong>子女</strong></p>
+    <div class="scrollable">
+        <?= \app\models\Person::RelationView($children) ?>
+    </div>
+    <br/>
+
+    <p><strong>丈夫</strong></p>
+    <div class="scrollable">
+        <?= \app\models\Person::RelationView($husbands) ?>
+    </div>
+    <br/>
+
+    <p><strong>妻子</strong></p>
+    <div class="scrollable">
+        <?= \app\models\Person::RelationView($wives) ?>
+    </div>
+    <br/>
 
 </div>

@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Person;
 use app\models\PersonSearch;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -52,8 +53,14 @@ class PersonController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'parents' => new ActiveDataProvider(['query' => $model->getParents(), 'sort' => false]),
+            'children' => new ActiveDataProvider(['query' => $model->getChildren(), 'sort' => false]),
+            'wives' => new ActiveDataProvider(['query' => $model->getWives(), 'sort' => false]),
+            'husbands' => new ActiveDataProvider(['query' => $model->getHusbands(), 'sort' => false]),
         ]);
     }
 
