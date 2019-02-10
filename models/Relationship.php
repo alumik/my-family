@@ -32,9 +32,24 @@ class Relationship extends \yii\db\ActiveRecord
         return [
             [['parent', 'child'], 'required'],
             [['parent', 'child'], 'integer'],
+            [['parent', 'child'], 'unique', 'targetAttribute' => ['parent', 'child']],
+            [['parent', 'child'], 'validatePair'],
+            ['parent', 'compare', 'compareAttribute' => 'child', 'operator' => '!='],
+            ['child', 'compare', 'compareAttribute' => 'parent', 'operator' => '!='],
             [['parent'], 'exist', 'skipOnError' => true, 'targetClass' => Person::className(), 'targetAttribute' => ['parent' => 'id']],
             [['child'], 'exist', 'skipOnError' => true, 'targetClass' => Person::className(), 'targetAttribute' => ['child' => 'id']],
         ];
+    }
+
+    public function validatePair($attribute, $params)
+    {
+        if (!$this->hasErrors()) {
+            if (Relationship::find()
+                ->where(['parent' => $this->child, 'child' => $this->parent])
+                ->exists()) {
+                $this->addError($attribute, '成员的相反关系已存在。');
+            }
+        }
     }
 
     /**
