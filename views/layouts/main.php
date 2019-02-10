@@ -41,6 +41,7 @@ AppAsset::register($this);
         'items' => [
             ['label' => '家庭成员', 'url' => ['/person/index']],
             ['label' => '家庭关系', 'url' => ['/relationship/index']],
+            ['label' => '关系计算', 'url' => ['/relation-calc/index']],
             ['label' => '更多信息', 'url' => ['/site/about']],
 
 //            登录用代码
