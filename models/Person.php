@@ -149,7 +149,7 @@ class Person extends \yii\db\ActiveRecord
         return $this->hasMany(Person::className(), ['id' => 'child'])
             ->viaTable(
                 'relationship', ['parent' => 'id'],
-                function($query) {
+                function ($query) {
                     $query->onCondition(['type' => 1]);
                 }
             );
@@ -164,7 +164,7 @@ class Person extends \yii\db\ActiveRecord
         return $this->hasMany(Person::className(), ['id' => 'parent'])
             ->viaTable(
                 'relationship', ['child' => 'id'],
-                function($query) {
+                function ($query) {
                     $query->onCondition(['type' => 1]);
                 }
             );
@@ -179,7 +179,7 @@ class Person extends \yii\db\ActiveRecord
         return $this->hasMany(Person::className(), ['id' => 'child'])
             ->viaTable(
                 'relationship', ['parent' => 'id'],
-                function($query) {
+                function ($query) {
                     $query->onCondition(['type' => 2]);
                 }
             );
@@ -194,7 +194,7 @@ class Person extends \yii\db\ActiveRecord
         return $this->hasMany(Person::className(), ['id' => 'parent'])
             ->viaTable(
                 'relationship', ['child' => 'id'],
-                function($query) {
+                function ($query) {
                     $query->onCondition(['type' => 2]);
                 }
             );
@@ -256,7 +256,7 @@ class Person extends \yii\db\ActiveRecord
                 ],
                 [
                     'attribute' => 'full_name',
-                    'value' => function($item) {
+                    'value' => function ($item) {
                         return Html::a($item->full_name, ['person/view', 'id' => $item->id]);
                     },
                     'format' => 'raw',
