@@ -56,12 +56,40 @@ class PersonController extends Controller
     {
         $model = $this->findModel($id);
 
+        $parents = $model->getParents();
+        if ($parents->exists()) {
+            $parents = new ActiveDataProvider(['query' => $parents, 'sort' => false]);
+        } else {
+            $parents = null;
+        }
+
+        $children = $model->getChildren();
+        if ($children->exists()) {
+            $children = new ActiveDataProvider(['query' => $children, 'sort' => false]);
+        } else {
+            $children = null;
+        }
+
+        $husbands = $model->getHusbands();
+        if ($husbands->exists()) {
+            $husbands = new ActiveDataProvider(['query' => $husbands, 'sort' => false]);
+        } else {
+            $husbands = null;
+        }
+
+        $wives = $model->getWives();
+        if ($wives->exists()) {
+            $wives = new ActiveDataProvider(['query' => $wives, 'sort' => false]);
+        } else {
+            $wives = null;
+        }
+
         return $this->render('view', [
             'model' => $model,
-            'parents' => new ActiveDataProvider(['query' => $model->getParents(), 'sort' => false]),
-            'children' => new ActiveDataProvider(['query' => $model->getChildren(), 'sort' => false]),
-            'wives' => new ActiveDataProvider(['query' => $model->getWives(), 'sort' => false]),
-            'husbands' => new ActiveDataProvider(['query' => $model->getHusbands(), 'sort' => false]),
+            'parents' => $parents,
+            'children' => $children,
+            'wives' => $wives,
+            'husbands' => $husbands,
         ]);
     }
 

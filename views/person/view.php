@@ -52,28 +52,36 @@ $this->params['breadcrumbs'][] = $model->id;
         ],
     ]) ?>
 
-    <p><strong>父母</strong></p>
-    <div class="scrollable">
-        <?= \app\models\Person::RelationView($parents) ?>
-    </div>
-    <br/>
+    <?php if ($parents): ?>
+        <p><strong>父母</strong></p>
+        <div class="scrollable">
+            <?= \app\models\Person::RelationView($parents) ?>
+        </div>
+        <br/>
+    <?php endif; ?>
 
-    <p><strong>子女</strong></p>
-    <div class="scrollable">
-        <?= \app\models\Person::RelationView($children) ?>
-    </div>
-    <br/>
+    <?php if ($children): ?>
+        <p><strong>子女</strong></p>
+        <div class="scrollable">
+            <?= \app\models\Person::RelationView($children) ?>
+        </div>
+        <br/>
+    <?php endif; ?>
 
-    <p><strong>丈夫</strong></p>
-    <div class="scrollable">
-        <?= \app\models\Person::RelationView($husbands) ?>
-    </div>
-    <br/>
+    <?php if ($husbands): ?>
+        <p><strong>丈夫</strong></p>
+        <div class="scrollable">
+            <?= \app\models\Person::RelationView($husbands) ?>
+        </div>
+        <br/>
+    <?php endif; ?>
 
-    <p><strong>妻子</strong></p>
-    <div class="scrollable">
-        <?= \app\models\Person::RelationView($wives) ?>
-    </div>
-    <br/>
+    <?php if ($wives): ?>
+        <p><strong>妻子</strong></p>
+        <div class="scrollable">
+            <?= \app\models\Person::RelationView($wives) ?>
+        </div>
+        <br/>
+    <?php endif; ?>
 
 </div>
