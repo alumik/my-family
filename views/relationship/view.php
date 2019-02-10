@@ -6,9 +6,9 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Relationship */
 
-$this->title = $model->id;
+$this->title = $model->parent_name . ' - ' . $model->child_name;
 $this->params['breadcrumbs'][] = ['label' => '家庭关系', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = $model->id;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="relationship-view">
