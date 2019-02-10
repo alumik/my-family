@@ -15,6 +15,7 @@ use Yii;
  * @property int $alive
  * @property string $description
  *
+ * @property Gender $gender0
  * @property Relationship[] $relationships
  * @property Relationship[] $relationships0
  */
@@ -38,6 +39,8 @@ class Person extends \yii\db\ActiveRecord
             [['gender', 'alive'], 'integer'],
             [['description'], 'string'],
             [['family_name', 'given_name'], 'string', 'max' => 10],
+            [['my_relationship'], 'string', 'max' => 255],
+            [['gender'], 'exist', 'skipOnError' => true, 'targetClass' => Gender::className(), 'targetAttribute' => ['gender' => 'id']],
         ];
     }
 
@@ -48,12 +51,14 @@ class Person extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'family_name' => 'Family Name',
-            'given_name' => 'Given Name',
-            'birth_date' => 'Birth Date',
-            'gender' => 'Gender',
-            'alive' => 'Alive',
-            'description' => 'Description',
+            'family_name' => '姓',
+            'given_name' => '名',
+            'full_name' => '姓名',
+            'birth_date' => '出生日期',
+            'gender' => '性别',
+            'alive' => '是否健在',
+            'my_relationship' => '与我的关系',
+            'description' => '备注',
         ];
     }
 
@@ -71,5 +76,40 @@ class Person extends \yii\db\ActiveRecord
     public function getRelationships0()
     {
         return $this->hasMany(Relationship::className(), ['child' => 'id']);
+    }
+
+    /**
+     * @return string
+     */
+    public function getFull_name()
+    {
+        return $this->family_name . $this->given_name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAliveText()
+    {
+        if ($this->alive == 1) {
+            return '是';
+        }
+        return '否';
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getGender0()
+    {
+        return $this->hasOne(Gender::className(), ['id' => 'gender']);
+    }
+
+    /**
+     * @return string
+     */
+    public function getGenderName()
+    {
+        return $this->gender0->name;
     }
 }

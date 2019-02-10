@@ -35,6 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'birth_date',
             'gender',
             'alive',
+            'my_relationship',
             'description:ntext',
         ],
     ]) ?>

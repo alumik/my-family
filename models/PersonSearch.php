@@ -11,6 +11,8 @@ use app\models\Person;
  */
 class PersonSearch extends Person
 {
+    public $full_name;
+
     /**
      * {@inheritdoc}
      */
@@ -18,7 +20,7 @@ class PersonSearch extends Person
     {
         return [
             [['id', 'gender', 'alive'], 'integer'],
-            [['family_name', 'given_name', 'birth_date', 'description'], 'safe'],
+            [['family_name', 'full_name', 'my_relationship', 'description'], 'safe'],
         ];
     }
 
@@ -48,6 +50,22 @@ class PersonSearch extends Person
             'query' => $query,
         ]);
 
+        $dataProvider->setSort([
+            'attributes' => [
+                'id',
+                'family_name',
+                'full_name' => [
+                    'asc' => ['family_name' => SORT_ASC, 'given_name' => SORT_ASC],
+                    'desc' => ['family_name' => SORT_DESC, 'given_name' => SORT_DESC],
+                    'label' => '姓名',
+                    'default' => SORT_ASC
+                ],
+                'birth_date',
+                'gender',
+                'alive',
+            ]
+        ]);
+
         $this->load($params);
 
         if (!$this->validate()) {
@@ -66,7 +84,10 @@ class PersonSearch extends Person
 
         $query->andFilterWhere(['like', 'family_name', $this->family_name])
             ->andFilterWhere(['like', 'given_name', $this->given_name])
+            ->andFilterWhere(['like', 'my_relationship', $this->my_relationship])
             ->andFilterWhere(['like', 'description', $this->description]);
+
+        $query->andWhere('family_name LIKE "%' . $this->full_name . '%" OR given_name LIKE "%' . $this->full_name . '%"');
 
         return $dataProvider;
     }

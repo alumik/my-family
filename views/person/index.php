@@ -7,31 +7,49 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\PersonSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'People';
+$this->title = '家庭成员';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="person-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Person', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('添加新成员', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'family_name',
-            'given_name',
+            [
+                'attribute' => 'id',
+                'headerOptions' => [
+                    'width' => '80',
+                ],
+            ],
+            [
+                'attribute' => 'family_name',
+                'headerOptions' => [
+                    'width' => '100',
+                ],
+            ],
+            'full_name',
             'birth_date',
-            'gender',
-            //'alive',
-            //'description:ntext',
+            [
+                'attribute' => 'gender',
+                'value' => 'genderName',
+                'filter' => \app\models\Gender::getGenderList(),
+            ],
+            'my_relationship',
+            [
+                'attribute' => 'alive',
+                'value' => 'aliveText',
+                'filter' => [
+                    '1' => '是',
+                    '0' => '否',
+                ],
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
