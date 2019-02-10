@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "person".
@@ -160,5 +161,21 @@ class Person extends \yii\db\ActiveRecord
                     $query->onCondition(['type' => 1]);
                 }
             );
+    }
+
+    /**
+     * @return array
+     */
+    public static function getPersonList()
+    {
+        $result = [];
+        $list = Person::find()
+            ->select(['id', 'CONCAT(family_name, given_name) as full_name'])
+            ->asArray()
+            ->all();
+        if (!empty($list)) {
+            $result = ArrayHelper::map($list, 'id', 'full_name');
+        }
+        return $result;
     }
 }

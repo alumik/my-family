@@ -62,10 +62,10 @@ class Relationship extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'parent' => '父/母/夫 ID',
-            'child' => '子/女/妻 ID',
-            'parent_name' => '父/母/夫姓名',
-            'child_name' => '子/女/妻姓名',
+            'parent' => '父/母/夫',
+            'child' => '子/女/妻',
+            'parent_name' => '父/母/夫',
+            'child_name' => '子/女/妻',
             'type' => '关系类型',
         ];
     }

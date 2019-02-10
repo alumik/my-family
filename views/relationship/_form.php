@@ -12,9 +12,9 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'parent')->textInput() ?>
+    <?= $form->field($model, 'parent')->dropDownList(\app\models\Person::getPersonList(), ['prompt' => '请选择']) ?>
 
-    <?= $form->field($model, 'child')->textInput() ?>
+    <?= $form->field($model, 'child')->dropDownList(\app\models\Person::getPersonList(), ['prompt' => '请选择']) ?>
 
     <?= $form->field($model, 'type')->dropDownList(\app\models\RelationType::getRelationTypeList(), ['prompt' => '请选择']) ?>
 
