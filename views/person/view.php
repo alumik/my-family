@@ -43,6 +43,7 @@ $this->params['breadcrumbs'][] = $model->id;
                 'value' => $model->alive_text,
             ],
             'my_relationship',
+            'phone',
             'description:ntext',
         ],
     ]) ?>

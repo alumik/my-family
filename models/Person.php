@@ -13,11 +13,15 @@ use Yii;
  * @property string $birth_date
  * @property int $gender
  * @property int $alive
+ * @property string $my_relationship
+ * @property string $phone
  * @property string $description
  *
  * @property Gender $gender0
  * @property Relationship[] $relationships
  * @property Relationship[] $relationships0
+ * @property Person[] $children
+ * @property Person[] $parents
  */
 class Person extends \yii\db\ActiveRecord
 {
@@ -40,6 +44,7 @@ class Person extends \yii\db\ActiveRecord
             [['description'], 'string'],
             [['family_name', 'given_name'], 'string', 'max' => 10],
             [['my_relationship'], 'string', 'max' => 255],
+            [['phone'], 'string', 'max' => 20],
             [['gender'], 'exist', 'skipOnError' => true, 'targetClass' => Gender::className(), 'targetAttribute' => ['gender' => 'id']],
         ];
     }
@@ -59,6 +64,7 @@ class Person extends \yii\db\ActiveRecord
             'gender' => '性别',
             'alive' => '是否健在',
             'my_relationship' => '与我的关系',
+            'phone' => '电话号码',
             'description' => '备注',
         ];
     }
@@ -126,5 +132,33 @@ class Person extends \yii\db\ActiveRecord
             return $age;
         }
         return '';
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getChildren()
+    {
+        return $this->hasMany(Person::className(), ['id' => 'child'])
+            ->viaTable(
+                'relationship', ['parent' => 'id'],
+                function($query) {
+                    $query->onCondition(['type' => 1]);
+                }
+            );
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getParents()
+    {
+        return $this->hasMany(Person::className(), ['id' => 'parent'])
+            ->viaTable(
+                'relationship', ['child' => 'id'],
+                function($query) {
+                    $query->onCondition(['type' => 1]);
+                }
+            );
     }
 }
