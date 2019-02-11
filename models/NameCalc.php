@@ -40,7 +40,25 @@ class NameCalc extends Model
     /**
      * @return string|boolean
      */
-    public function getName() {
-        return false;
+    public function getName()
+    {
+        $queries = [];
+        for ($i = 0, $l = strlen($this->query); $i < $l; $i++) {
+            $queries[] = intval($this->query[$i]) + 1;
+        }
+        $current_node = 1;
+        foreach ($queries as $query) {
+            $related_node = NameGraph::find()
+                ->select('related_node')
+                ->where(['node' => $current_node, 'type' => $query])
+                ->asArray()
+                ->one();
+            if ($related_node) {
+                $current_node = $related_node['related_node'];
+            } else {
+                return false;
+            }
+        }
+        return NameNode::findOne($current_node)->name;
     }
 }
