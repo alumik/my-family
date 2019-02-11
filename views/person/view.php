@@ -37,6 +37,7 @@ $this->params['breadcrumbs'][] = $model->id;
             'family_name',
             'given_name',
             'birth_date',
+            'lunar_birth_date',
             'age',
             [
                 'attribute' => 'gender',
