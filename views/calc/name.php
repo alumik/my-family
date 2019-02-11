@@ -5,11 +5,11 @@ use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $result string */
+/* @var $relations array */
 
 $this->title = '称呼计算器';
 $this->params['breadcrumbs'][] = $this->title;
 
-$relations = ['父亲', '母亲', '兄弟', '姐妹', '儿子', '女儿'];
 ?>
 <div class="calc-relation">
 

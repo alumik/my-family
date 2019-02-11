@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\NameType;
 use Yii;
 use yii\web\Controller;
 use app\models\RelationCalc;
@@ -36,6 +37,7 @@ class CalcController extends Controller
         return $this->render('name', [
             'model' => $model,
             'result' => $result,
+            'relations' => NameType::getNameTypeList(),
         ]);
     }
 }
