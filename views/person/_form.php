@@ -10,13 +10,24 @@ use yii\widgets\ActiveForm;
 
 <div class="person-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(
+        [
+            'options' => [
+                'autocomplete' => 'off',
+            ],
+        ]
+    ); ?>
 
     <?= $form->field($model, 'family_name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'given_name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'birth_date')->textInput() ?>
+    <?= $form->field($model, 'birth_date')->widget(\nex\datepicker\DatePicker::className(), [
+        'clientOptions' => [
+            'format' => 'YYYY-MM-DD',
+            'stepping' => 30,
+        ],
+    ]) ?>
 
     <?= $form->field($model, 'gender')->dropDownList(\app\models\Gender::getGenderList(), ['prompt' => '请选择']) ?>
 
