@@ -35,7 +35,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     'width' => '100',
                 ],
             ],
-            'full_name',
+            [
+                'attribute' => 'full_name',
+                'value' => function ($item) {
+                    return Html::a($item->full_name, ['person/view', 'id' => $item->id]);
+                },
+                'format' => 'raw',
+            ],
             'birth_date',
             'age',
             [
