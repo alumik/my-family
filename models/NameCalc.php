@@ -30,7 +30,13 @@ class NameCalc extends Model
      */
     public function calculateName()
     {
-        // TODO: 完成称呼计算
-        return $this->query_str . ' 是我的 ' . '我也不知道。';
+        return $this->query_str . ' 是我的 ' . $this->getName();
+    }
+
+    /**
+     * @return string
+     */
+    public function getName() {
+        return '我也不知道。';
     }
 }
