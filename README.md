@@ -18,11 +18,13 @@
 
     在网站根目录执行 `php init` （Linux）或 `init.bat` （Windows），选择 **Production** 。
 
-4. 配置服务器（以 Apache2 为例）
+4. 配置服务器
 
     4.1. 将网站根目录设置为 *web* ，入口文件为 *index.php* 。
 
-    4.2. 启用 Apache2 插件。
+    4.2. Apache 配置
+    
+    - 启用 Apache2 插件。
 
     ```shell
     a2enmod rewrite
@@ -30,7 +32,7 @@
     service apache2 restart
     ```
 
-    4.3. 配置 URL 转写。
+    - 配置 URL 转写。
 
     ```
     RewriteEngine on
@@ -38,10 +40,16 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule . index.php
     ```
+    
+    4.3 IIS 配置
+    
+    - 安装 URL Rewrite 2 插件。
+    
+    - 所需配置文件已写入到 *web/web.config* 中。
 
 5. 配置数据库
 
-    5.1. 数据库中新建一个数据库并导入 *database/database_structure.sql* 。
+    5.1. 数据库中新建一个数据库。
 
     5.2. 修改 *config/db.php* ，写入数据库配置信息，例如：
 
@@ -61,3 +69,6 @@
         //'schemaCache' => 'cache',
     ];
     ```
+    
+    5.3 在网站根目录执行 `php yii migrate` 进行数据库迁移 。
+    
