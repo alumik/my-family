@@ -23,6 +23,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'given_name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'birth_date')->widget(\nex\datepicker\DatePicker::className(), [
+        'language' => 'zh-CN',
         'clientOptions' => [
             'format' => 'YYYY-MM-DD',
             'stepping' => 30,
