@@ -13,6 +13,7 @@ class RelationCalc extends Model
     public function rules()
     {
         return [
+            [['base', 'target'], 'required' ],
             [['base'], 'exist', 'skipOnError' => true, 'targetClass' => Person::className(), 'targetAttribute' => ['base' => 'id']],
             [['target'], 'exist', 'skipOnError' => true, 'targetClass' => Person::className(), 'targetAttribute' => ['target' => 'id']],
             ['base', 'compare', 'compareAttribute' => 'target', 'operator' => '!='],

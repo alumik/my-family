@@ -6,7 +6,7 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $result string */
 
-$this->title = '关系计算';
+$this->title = '关系计算器';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="relation-calc-index">
@@ -31,8 +31,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="relation-calc-result">
 
-        <br/>
-        <h2 class="text-center"><?= $result ?></h2>
+        <div class="alert alert-info">
+            <?= nl2br(Html::encode($result)) ?>
+        </div>
 
     </div>
 </div>

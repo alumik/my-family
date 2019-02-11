@@ -11,7 +11,7 @@ class RelationCalcController extends Controller
     public function actionIndex()
     {
         $model = new RelationCalc();
-        $result = '';
+        $result = '计算结果将显示在此处。';
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $result = $model->calculateRelationship();
