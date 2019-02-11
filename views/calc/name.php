@@ -86,12 +86,26 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="calc-result">
 
         <?php if ($result): ?>
-            <div class="alert alert-info">
-                <?= nl2br(Html::encode($result)) ?>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        计算结果
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <p><?= $result ?></p>
+                </div>
             </div>
         <?php else: ?>
-            <div class="alert alert-danger">
-                <?= nl2br(Html::encode('抱歉，关系绕的路太遥远，无法计算。')) ?>
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        计算结果
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <p>抱歉，关系绕的路太遥远或有错误，无法计算称呼。</p>
+                </div>
             </div>
         <?php endif; ?>
 

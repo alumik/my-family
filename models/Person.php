@@ -13,6 +13,7 @@ use yii\helpers\Html;
  * @property string $family_name
  * @property string $given_name
  * @property string $birth_date
+ * @property string $full_name
  * @property int $gender
  * @property int $alive
  * @property string $my_relationship

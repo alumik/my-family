@@ -13,15 +13,18 @@ class CalcController extends Controller
     public function actionRelation()
     {
         $model = new RelationCalc();
-        $result = '计算结果将显示在此处。';
+        $relation_result = '关系计算结果将显示在此处。';
+        $name_result = '称呼计算结果将显示在此处。';
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $result = $model->calculateRelationship();
+            $relation_result = $model->calculateRelationship();
+            $name_result = $model->calculateName();
         }
 
         return $this->render('relation', [
             'model' => $model,
-            'result' => $result,
+            'relation_result' => $relation_result,
+            'name_result' => $name_result,
         ]);
     }
 

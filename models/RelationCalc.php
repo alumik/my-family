@@ -9,6 +9,9 @@ class RelationCalc extends Model
 {
     public $base;
     public $target;
+    private $base_person;
+    private $target_person;
+    private $name_query = '';
 
     public function rules()
     {
@@ -29,13 +32,27 @@ class RelationCalc extends Model
         ];
     }
 
+    public function calculateName()
+    {
+        if (!$this->name_query) {
+            return false;
+        }
+        $name_calc = new NameCalc();
+        $name_calc->query = $this->name_query;
+        $result = $name_calc->getName();
+        if ($result) {
+            return $this->base_person . ' 是 ' . $this->target_person . ' 的 ' . $result;
+        }
+        return false;
+    }
+
     /**
      * @return string
      */
     public function calculateRelationship()
     {
-        $base_person = Person::findOne($this->base);
-        $target_person = Person::findOne($this->target);
+        $this->base_person = Person::findOne($this->base)->full_name;
+        $this->target_person = Person::findOne($this->target)->full_name;
 
         $relation_graph = [];
         $cost = [];
@@ -158,12 +175,21 @@ class RelationCalc extends Model
         }
 
         if ($cost[$this->target] == INF) {
-            return $base_person->full_name . ' 与 ' . $target_person->full_name . ' 没有联系。';
+            return $this->base_person . ' 与 ' . $this->target_person . ' 没有联系。';
         };
 
-        $result = $base_person->full_name . ' 是 ' . $target_person->full_name . ' ';
+        $result = $this->base_person . ' 是 ' . $this->target_person . ' ';
         $current = $this->target;
         while ($path[$current][0]) {
+            if ($this->name_query != -1) {
+                $name_type = NameType::findOne(['name' => $path[$current][1]]);
+                if ($name_type) {
+                    $this->name_query .= $name_type->id - 1;
+                } else {
+                    $this->name_query = -1;
+                }
+            }
+
             $result .= '的' . $path[$current][1];
             $current = $path[$current][0];
         }
