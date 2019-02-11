@@ -73,6 +73,14 @@ $relations = ['父亲', '母亲', '兄弟', '姐妹', '儿子', '女儿'];
             }
         </script>
 
+        <style type="text/css">
+            @media (max-width: 489px) {
+                .btn {
+                    margin-top: 3px;
+                }
+            }
+        </style>
+
     </div>
 
     <div class="calc-result">

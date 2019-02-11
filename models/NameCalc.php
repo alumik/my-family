@@ -12,7 +12,7 @@ class NameCalc extends Model
     public function rules()
     {
         return [
-            [['query_str', 'query'], 'required'],
+            ['query_str', 'compare', 'compareValue' => '我', 'operator' => '!=', 'message' => '查询条件不能为空。'],
             [['query_str', 'query'], 'safe'],
         ];
     }
