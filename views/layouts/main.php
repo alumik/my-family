@@ -42,7 +42,7 @@ AppAsset::register($this);
             ['label' => '家庭成员', 'url' => ['/person/index']],
             ['label' => '家庭关系', 'url' => ['/relationship/index']],
             ['label' => '关系计算器', 'url' => ['/relation-calc/index']],
-            ['label' => '更多信息', 'url' => ['/site/about']],
+            ['label' => '关于', 'url' => ['/site/about']],
 
 //            登录用代码
 //            Yii::$app->user->isGuest ? (
