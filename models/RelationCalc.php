@@ -111,7 +111,7 @@ class RelationCalc extends Model
                             $type_2 = '子女';
                     }
                     break;
-                case RelationType::$PEIOU:
+                case RelationType::$FUQI:
                     $type_1 = '丈夫';
                     $type_2 = '妻子';
                     break;

@@ -14,7 +14,7 @@ use yii\helpers\ArrayHelper;
 class RelationType extends \yii\db\ActiveRecord
 {
     public static $QINZI = 1;
-    public static $PEIOU = 2;
+    public static $FUQI = 2;
 
     /**
      * {@inheritdoc}

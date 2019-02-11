@@ -184,7 +184,7 @@ class Person extends \yii\db\ActiveRecord
             ->viaTable(
                 'relationship', ['parent' => 'id'],
                 function ($query) {
-                    $query->onCondition(['type' => RelationType::$PEIOU]);
+                    $query->onCondition(['type' => RelationType::$FUQI]);
                 }
             );
     }
@@ -199,7 +199,7 @@ class Person extends \yii\db\ActiveRecord
             ->viaTable(
                 'relationship', ['child' => 'id'],
                 function ($query) {
-                    $query->onCondition(['type' => RelationType::$PEIOU]);
+                    $query->onCondition(['type' => RelationType::$FUQI]);
                 }
             );
     }
