@@ -22,7 +22,7 @@
 
     4.1. 将网站根目录设置为 *web* ，入口文件为 *index.php* 。
 
-    4.2. Apache 配置
+    4.2a. Apache 配置
     
     - 启用 Apache2 插件。
 
@@ -41,7 +41,7 @@
     RewriteRule . index.php
     ```
     
-    4.3 IIS 配置
+    4.2b. IIS 配置
     
     - 安装 URL Rewrite 2 插件。
     
@@ -70,5 +70,5 @@
     ];
     ```
     
-    5.3 在网站根目录执行 `php yii migrate` 进行数据库迁移 。
+    5.3. 在网站根目录执行 `php yii migrate` 进行数据库迁移 。
     
