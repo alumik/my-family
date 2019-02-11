@@ -64,6 +64,7 @@ class Person extends \yii\db\ActiveRecord
             'given_name' => '名',
             'full_name' => '姓名',
             'birth_date' => '出生日期',
+            'lunar_birth_date' => '出生日期（农历）',
             'age' => '年龄',
             'gender' => '性别',
             'gender_name' => '性别',
@@ -280,5 +281,16 @@ class Person extends \yii\db\ActiveRecord
     public static function getPeopleCount()
     {
         return Person::find()->count();
+    }
+
+    /**
+     * @return string
+     */
+    public function getLunar_birth_date()
+    {
+        $calendar = new \Overtrue\ChineseCalendar\Calendar();
+        $date_str = explode('-', $this->birth_date);
+        $date = $calendar->solar(intval($date_str[0]), intval($date_str[1]), intval($date_str[2]));
+        return $date['ganzhi_year'] . $date['animal'] . '年' . $date['lunar_month_chinese'] . $date['lunar_day_chinese'];
     }
 }
