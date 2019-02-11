@@ -288,9 +288,12 @@ class Person extends \yii\db\ActiveRecord
      */
     public function getLunar_birth_date()
     {
-        $calendar = new \Overtrue\ChineseCalendar\Calendar();
-        $date_str = explode('-', $this->birth_date);
-        $date = $calendar->solar(intval($date_str[0]), intval($date_str[1]), intval($date_str[2]));
-        return $date['ganzhi_year'] . $date['animal'] . '年' . $date['lunar_month_chinese'] . $date['lunar_day_chinese'];
+        if ($this->birth_date) {
+            $calendar = new \Overtrue\ChineseCalendar\Calendar();
+            $date_str = explode('-', $this->birth_date);
+            $date = $calendar->solar(intval($date_str[0]), intval($date_str[1]), intval($date_str[2]));
+            return $date['ganzhi_year'] . $date['animal'] . '年' . $date['lunar_month_chinese'] . $date['lunar_day_chinese'];
+        }
+        return '';
     }
 }
