@@ -58,7 +58,7 @@ $relations = ['父亲', '母亲', '兄弟', '姐妹', '儿子', '女儿'];
                 }
                 $('#query-str').val(query_str);
             }
-            
+
             function deleteRelation() {
                 let query = $('#query');
                 if (query.val()) {
@@ -85,9 +85,15 @@ $relations = ['父亲', '母亲', '兄弟', '姐妹', '儿子', '女儿'];
 
     <div class="calc-result">
 
-        <div class="alert alert-info">
-            <?= nl2br(Html::encode($result)) ?>
-        </div>
+        <?php if ($result): ?>
+            <div class="alert alert-info">
+                <?= nl2br(Html::encode($result)) ?>
+            </div>
+        <?php else: ?>
+            <div class="alert alert-danger">
+                <?= nl2br(Html::encode('抱歉，关系绕的路太遥远，无法计算。')) ?>
+            </div>
+        <?php endif; ?>
 
     </div>
 </div>
