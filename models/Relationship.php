@@ -117,4 +117,12 @@ class Relationship extends \yii\db\ActiveRecord
     {
         return $this->type0->name;
     }
+
+    /**
+     * @return integer
+     */
+    public static function getRelationsCount()
+    {
+        return Relationship::find()->count();
+    }
 }

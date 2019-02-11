@@ -272,4 +272,12 @@ class Person extends \yii\db\ActiveRecord
             ],
         ]);
     }
+
+    /**
+     * @return integer
+     */
+    public static function getPeopleCount()
+    {
+        return Person::find()->count();
+    }
 }

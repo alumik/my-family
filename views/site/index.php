@@ -1,6 +1,8 @@
 <?php
 
 /* @var $this yii\web\View */
+/* @var $total_people integer */
+/* @var $total_relations integer */
 
 $this->title = '我的家';
 ?>
@@ -21,6 +23,7 @@ $this->title = '我的家';
                 <h2>家庭成员</h2>
 
                 <p>管理所有家庭成员的详细信息。</p>
+                <p>共有 <strong><?= $total_people ?></strong> 个家庭成员</p>
 
                 <p><a class="btn btn-default" href="/person/index">家庭成员 &raquo;</a></p>
             </div>
@@ -28,15 +31,17 @@ $this->title = '我的家';
                 <h2>家庭关系</h2>
 
                 <p>通过管理基本的父母子女关系构建起家庭关系网。</p>
+                <p>共有 <strong><?= $total_relations ?></strong> 条关系</p>
 
                 <p><a class="btn btn-default" href="/relationship/index">家庭关系 &raquo;</a></p>
             </div>
             <div class="col-lg-4">
-                <h2>更多信息</h2>
+                <h2>关系计算器</h2>
 
-                <p>查看有关于本网站的更多信息。</p>
+                <p>计算两个家庭成员之间有何联系。</p>
+                <p>联系将用亲子、夫妻、兄弟姐妹关系来呈现。</p>
 
-                <p><a class="btn btn-default" href="/site/about">更多信息 &raquo;</a>
+                <p><a class="btn btn-default" href="/relation-calc/index">关系计算器 &raquo;</a>
                 </p>
             </div>
         </div>
