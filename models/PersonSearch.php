@@ -62,8 +62,8 @@ class PersonSearch extends Person
                 ],
                 'birth_date',
                 'age' => [
-                    'asc' => ['birth_date' => SORT_DESC],
-                    'desc' => ['birth_date' => SORT_ASC],
+                    'asc' => ['alive' => SORT_DESC, 'birth_date' => SORT_DESC],
+                    'desc' => ['alive' => SORT_DESC, 'birth_date' => SORT_ASC],
                 ],
                 'gender',
                 'alive',

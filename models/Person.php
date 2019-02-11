@@ -128,6 +128,9 @@ class Person extends \yii\db\ActiveRecord
      */
     public function getAge()
     {
+        if ($this->alive == 0) {
+            return '-';
+        }
         if ($this->birth_date) {
             $birth_date = $this->birth_date;
             list($birth_year, $birth_month, $birth_day) = explode('-', $birth_date);
