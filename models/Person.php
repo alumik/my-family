@@ -211,6 +211,7 @@ class Person extends \yii\db\ActiveRecord
         $result = [];
         $list = Person::find()
             ->select(['id', 'CONCAT(family_name, given_name) as full_name'])
+            ->orderBy('family_name asc, given_name asc')
             ->asArray()
             ->all();
         if (!empty($list)) {
