@@ -45,6 +45,7 @@ class Person extends \yii\db\ActiveRecord
         return [
             [['birth_date'], 'safe'],
             [['gender', 'alive'], 'integer'],
+            [['gender', 'alive'], 'required'],
             [['description'], 'string'],
             [['family_name', 'given_name'], 'string', 'max' => 10],
             [['my_relationship'], 'string', 'max' => 255],
