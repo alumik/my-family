@@ -10,6 +10,8 @@ use yii\helpers\ArrayHelper;
  *
  * @property int $id
  * @property string $name
+ *
+ * @property Person[] $people
  */
 class Gender extends \yii\db\ActiveRecord
 {
@@ -31,6 +33,7 @@ class Gender extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['name'], 'required'],
             [['name'], 'string', 'max' => 10],
         ];
     }
@@ -44,6 +47,14 @@ class Gender extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => '名称',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPeople()
+    {
+        return $this->hasMany(Person::className(), ['gender' => 'id']);
     }
 
     /**

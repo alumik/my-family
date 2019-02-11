@@ -10,6 +10,8 @@ use yii\helpers\ArrayHelper;
  *
  * @property int $id
  * @property string $name
+ *
+ * @property Relationship[] $relationships
  */
 class RelationType extends \yii\db\ActiveRecord
 {
@@ -44,6 +46,14 @@ class RelationType extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => '名称',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRelationships()
+    {
+        return $this->hasMany(Relationship::className(), ['type' => 'id']);
     }
 
     /**
