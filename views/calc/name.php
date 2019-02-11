@@ -19,88 +19,57 @@ $relations = ['父亲', '母亲', '兄弟', '姐妹', '儿子', '女儿'];
 
         <?php $form = ActiveForm::begin(); ?>
 
-        <?= $form->field($model, 'query_str')->textInput(['id' => 'query-str', 'readonly' => 'true', 'value' => '我的']) ?>
+        <?= $form->field($model, 'query_str')->textInput(['id' => 'query-str', 'readonly' => 'true', 'value' => '我']) ?>
 
         <?= $form->field($model, 'query')->textInput(['id' => 'query', 'type' => 'hidden'])->label(false) ?>
 
         <div class="form-group">
             <?php foreach ($relations as $k => $v): ?>
-                <?= Html::button($v, ['class' => 'btn btn-default', 'onclick' => 'setRelation(' . $k . ')']); ?>
+                <?= Html::button($v, ['class' => 'btn btn-default', 'onclick' => 'appendRelation(' . $k . ')']); ?>
             <?php endforeach; ?>
-            <?= Html::button('的', ['class' => 'btn btn-primary', 'onclick' => 'appendRelation()']) ?>
             <?= Html::button('删除', ['class' => 'btn btn-danger', 'onclick' => 'deleteRelation()']) ?>
             <?= Html::button('清空', ['class' => 'btn btn-danger', 'onclick' => 'clearRelation()']) ?>
         </div>
 
         <div class="form-group">
-            <?= Html::submitButton('计算', ['class' => 'btn btn-success', 'onclick' => 'appendLastRelation()']) ?>
+            <?= Html::submitButton('计算', ['class' => 'btn btn-success']) ?>
         </div>
 
         <?php ActiveForm::end(); ?>
 
         <script type="application/javascript">
-            let current_relation = -1;
             let relations = <?= json_encode($relations) ?>;
 
             window.onload = () => {
-                let query = $('#query');
-                if (query.val()) {
-                    current_relation = parseInt(query.val()[query.val().length - 1]);
-                    query.val(query.val().substring(0, query.val().length - 1));
-
-                }
                 refreshQueryStr();
             };
 
-            function setRelation(relation) {
-                current_relation = relation;
-                refreshQueryStr();
-            }
-
-            function appendRelation() {
+            function appendRelation(relation) {
                 let query = $('#query');
-                if (current_relation !== -1) {
-                    query.val(query.val() + current_relation);
-                }
-                current_relation = -1;
+                query.val(query.val() + relation);
                 refreshQueryStr();
             }
 
             function refreshQueryStr() {
-                let query_str = '我的';
+                let query_str = '我';
                 let query = $('#query').val().split('');
                 for (let relation of query) {
-                    query_str += relations[parseInt(relation)] + '的';
-                }
-                if (current_relation !== -1) {
-                    query_str += relations[parseInt(current_relation)];
+                    query_str += '的' + relations[parseInt(relation)];
                 }
                 $('#query-str').val(query_str);
             }
             
             function deleteRelation() {
-                if (current_relation === -1) {
-                    let query = $('#query');
-                    if (query.val()) {
-                        query.val(query.val().substring(0, query.val().length - 1));
-                    }
-                } else {
-                    current_relation = -1;
+                let query = $('#query');
+                if (query.val()) {
+                    query.val(query.val().substring(0, query.val().length - 1));
                 }
                 refreshQueryStr();
             }
 
             function clearRelation() {
-                current_relation = -1;
                 $('#query').val('');
                 refreshQueryStr();
-            }
-
-            function appendLastRelation() {
-                if (current_relation !== -1) {
-                    let query = $('#query');
-                    query.val(query.val() + current_relation);
-                }
             }
         </script>
 
