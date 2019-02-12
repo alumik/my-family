@@ -41,7 +41,7 @@ class RelationCalc extends Model
         $name_calc->query = $this->name_query;
         $result = $name_calc->getName();
         if ($result) {
-            return $this->base_person . ' 是 ' . $this->target_person . ' 的 ' . $result;
+            return $this->base_person . ' 是 ' . $this->target_person . ' 的 ' . $result . '。';
         }
         return false;
     }
@@ -184,7 +184,7 @@ class RelationCalc extends Model
             if ($this->name_query != -1) {
                 $name_type = NameType::findOne(['name' => $path[$current][1]]);
                 if ($name_type) {
-                    $this->name_query .= $name_type->id - 1;
+                    $this->name_query .= $name_type->id;
                 } else {
                     $this->name_query = -1;
                 }

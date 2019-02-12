@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <div class="form-group">
             <?php foreach ($relations as $k => $v): ?>
-                <?= Html::button($v, ['class' => 'btn btn-default', 'onclick' => 'appendRelation(' . $k . ')']); ?>
+                <?= Html::button($v, ['class' => 'btn btn-default', 'onclick' => 'appendRelation(' . ($k + 1) . ')']); ?>
             <?php endforeach; ?>
             <?= Html::button('删除', ['class' => 'btn btn-danger', 'onclick' => 'deleteRelation()']) ?>
             <?= Html::button('清空', ['class' => 'btn btn-danger', 'onclick' => 'clearRelation()']) ?>
@@ -54,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 let query_str = '我';
                 let query = $('#query').val().split('');
                 for (let relation of query) {
-                    query_str += '的' + relations[parseInt(relation)];
+                    query_str += '的' + relations[parseInt(relation) - 1];
                 }
                 $('#query-str').val(query_str);
             }

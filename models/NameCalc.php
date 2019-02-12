@@ -44,7 +44,7 @@ class NameCalc extends Model
     {
         $queries = [];
         for ($i = 0, $l = strlen($this->query); $i < $l; $i++) {
-            $queries[] = intval($this->query[$i]) + 1;
+            $queries[] = intval($this->query[$i]);
         }
         $current_node = 1;
         foreach ($queries as $query) {
