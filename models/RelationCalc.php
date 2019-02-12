@@ -14,13 +14,14 @@ class RelationCalc extends Model
     private $target_person;
     private $name_query = '';
     private $order = -1;
+    private $second_order = -1;
 
     public static $ORDER = ['幺', '大', '二', '三', '四', '五', '六', '七', '八', '九', '十',];
 
     public function rules()
     {
         return [
-            [['base', 'target'], 'required' ],
+            [['base', 'target'], 'required'],
             [['base'], 'exist', 'skipOnError' => true, 'targetClass' => Person::className(), 'targetAttribute' => ['base' => 'id']],
             [['target'], 'exist', 'skipOnError' => true, 'targetClass' => Person::className(), 'targetAttribute' => ['target' => 'id']],
             ['base', 'compare', 'compareAttribute' => 'target', 'operator' => '!='],
@@ -46,12 +47,17 @@ class RelationCalc extends Model
         $name = $name_calc->getName();
         if ($name) {
             if ($this->order == -1) {
-                $order_str = '大/.../幺';
+                $order_str = '';
             } else {
                 $order_str = RelationCalc::$ORDER[$this->order];
             }
+            if ($this->second_order != -1) {
+                $order_str = RelationCalc::$ORDER[$this->second_order];
+            }
             $name = str_replace('%number%', $order_str, $name);
             $name = str_replace('%order%', $order_str, $name);
+            $name = str_replace('%second_number%', $order_str, $name);
+            $name = str_replace('%second_order%', $order_str, $name);
             return $this->base_person . ' 是 ' . $this->target_person . ' 的 ' . $name . '。';
         }
         return false;
@@ -191,12 +197,42 @@ class RelationCalc extends Model
 
         $result = $this->base_person . ' 是 ' . $this->target_person . ' ';
         $current = $this->target;
+        $is_fuqi = false;
+        $last_node = -1;
+        while ($path[$current][0]) {
+            if ($this->name_query != -1) {
+                $name_type = NameType::findOne(['name' => $path[$current][1]]);
+                if ($name_type) {
+                    $this->name_query .= $name_type->id;
+                } else {
+                    $this->name_query = -1;
+                }
+            }
 
-        $base_gender = Person::findOne($this->base)->gender;
+            $result .= '的' . $path[$current][1];
+            $is_fuqi = $path[$current][1] == '丈夫' || $path[$current][1] == '妻子';
+            $current = $path[$current][0];
+            if ($path[$current][0]) {
+                $last_node = $current;
+            }
+        }
+
+        if ($is_fuqi) {
+            $this->second_order = RelationCalc::getOrder($last_node);
+        } else {
+            $this->order = RelationCalc::getOrder($this->base);
+        }
+
+        return $result . '。';
+    }
+
+    public static function getOrder($base)
+    {
+        $base_gender = Person::findOne($base)->gender;
 
         $parents = Relationship::find()
             ->select('parent')
-            ->where(['child' => $this->base, 'type' => RelationType::$QINZI])
+            ->where(['child' => $base, 'type' => RelationType::$QINZI])
             ->asArray()
             ->aLL();
         $parents = ArrayHelper::getColumn($parents, 'parent');
@@ -213,25 +249,13 @@ class RelationCalc extends Model
         if ($siblings && count($siblings) != 1) {
             $siblings = ArrayHelper::getColumn($siblings, 'child');
             $siblings = array_flip($siblings);
-            $this->order = $siblings[$this->base] + 1;
-            if ($this->order == count($siblings)) {
-                $this->order = 0;
+            $order = $siblings[$base] + 1;
+            if ($order == count($siblings)) {
+                $order = 0;
             }
+            return $order;
         }
 
-        while ($path[$current][0]) {
-            if ($this->name_query != -1) {
-                $name_type = NameType::findOne(['name' => $path[$current][1]]);
-                if ($name_type) {
-                    $this->name_query .= $name_type->id;
-                } else {
-                    $this->name_query = -1;
-                }
-            }
-
-            $result .= '的' . $path[$current][1];
-            $current = $path[$current][0];
-        }
-        return $result . '。';
+        return -1;
     }
 }

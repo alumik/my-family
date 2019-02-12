@@ -14,7 +14,7 @@ class m190211_171945_create_other_name_db extends Migration
     {
         $this->createTable('name_node', [
             'id' => $this->primaryKey(),
-            'name' => $this->string(10)->notNull(),
+            'name' => $this->string(255)->notNull(),
         ]);
 
         $this->batchInsert(
@@ -27,7 +27,7 @@ class m190211_171945_create_other_name_db extends Migration
                 [4, '爷爷'],
                 [5, '婆婆'],
                 [6, '%number%爸'],
-                [7, '%number%妈'],
+                [7, '%second_number%妈'],
                 [8, '%order%堂兄弟'],
                 [9, '%number%爷'],
                 [10, '%order%姑婆'],
