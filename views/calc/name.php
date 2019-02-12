@@ -109,5 +109,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         <?php endif; ?>
 
+        <p>注：计算优先选择查询条件没有经过的人，例如“我的父亲的儿子”是“我的兄弟”，而不是“本人”（因为“本人”已经经过了）。</p>
+
     </div>
 </div>
