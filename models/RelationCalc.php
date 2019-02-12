@@ -4,6 +4,7 @@ namespace app\models;
 
 use app\models\Person;
 use yii\base\Model;
+use yii\helpers\ArrayHelper;
 
 class RelationCalc extends Model
 {
@@ -190,6 +191,34 @@ class RelationCalc extends Model
 
         $result = $this->base_person . ' 是 ' . $this->target_person . ' ';
         $current = $this->target;
+
+        $base_gender = Person::findOne($this->base)->gender;
+
+        $parents = Relationship::find()
+            ->select('parent')
+            ->where(['child' => $this->base, 'type' => RelationType::$QINZI])
+            ->asArray()
+            ->aLL();
+        $parents = ArrayHelper::getColumn($parents, 'parent');
+
+        $siblings = Relationship::find()
+            ->select('child')
+            ->leftJoin('person', 'relationship.child = person.id')
+            ->where(['parent' => $parents, 'type' => RelationType::$QINZI, 'gender' => $base_gender])
+            ->groupBy('relationship.child')
+            ->orderBy('person.birth_date')
+            ->asArray()
+            ->all();
+
+        if ($siblings && count($siblings) != 1) {
+            $siblings = ArrayHelper::getColumn($siblings, 'child');
+            $siblings = array_flip($siblings);
+            $this->order = $siblings[$this->base] + 1;
+            if ($this->order == count($siblings)) {
+                $this->order = 0;
+            }
+        }
+
         while ($path[$current][0]) {
             if ($this->name_query != -1) {
                 $name_type = NameType::findOne(['name' => $path[$current][1]]);
