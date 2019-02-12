@@ -15,26 +15,35 @@ class m190211_171945_create_other_name_db extends Migration
         $this->createTable('name_node', [
             'id' => $this->primaryKey(),
             'name' => $this->string(255)->notNull(),
+            'gender' => $this->integer()->notNull(),
         ]);
+
+        $this->addForeignKey(
+            'name_node_gender_fk',
+            'name_node',
+            'gender',
+            'gender',
+            'id'
+        );
 
         $this->batchInsert(
             'name_node',
-            ['id', 'name'],
+            ['id', 'name', 'gender'],
             [
-                [1, '本人'],
-                [2, '爸爸'],
-                [3, '妈妈'],
-                [4, '爷爷'],
-                [5, '婆婆'],
-                [6, '%number%爸'],
-                [7, '%second_number%妈'],
-                [8, '%order%堂兄弟'],
-                [9, '%number%爷'],
-                [10, '%order%姑婆'],
-                [11, '祖父'],
-                [12, '祖母'],
-                [13, '兄弟'],
-                [14, '姐妹'],
+                [1, '本人', 1],
+                [2, '爸爸', 2],
+                [3, '妈妈', 3],
+                [4, '爷爷', 2],
+                [5, '婆婆', 3],
+                [6, '%number%爸', 2],
+                [7, '%second_number%妈', 3],
+                [8, '%order%堂兄弟', 2],
+                [9, '%number%爷', 2],
+                [10, '%order%姑婆', 3],
+                [11, '祖父', 2],
+                [12, '祖母', 3],
+                [13, '兄弟', 2],
+                [14, '姐妹', 3],
             ]
         );
 
