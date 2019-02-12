@@ -40,21 +40,32 @@ $this->params['breadcrumbs'][] = $model->id;
                 'attribute' => 'birth_date',
                 'value' => function($model) {
                     if ($model->inaccurate_birth_date) {
-                        return $model->birth_date . ' (不准确)';
+                        return $model->birth_date . ' <span class="not-set">(不准确)</span>';
                     }
                     return $model->birth_date;
                 },
+                'format' => 'raw',
             ],
-            'lunar_birth_date',
-            'age',
+            [
+                'attribute' => 'lunar_birth_date',
+                'format' => 'raw',
+            ],
+            [
+                'attribute' => 'age',
+                'format' => 'raw',
+            ],
             [
                 'attribute' => 'gender',
                 'value' => $model->gender_name,
             ],
+            [
+                'attribute' => 'blood_type',
+                'value' => $model->blood_type_name,
+            ],
+            'id_card',
             'alive:boolean',
             'my_relationship',
             'phone',
-            'description:ntext',
         ],
     ]) ?>
 

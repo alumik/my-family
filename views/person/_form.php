@@ -34,13 +34,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'gender')->dropDownList(\app\models\Gender::getGenderList(), ['prompt' => '请选择']) ?>
 
+    <?= $form->field($model, 'blood_type')->dropDownList(\app\models\BloodType::getBloodTypeList(), ['prompt' => '请选择']) ?>
+
+    <?= $form->field($model, 'id_card')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'alive')->dropDownList([1 => '是', 0 => '否'], ['prompt' => '请选择']) ?>
 
     <?= $form->field($model, 'my_relationship')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('保存', ['class' => 'btn btn-success']) ?>

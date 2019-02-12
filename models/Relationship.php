@@ -12,6 +12,9 @@ use Yii;
  * @property int $child
  * @property int $type
  *
+ * @property string $parent_name
+ * @property string $child_name
+ *
  * @property Person $parent0
  * @property Person $child0
  * @property RelationType $type0
@@ -64,9 +67,10 @@ class Relationship extends \yii\db\ActiveRecord
             'id' => 'ID',
             'parent' => '父/母/夫',
             'child' => '子/女/妻',
+            'type' => '关系类型',
+
             'parent_name' => '父/母/夫',
             'child_name' => '子/女/妻',
-            'type' => '关系类型',
         ];
     }
 

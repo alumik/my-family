@@ -20,7 +20,7 @@ class m190211_171945_create_other_name_db extends Migration
         ]);
 
         $this->addForeignKey(
-            'name_out_gender_fk',
+            'name_out_gender_id_fk',
             'name_out',
             'gender',
             'gender',
@@ -46,7 +46,7 @@ class m190211_171945_create_other_name_db extends Migration
         ]);
 
         $this->addForeignKey(
-            'name_node_gender_fk',
+            'name_node_gender_id_fk',
             'name_node',
             'gender',
             'gender',
@@ -82,7 +82,7 @@ class m190211_171945_create_other_name_db extends Migration
         ]);
 
         $this->addForeignKey(
-            'name_graph_name_node_fk',
+            'name_graph_name_node_id_fk',
             'name_graph',
             'node',
             'name_node',
@@ -90,7 +90,7 @@ class m190211_171945_create_other_name_db extends Migration
         );
 
         $this->addForeignKey(
-            'name_graph_name_node_fk_2',
+            'name_graph_name_node_id_fk_2',
             'name_graph',
             'related_node',
             'name_node',
@@ -98,7 +98,7 @@ class m190211_171945_create_other_name_db extends Migration
         );
 
         $this->addForeignKey(
-            'name_graph_name_type_fk',
+            'name_graph_name_type_id_fk',
             'name_graph',
             'type',
             'name_type',

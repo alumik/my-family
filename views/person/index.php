@@ -47,12 +47,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'birth_date',
                 'value' => function($model) {
                     if ($model->inaccurate_birth_date) {
-                        return '(不准确)';
+                        return '<span class="not-set">(不准确)</span>';
                     }
                     return $model->birth_date;
                 },
+                'format' => 'raw',
             ],
-            'age',
+            [
+                'attribute' => 'age',
+                'format' => 'raw',
+            ],
             [
                 'attribute' => 'gender',
                 'value' => 'gender_name',

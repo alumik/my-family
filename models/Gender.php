@@ -45,7 +45,7 @@ class Gender extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => '名称',
+            'name' => 'Name',
         ];
     }
 

@@ -6,24 +6,21 @@ use Yii;
 use yii\helpers\ArrayHelper;
 
 /**
- * This is the model class for table "relation_type".
+ * This is the model class for table "blood_type".
  *
  * @property int $id
  * @property string $name
  *
- * @property Relationship[] $relationships
+ * @property Person[] $people
  */
-class RelationType extends \yii\db\ActiveRecord
+class BloodType extends \yii\db\ActiveRecord
 {
-    public static $QINZI = 1;
-    public static $FUQI = 2;
-
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'relation_type';
+        return 'blood_type';
     }
 
     /**
@@ -51,18 +48,15 @@ class RelationType extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getRelationships()
+    public function getPeople()
     {
-        return $this->hasMany(Relationship::className(), ['type' => 'id']);
+        return $this->hasMany(Person::className(), ['blood_type' => 'id']);
     }
 
-    /**
-     * @return array
-     */
-    public static function getRelationTypeList()
+    public static function getBloodTypeList()
     {
         $result = [];
-        $list = RelationType::find()->all();
+        $list = BloodType::find()->all();
         if (!empty($list)) {
             $result = ArrayHelper::map($list, 'id', 'name');
         }

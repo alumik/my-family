@@ -27,6 +27,23 @@ class m190211_133057_create_basic_db extends Migration
             ]
         );
 
+        $this->createTable('blood_type', [
+            'id' => $this->primaryKey(),
+            'name' => $this->string(10)->notNull(),
+        ]);
+
+        $this->batchInsert(
+            'blood_type',
+            ['id', 'name'],
+            [
+                [1, '未知'],
+                [2, 'A型'],
+                [3, 'B型'],
+                [4, 'AB型'],
+                [5, 'O型'],
+            ]
+        );
+
         $this->createTable('person', [
             'id' => $this->primaryKey(),
             'family_name' => $this->string(10)->null(),
@@ -34,10 +51,11 @@ class m190211_133057_create_basic_db extends Migration
             'birth_date' => $this->date()->notNull(),
             'inaccurate_birth_date' => $this->tinyInteger()->notNull(),
             'gender' => $this->integer()->notNull(),
+            'blood_type' => $this->integer()->notNull(),
+            'id_card' => $this->string(18)->null(),
             'alive' => $this->tinyInteger()->notNull(),
             'my_relationship' => $this->string(255)->null(),
             'phone' => $this->string(20)->null(),
-            'description' => $this->text(),
         ]);
 
         $this->addForeignKey(
@@ -45,6 +63,14 @@ class m190211_133057_create_basic_db extends Migration
             'person',
             'gender',
             'gender',
+            'id'
+        );
+
+        $this->addForeignKey(
+            'person_blood_type_id_fk',
+            'person',
+            'blood_type',
+            'blood_type',
             'id'
         );
 

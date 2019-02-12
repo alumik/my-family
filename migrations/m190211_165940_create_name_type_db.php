@@ -20,7 +20,7 @@ class m190211_165940_create_name_type_db extends Migration
         ]);
 
         $this->addForeignKey(
-            'name_type_gender_fk',
+            'name_type_gender_id_fk',
             'name_type',
             'gender',
             'gender',

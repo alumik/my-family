@@ -12,15 +12,22 @@ use yii\helpers\Html;
  * @property int $id
  * @property string $family_name
  * @property string $given_name
- * @property string $full_name
  * @property string $birth_date
  * @property int $inaccurate_birth_date
  * @property int $gender
+ * @property int $blood_type
+ * @property string $id_card
  * @property int $alive
  * @property string $my_relationship
  * @property string $phone
- * @property string $description
  *
+ * @property string $full_name
+ * @property string $lunar_birth_date
+ * @property int $age
+ * @property string $gender_name
+ * @property string $blood_type_name
+ *
+ * @property BloodType $bloodType
  * @property Gender $gender0
  * @property Relationship[] $relationships
  * @property Relationship[] $relationships0
@@ -45,11 +52,11 @@ class Person extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['birth_date', 'inaccurate_birth_date', 'gender', 'alive'], 'required'],
+            [['birth_date', 'inaccurate_birth_date', 'gender', 'blood_type', 'alive'], 'required'],
             [['birth_date'], 'safe'],
-            [['inaccurate_birth_date', 'gender', 'alive'], 'integer'],
-            [['description'], 'string'],
+            [['inaccurate_birth_date', 'gender', 'blood_type', 'alive'], 'integer'],
             [['family_name', 'given_name'], 'string', 'max' => 10],
+            [['id_card'], 'string', 'max' => 18],
             [['my_relationship'], 'string', 'max' => 255],
             [['phone'], 'string', 'max' => 20],
             [['gender'], 'exist', 'skipOnError' => true, 'targetClass' => Gender::className(), 'targetAttribute' => ['gender' => 'id']],
@@ -65,18 +72,37 @@ class Person extends \yii\db\ActiveRecord
             'id' => 'ID',
             'family_name' => '姓',
             'given_name' => '名',
-            'full_name' => '姓名',
             'birth_date' => '出生日期',
             'inaccurate_birth_date' => '出生日期不准确',
-            'lunar_birth_date' => '出生日期（农历）',
-            'age' => '年龄',
             'gender' => '性别',
-            'gender_name' => '性别',
+            'blood_type' => 'ABO血型',
+            'id_card' => '身份证号码',
             'alive' => '是否健在',
             'my_relationship' => '与我的关系',
             'phone' => '电话号码',
-            'description' => '备注',
+
+            'full_name' => '姓名',
+            'lunar_birth_date' => '出生日期（农历）',
+            'age' => '年龄',
+            'gender_name' => '性别',
+            'blood_type_name' => 'ABO血型',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getBloodType()
+    {
+        return $this->hasOne(BloodType::className(), ['id' => 'blood_type']);
+    }
+
+    /**
+     * @return string
+     */
+    public function getBlood_type_name()
+    {
+        return $this->bloodType->name;
     }
 
     /**
@@ -125,7 +151,7 @@ class Person extends \yii\db\ActiveRecord
     public function getAge()
     {
         if ($this->alive == 0) {
-            return '-';
+            return '<span class="gray-text">(已去世)</span>';
         }
         if ($this->birth_date && !$this->inaccurate_birth_date) {
             $birth_date = $this->birth_date;
@@ -255,6 +281,6 @@ class Person extends \yii\db\ActiveRecord
             $date = $calendar->solar(intval($date_str[0]), intval($date_str[1]), intval($date_str[2]));
             return $date['ganzhi_year'] . $date['animal'] . '年' . $date['lunar_month_chinese'] . $date['lunar_day_chinese'];
         }
-        return '';
+        return '<span class="not-set">(不可用)</span>';
     }
 }

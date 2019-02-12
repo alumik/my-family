@@ -106,6 +106,10 @@ class PersonController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $model->blood_type = 1;
+        $model->gender = 1;
+        $model->alive = 1;
+
         return $this->render('create', [
             'model' => $model,
         ]);
