@@ -37,12 +37,20 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'full_name',
-                'value' => function ($item) {
-                    return Html::a($item->full_name, ['person/view', 'id' => $item->id]);
+                'value' => function ($model) {
+                    return Html::a($model->full_name, ['person/view', 'id' => $model->id]);
                 },
                 'format' => 'raw',
             ],
-            'birth_date',
+            [
+                'attribute' => 'birth_date',
+                'value' => function($model) {
+                    if ($model->inaccurate_birth_date) {
+                        return '(不准确)';
+                    }
+                    return $model->birth_date;
+                },
+            ],
             'age',
             [
                 'attribute' => 'gender',
@@ -59,7 +67,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ],
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{update} {delete}',
+            ],
         ],
     ]); ?>
 </div>

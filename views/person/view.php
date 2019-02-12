@@ -36,7 +36,15 @@ $this->params['breadcrumbs'][] = $model->id;
             'id',
             'family_name',
             'given_name',
-            'birth_date',
+            [
+                'attribute' => 'birth_date',
+                'value' => function($model) {
+                    if ($model->inaccurate_birth_date) {
+                        return $model->birth_date . ' (不准确)';
+                    }
+                    return $model->birth_date;
+                },
+            ],
             'lunar_birth_date',
             'age',
             [

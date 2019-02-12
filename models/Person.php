@@ -12,8 +12,9 @@ use yii\helpers\Html;
  * @property int $id
  * @property string $family_name
  * @property string $given_name
- * @property string $birth_date
  * @property string $full_name
+ * @property string $birth_date
+ * @property int $inaccurate_birth_date
  * @property int $gender
  * @property int $alive
  * @property string $my_relationship
@@ -44,9 +45,9 @@ class Person extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['birth_date', 'inaccurate_birth_date', 'gender', 'alive'], 'required'],
             [['birth_date'], 'safe'],
-            [['gender', 'alive'], 'required'],
-            [['gender', 'alive'], 'integer'],
+            [['inaccurate_birth_date', 'gender', 'alive'], 'integer'],
             [['description'], 'string'],
             [['family_name', 'given_name'], 'string', 'max' => 10],
             [['my_relationship'], 'string', 'max' => 255],
@@ -66,6 +67,7 @@ class Person extends \yii\db\ActiveRecord
             'given_name' => '名',
             'full_name' => '姓名',
             'birth_date' => '出生日期',
+            'inaccurate_birth_date' => '出生日期不准确',
             'lunar_birth_date' => '出生日期（农历）',
             'age' => '年龄',
             'gender' => '性别',
@@ -134,7 +136,7 @@ class Person extends \yii\db\ActiveRecord
         if ($this->alive == 0) {
             return '-';
         }
-        if ($this->birth_date) {
+        if ($this->birth_date && !$this->inaccurate_birth_date) {
             $birth_date = $this->birth_date;
             list($birth_year, $birth_month, $birth_day) = explode('-', $birth_date);
             $cm = date('n');
@@ -290,7 +292,7 @@ class Person extends \yii\db\ActiveRecord
      */
     public function getLunar_birth_date()
     {
-        if ($this->birth_date) {
+        if ($this->birth_date && !$this->inaccurate_birth_date) {
             $calendar = new \Overtrue\ChineseCalendar\Calendar();
             $date_str = explode('-', $this->birth_date);
             $date = $calendar->solar(intval($date_str[0]), intval($date_str[1]), intval($date_str[2]));

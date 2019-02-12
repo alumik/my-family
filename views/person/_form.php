@@ -30,6 +30,8 @@ use yii\widgets\ActiveForm;
         ],
     ]) ?>
 
+    <?= $form->field($model, 'inaccurate_birth_date')->checkbox() ?>
+
     <?= $form->field($model, 'gender')->dropDownList(\app\models\Gender::getGenderList(), ['prompt' => '请选择']) ?>
 
     <?= $form->field($model, 'alive')->dropDownList([1 => '是', 0 => '否'], ['prompt' => '请选择']) ?>
