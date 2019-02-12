@@ -4,6 +4,26 @@
 
 项目基于 [Yii2](https://www.yiiframework.com/) 框架制作。
 
+## 网站截图
+
+- 网站主页
+
+    ![网站主页](https://raw.githubusercontent.com/AlumiK/project-img-lib/master/my-family-yii2/site_index.png)
+    
+- 家庭成员模块
+
+    ![家庭成员列表](https://github.com/AlumiK/project-img-lib/raw/master/my-family-yii2/person_index.png)
+    ![家庭成员信息](https://github.com/AlumiK/project-img-lib/raw/master/my-family-yii2/person_view.png)
+    
+- 关系管理模块
+
+    ![新增家庭关系](https://github.com/AlumiK/project-img-lib/raw/master/my-family-yii2/relationship_create.png)
+    
+- 计算模块
+
+    ![关系计算器](https://github.com/AlumiK/project-img-lib/raw/master/my-family-yii2/calc_relation.png)
+    ![称呼计算器](https://github.com/AlumiK/project-img-lib/raw/master/my-family-yii2/calc_name.png)
+
 ## 部署步骤
 
 1. 下载文件
