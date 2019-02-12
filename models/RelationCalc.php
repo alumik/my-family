@@ -12,6 +12,9 @@ class RelationCalc extends Model
     private $base_person;
     private $target_person;
     private $name_query = '';
+    private $order = -1;
+
+    public static $ORDER = ['幺', '大', '二', '三', '四', '五', '六', '七', '八', '九', '十',];
 
     public function rules()
     {
@@ -39,9 +42,16 @@ class RelationCalc extends Model
         }
         $name_calc = new NameCalc();
         $name_calc->query = $this->name_query;
-        $result = $name_calc->getName();
-        if ($result) {
-            return $this->base_person . ' 是 ' . $this->target_person . ' 的 ' . $result . '。';
+        $name = $name_calc->getName();
+        if ($name) {
+            if ($this->order == -1) {
+                $order_str = '大/.../幺';
+            } else {
+                $order_str = RelationCalc::$ORDER[$this->order];
+            }
+            $name = str_replace('%number%', $order_str, $name);
+            $name = str_replace('%order%', $order_str, $name);
+            return $this->base_person . ' 是 ' . $this->target_person . ' 的 ' . $name . '。';
         }
         return false;
     }

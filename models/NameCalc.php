@@ -32,6 +32,8 @@ class NameCalc extends Model
     {
         $name = $this->getName();
         if ($name) {
+            $name = str_replace('%number%', '大/.../幺', $name);
+            $name = str_replace('%order%', '', $name);
             return $this->query_str . ' 是我的 ' . $name . '。';
         }
         return false;
