@@ -5,18 +5,13 @@ use yii\db\Migration;
 /**
  * Class m190211_165940_create_relation_name_db
  */
-class m190211_165940_create_relation_name_db extends Migration
+class m190211_165940_create_name_type_db extends Migration
 {
     /**
      * {@inheritdoc}
      */
     public function safeUp()
     {
-        $this->createTable('name_node', [
-            'id' => $this->primaryKey(),
-            'name' => $this->string(10)->notNull(),
-        ]);
-
         $this->createTable('name_type', [
             'id' => $this->primaryKey(),
             'name' => $this->string(10)->notNull(),
@@ -32,38 +27,9 @@ class m190211_165940_create_relation_name_db extends Migration
                 [4, '姐妹'],
                 [5, '儿子'],
                 [6, '女儿'],
+                [7, '丈夫'],
+                [8, '妻子'],
             ]
-        );
-
-        $this->createTable('name_graph', [
-            'id' => $this->primaryKey(),
-            'node' => $this->integer()->notNull(),
-            'related_node' => $this->integer()->notNull(),
-            'type' => $this->integer()->notNull(),
-        ]);
-
-        $this->addForeignKey(
-            'name_graph_name_node_fk',
-            'name_graph',
-            'node',
-            'name_node',
-            'id'
-        );
-
-        $this->addForeignKey(
-            'name_graph_name_node_fk_2',
-            'name_graph',
-            'related_node',
-            'name_node',
-            'id'
-        );
-
-        $this->addForeignKey(
-            'name_graph_name_type_fk',
-            'name_graph',
-            'type',
-            'name_type',
-            'id'
         );
     }
 
