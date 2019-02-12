@@ -60,33 +60,25 @@ $this->params['breadcrumbs'][] = $model->id;
 
     <?php if ($parents): ?>
         <p><strong>父母</strong></p>
-        <div class="scrollable">
-            <?= \app\models\Person::RelationView($parents) ?>
-        </div>
+        <?= $this->render('_related_people', ['data_provider' => $parents]) ?>
         <br/>
     <?php endif; ?>
 
     <?php if ($children): ?>
         <p><strong>子女</strong></p>
-        <div class="scrollable">
-            <?= \app\models\Person::RelationView($children) ?>
-        </div>
+        <?= $this->render('_related_people', ['data_provider' => $children]) ?>
         <br/>
     <?php endif; ?>
 
     <?php if ($husbands): ?>
         <p><strong>丈夫</strong></p>
-        <div class="scrollable">
-            <?= \app\models\Person::RelationView($husbands) ?>
-        </div>
+        <?= $this->render('_related_people', ['data_provider' => $husbands]) ?>
         <br/>
     <?php endif; ?>
 
     <?php if ($wives): ?>
         <p><strong>妻子</strong></p>
-        <div class="scrollable">
-            <?= \app\models\Person::RelationView($wives) ?>
-        </div>
+        <?= $this->render('_related_people', ['data_provider' => $wives]) ?>
         <br/>
     <?php endif; ?>
 

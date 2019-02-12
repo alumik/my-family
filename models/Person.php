@@ -237,40 +237,6 @@ class Person extends \yii\db\ActiveRecord
     }
 
     /**
-     * @param $dataprovider
-     * @return string
-     * @throws \Exception
-     */
-    public static function RelationView($dataprovider)
-    {
-        return \yii\grid\GridView::widget([
-            'dataProvider' => $dataprovider,
-            'showOnEmpty' => false,
-            'emptyText' => '没有相关记录。',
-            'columns' => [
-                [
-                    'attribute' => 'id',
-                    'headerOptions' => [
-                        'width' => '80',
-                    ],
-                ],
-                [
-                    'attribute' => 'full_name',
-                    'value' => function ($item) {
-                        return Html::a($item->full_name, ['person/view', 'id' => $item->id]);
-                    },
-                    'format' => 'raw',
-                ],
-                'birth_date',
-                'age',
-                'gender_name',
-                'my_relationship',
-                'alive:boolean',
-            ],
-        ]);
-    }
-
-    /**
      * @return integer
      */
     public static function getPeopleCount()
