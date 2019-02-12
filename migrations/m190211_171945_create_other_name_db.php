@@ -12,6 +12,33 @@ class m190211_171945_create_other_name_db extends Migration
      */
     public function safeUp()
     {
+        $this->createTable('name_out', [
+            'id' => $this->primaryKey(),
+            'generation' => $this->integer()->notNull(),
+            'gender' => $this->integer()->notNull(),
+            'name' => $this->string(255)->notNull(),
+        ]);
+
+        $this->addForeignKey(
+            'name_out_gender_fk',
+            'name_out',
+            'gender',
+            'gender',
+            'id'
+        );
+
+        $this->batchInsert('name_out',
+            ['id', 'generation', 'gender', 'name'],
+            [
+                [1, 0, 1, '哥哥/弟弟'],
+                [2, 0, 2, '姐姐/妹妹'],
+                [3, -1, 1, '叔叔'],
+                [4, -1, 2, '阿姨'],
+                [5, -2, 1, '爷爷'],
+                [6, -2, 2, '婆婆'],
+            ]
+        );
+
         $this->createTable('name_node', [
             'id' => $this->primaryKey(),
             'name' => $this->string(255)->notNull(),
@@ -105,6 +132,8 @@ class m190211_171945_create_other_name_db extends Migration
                 [31, 9, 10, 4], [32, 10, 9, 3], [33,10,11,1], [34,10,12,2], [35, 11, 10, 6],
                 [36, 12, 10, 6], [37, 14, 2, 1], [38, 14, 3, 2], [39, 2, 14, 6], [40, 3, 14, 6],
                 [41, 1, 13, 3], [42, 13, 13, 3], [43, 1, 14, 4], [44, 13, 14, 4], [45, 14, 13, 3],
+                [46, 6, 4, 1], [47, 6, 5, 2], [48, 13, 2, 1], [49, 13, 3, 2], [50, 9, 11, 1],
+                [51, 9, 12, 2],
             ]
         );
     }
@@ -117,6 +146,8 @@ class m190211_171945_create_other_name_db extends Migration
         $this->dropTable('name_graph');
 
         $this->dropTable('name_node');
+
+        $this->dropTable('name_out');
     }
 
     /*

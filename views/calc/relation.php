@@ -5,7 +5,7 @@ use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $relation_result string */
-/* @var $name_result string */
+/* @var $name_result array */
 
 $this->title = '关系计算器';
 $this->params['breadcrumbs'][] = $this->title;
@@ -42,29 +42,22 @@ $this->params['breadcrumbs'][] = $this->title;
                 <p><?= $relation_result ?></p>
             </div>
         </div>
-        <?php if ($name_result): ?>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        称呼
-                    </h3>
-                </div>
-                <div class="panel-body">
-                    <p><?= $name_result ?></p>
-                </div>
-            </div>
-        <?php else: ?>
-            <div class="panel panel-danger">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        称呼
-                    </h3>
-                </div>
-                <div class="panel-body">
-                    <p>无法计算称呼。</p>
+        <?php if ($name_result['out'] == 0): ?>
+        <div class="panel panel-default">
+            <?php elseif ($name_result['out'] == 1): ?>
+            <div class="panel panel-warning">
+                <?php else: ?>
+                <div class="panel panel-danger">
+                    <?php endif; ?>
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            称呼
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <p><?= $name_result['name_str'] ?></p>
+                    </div>
                 </div>
             </div>
-        <?php endif; ?>
 
-    </div>
-</div>
+        </div>

@@ -16,20 +16,29 @@ class m190211_165940_create_name_type_db extends Migration
             'id' => $this->primaryKey(),
             'name' => $this->string(10)->notNull(),
             'generation' => $this->integer()->notNull(),
+            'gender' => $this->integer()->notNull(),
         ]);
+
+        $this->addForeignKey(
+            'name_type_gender_fk',
+            'name_type',
+            'gender',
+            'gender',
+            'id'
+        );
 
         $this->batchInsert(
             'name_type',
-            ['id', 'name', 'generation'],
+            ['id', 'name', 'generation', 'gender'],
             [
-                [1, '父亲', -1],
-                [2, '母亲', -1],
-                [3, '兄弟', 0],
-                [4, '姐妹', 0],
-                [5, '儿子', 1],
-                [6, '女儿', 1],
-                [7, '丈夫', 0],
-                [8, '妻子', 0],
+                [1, '父亲', -1, 1],
+                [2, '母亲', -1, 2],
+                [3, '兄弟', 0, 1],
+                [4, '姐妹', 0, 2],
+                [5, '儿子', 1, 1],
+                [6, '女儿', 1, 2],
+                [7, '丈夫', 0, 1],
+                [8, '妻子', 0, 2],
             ]
         );
     }

@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $result string */
+/* @var $result array */
 /* @var $relations array */
 
 $this->title = '称呼计算器';
@@ -85,31 +85,25 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="calc-result">
 
-        <?php if ($result): ?>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        计算结果
-                    </h3>
-                </div>
-                <div class="panel-body">
-                    <p><?= $result ?></p>
-                </div>
-            </div>
-        <?php else: ?>
-            <div class="panel panel-danger">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        计算结果
-                    </h3>
-                </div>
-                <div class="panel-body">
-                    <p>抱歉，关系绕的路太遥远或有错误，无法计算称呼。</p>
+        <?php if ($result['out'] == 0): ?>
+        <div class="panel panel-default">
+            <?php elseif ($result['out'] == 1): ?>
+            <div class="panel panel-warning">
+                <?php else: ?>
+                <div class="panel panel-danger">
+                    <?php endif; ?>
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            计算结果
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <p><?= $result['name_str'] ?></p>
+                    </div>
                 </div>
             </div>
-        <?php endif; ?>
 
-        <p>注：计算优先选择查询条件没有经过的人，例如“我的父亲的儿子”是“我的兄弟”，而不是“本人”（因为“本人”已经经过了）。</p>
+            <p>注：计算优先选择查询条件没有经过的人，例如“我的父亲的儿子”是“我的兄弟”，而不是“本人”（因为“本人”已经经过了）。</p>
 
+        </div>
     </div>
-</div>

@@ -45,7 +45,8 @@ class RelationCalc extends Model
         $name_calc = new NameCalc();
         $name_calc->query = $this->name_query;
         $name = $name_calc->getName();
-        if ($name) {
+
+        if ($name['out'] == 0) {
             if ($this->order == -1) {
                 $order_str = '';
             } else {
@@ -54,13 +55,20 @@ class RelationCalc extends Model
             if ($this->second_order != -1) {
                 $order_str = RelationCalc::$ORDER[$this->second_order];
             }
-            $name = str_replace('%number%', $order_str, $name);
-            $name = str_replace('%order%', $order_str, $name);
-            $name = str_replace('%second_number%', $order_str, $name);
-            $name = str_replace('%second_order%', $order_str, $name);
-            return $this->base_person . ' 是 ' . $this->target_person . ' 的 ' . $name . '。';
+            $name['name'] = str_replace('%number%', $order_str, $name['name']);
+            $name['name'] = str_replace('%order%', $order_str, $name['name']);
+            $name['name'] = str_replace('%second_number%', $order_str, $name['name']);
+            $name['name'] = str_replace('%second_order%', $order_str, $name['name']);
+            $name_str = $this->base_person . ' 是 ' . $this->target_person . ' 的 ' . $name['name'] . '。';
+        } else if ($name['out'] == 1) {
+            $name_str = '无法计算称呼。但是根据辈分可以叫做 ' . $name['name'] . '。';
+        } else {
+            $name_str = '无法计算称呼。';
         }
-        return false;
+        return [
+            'name_str' => $name_str,
+            'out' => $name['out'],
+        ];
     }
 
     /**

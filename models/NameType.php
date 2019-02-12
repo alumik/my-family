@@ -10,8 +10,12 @@ use yii\helpers\ArrayHelper;
  *
  * @property int $id
  * @property string $name
+ * @property int $generation
+ * @property int $gender
  *
  * @property NameGraph[] $nameGraphs
+ * @property NameNode[] $nodes
+ * @property Gender $gender0
  */
 class NameType extends \yii\db\ActiveRecord
 {
@@ -29,7 +33,8 @@ class NameType extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
+            [['name', 'generation', 'gender'], 'required'],
+            [['generation', 'gender'], 'integer'],
             [['name'], 'string', 'max' => 10],
         ];
     }
@@ -42,6 +47,8 @@ class NameType extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
+            'generation' => 'Generation',
+            'gender' => 'Gender',
         ];
     }
 
@@ -61,5 +68,22 @@ class NameType extends \yii\db\ActiveRecord
             ->asArray()
             ->all();
         return ArrayHelper::getColumn($result, 'name');
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function getNodes()
+    {
+        return $this->hasMany(NameNode::className(), ['id' => 'node'])->viaTable('name_graph', ['type' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getGender0()
+    {
+        return $this->hasOne(Gender::className(), ['id' => 'gender']);
     }
 }

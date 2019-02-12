@@ -26,23 +26,30 @@ class NameCalc extends Model
     }
 
     /**
-     * @return string
+     * @return array
      */
     public function calculateName()
     {
         $name = $this->getName();
-        if ($name) {
-            $name = str_replace('%number%', '大/.../幺', $name);
-            $name = str_replace('%order%', '', $name);
-            $name = str_replace('%second_number%', '大/.../幺', $name);
-            $name = str_replace('%second_order%', '', $name);
-            return $this->query_str . ' 是我的 ' . $name . '。';
+        if ($name['out'] == 0) {
+            $name['name'] = str_replace('%number%', '大/.../幺', $name['name']);
+            $name['name'] = str_replace('%order%', '', $name['name']);
+            $name['name'] = str_replace('%second_number%', '大/.../幺', $name['name']);
+            $name['name'] = str_replace('%second_order%', '', $name['name']);
+            $name_str = $this->query_str . ' 是我的 ' . $name['name'] . '。';
+        } else if ($name['out'] == 1) {
+            $name_str = '抱歉，关系绕的路太遥远或有错误，无法计算称呼。但是根据辈分可以叫做 ' . $name['name'] . '。';
+        } else {
+            $name_str = '抱歉，关系绕的路太遥远或有错误，无法计算称呼。';
         }
-        return false;
+        return [
+            'name_str' => $name_str,
+            'out' => $name['out'],
+        ];
     }
 
     /**
-     * @return string|boolean
+     * @return array
      */
     public function getName()
     {
@@ -51,18 +58,43 @@ class NameCalc extends Model
             $queries[] = intval($this->query[$i]);
         }
         $current_node = 1;
+        $generation = 0;
+        $gender = 1;
+        $out = 0;
         foreach ($queries as $query) {
-            $related_node = NameGraph::find()
-                ->select('related_node')
-                ->where(['node' => $current_node, 'type' => $query])
+            if (!$out) {
+                $related_node = NameGraph::find()
+                    ->select('related_node')
+                    ->where(['node' => $current_node, 'type' => $query])
+                    ->asArray()
+                    ->one();
+                if ($related_node) {
+                    $current_node = $related_node['related_node'];
+                } else {
+                    $out = 1;
+                }
+            }
+            $type = NameType::findOne($query);
+            $generation += $type->generation;
+            $gender = $type->gender;
+        }
+
+        if ($out) {
+            $name = NameOut::find()
+                ->where(['generation' => $generation, 'gender' => $gender])
                 ->asArray()
                 ->one();
-            if ($related_node) {
-                $current_node = $related_node['related_node'];
+            if (!$name) {
+                $out = 2;
             } else {
-                return false;
+                $name = $name['name'];
             }
+        } else {
+            $name = NameNode::findOne($current_node)->name;
         }
-        return NameNode::findOne($current_node)->name;
+        return [
+            'out' => $out,
+            'name' => $name,
+        ];
     }
 }

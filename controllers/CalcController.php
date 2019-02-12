@@ -14,7 +14,10 @@ class CalcController extends Controller
     {
         $model = new RelationCalc();
         $relation_result = '关系计算结果将显示在此处。';
-        $name_result = '称呼计算结果将显示在此处。';
+        $name_result = [
+            'out' => 0,
+            'name_str' => '称呼计算结果将显示在此处。',
+        ];
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $relation_result = $model->calculateRelationship();
@@ -31,7 +34,10 @@ class CalcController extends Controller
     public function actionName()
     {
         $model = new NameCalc();
-        $result = '计算结果将显示在此处。';
+        $result = [
+            'out' => 0,
+            'name_str' => '计算结果将显示在此处。',
+        ];
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $result = $model->calculateName();
