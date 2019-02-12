@@ -18,6 +18,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'type')->dropDownList(\app\models\RelationType::getRelationTypeList(), ['prompt' => '请选择']) ?>
 
+    <p>注：名字后方括号内的数字是对应成员的编号。</p>
+
     <div class="form-group">
         <?= Html::submitButton('保存', ['class' => 'btn btn-success']) ?>
     </div>

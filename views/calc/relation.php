@@ -22,6 +22,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?= $form->field($model, 'target')->dropDownList(\app\models\Person::getPersonList(), ['prompt' => '请选择']) ?>
 
+        <p>注：名字后方括号内的数字是对应成员的编号。</p>
+
         <div class="form-group">
             <?= Html::submitButton('计算', ['class' => 'btn btn-success']) ?>
         </div>
