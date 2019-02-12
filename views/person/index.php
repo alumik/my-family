@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'my_relationship',
             [
                 'attribute' => 'alive',
-                'value' => 'alive_text',
+                'format' => 'boolean',
                 'filter' => [
                     '1' => '是',
                     '0' => '否',

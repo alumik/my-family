@@ -51,10 +51,7 @@ $this->params['breadcrumbs'][] = $model->id;
                 'attribute' => 'gender',
                 'value' => $model->gender_name,
             ],
-            [
-                'attribute' => 'alive',
-                'value' => $model->alive_text,
-            ],
+            'alive:boolean',
             'my_relationship',
             'phone',
             'description:ntext',

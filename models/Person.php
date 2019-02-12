@@ -73,7 +73,6 @@ class Person extends \yii\db\ActiveRecord
             'gender' => '性别',
             'gender_name' => '性别',
             'alive' => '是否健在',
-            'alive_text' => '是否健在',
             'my_relationship' => '与我的关系',
             'phone' => '电话号码',
             'description' => '备注',
@@ -102,14 +101,6 @@ class Person extends \yii\db\ActiveRecord
     public function getFull_name()
     {
         return $this->family_name . $this->given_name;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAlive_text()
-    {
-        return $this->alive == 1 ? '是' : '否';
     }
 
     /**
@@ -274,7 +265,7 @@ class Person extends \yii\db\ActiveRecord
                 'age',
                 'gender_name',
                 'my_relationship',
-                'alive_text',
+                'alive:boolean',
             ],
         ]);
     }
