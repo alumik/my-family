@@ -59,9 +59,9 @@ class RelationCalc extends Model
             $name['name'] = str_replace('%order%', $order_str, $name['name']);
             $name['name'] = str_replace('%second_number%', $order_str, $name['name']);
             $name['name'] = str_replace('%second_order%', $order_str, $name['name']);
-            $name_str = $this->base_person . ' 是 ' . $this->target_person . ' 的 ' . $name['name'] . '。';
+            $name_str = '<strong>' . $this->base_person . '</strong>是<strong>' . $this->target_person . '</strong>的<strong>' . $name['name'] . '</strong>。';
         } else if ($name['out'] == 1) {
-            $name_str = '无法计算称呼。但是根据辈分可以叫做 ' . $name['name'] . '。';
+            $name_str = '无法计算称呼。但是根据辈分可以叫做<strong>' . $name['name'] . '</strong>。';
         } else {
             $name_str = '无法计算称呼。';
         }
@@ -200,10 +200,10 @@ class RelationCalc extends Model
         }
 
         if ($cost[$this->target] == INF) {
-            return $this->base_person . ' 与 ' . $this->target_person . ' 没有联系。';
+            return '<strong>' . $this->base_person . '</strong>与<strong>' . $this->target_person . '</strong>没有联系。';
         };
 
-        $result = $this->base_person . ' 是 ' . $this->target_person . ' ';
+        $result = '<strong>' . $this->base_person . '</strong>是<strong>' . $this->target_person . '</strong>';
         $current = $this->target;
         $is_fuqi = false;
         $last_node = -1;

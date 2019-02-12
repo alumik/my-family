@@ -36,9 +36,9 @@ class NameCalc extends Model
             $name['name'] = str_replace('%order%', '', $name['name']);
             $name['name'] = str_replace('%second_number%', '大/.../幺', $name['name']);
             $name['name'] = str_replace('%second_order%', '', $name['name']);
-            $name_str = $this->query_str . ' 是我的 ' . $name['name'] . '。';
+            $name_str = $this->query_str . '是我的<strong>' . $name['name'] . '</strong>。';
         } else if ($name['out'] == 1) {
-            $name_str = '抱歉，关系绕的路太遥远或有错误，无法计算称呼。但是根据辈分可以叫做 ' . $name['name'] . '。';
+            $name_str = '抱歉，关系绕的路太遥远或有错误，无法计算称呼。但是根据辈分可以叫做<strong>' . $name['name'] . '</strong>。';
         } else {
             $name_str = '抱歉，关系绕的路太遥远或有错误，无法计算称呼。';
         }
