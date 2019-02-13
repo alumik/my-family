@@ -40,16 +40,13 @@ class NameType extends \yii\db\ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
+     * checked
+     * @return array
      */
-    public function attributeLabels()
+    public static function getNameTypeList()
     {
-        return [
-            'id' => 'ID',
-            'name' => 'Name',
-            'generation' => 'Generation',
-            'gender' => 'Gender',
-        ];
+        $result = self::find()->all();
+        return ArrayHelper::getColumn($result, 'name');
     }
 
     /**
@@ -58,20 +55,6 @@ class NameType extends \yii\db\ActiveRecord
     public function getNameGraphs()
     {
         return $this->hasMany(NameGraph::className(), ['type' => 'id']);
-    }
-
-    /**
-     * checked
-     * @return array
-     */
-    public static function getNameTypeList()
-    {
-        $result = NameType::find()
-            ->select('name')
-            ->orderBy('id')
-            ->asArray()
-            ->all();
-        return ArrayHelper::getColumn($result, 'name');
     }
 
     /**
