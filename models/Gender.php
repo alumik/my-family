@@ -10,8 +10,6 @@ use yii\helpers\ArrayHelper;
  *
  * @property int $id
  * @property string $name
- *
- * @property Person[] $people
  */
 class Gender extends \yii\db\ActiveRecord
 {
@@ -39,34 +37,11 @@ class Gender extends \yii\db\ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'name' => 'Name',
-        ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getPeople()
-    {
-        return $this->hasMany(Person::className(), ['gender' => 'id']);
-    }
-
-    /**
      * @return array
      */
     public static function getGenderList()
     {
-        $result = [];
-        $list = Gender::find()->all();
-        if (!empty($list)) {
-            $result = ArrayHelper::map($list, 'id', 'name');
-        }
-        return $result;
+        $result = Gender::find()->all();
+        return ArrayHelper::map($result, 'id', 'name');
     }
 }
