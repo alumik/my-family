@@ -4,8 +4,8 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\PersonSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $search_model app\models\PersonSearch */
+/* @var $data_provider yii\data\ActiveDataProvider */
 
 $this->title = '家庭成员';
 $this->params['breadcrumbs'][] = $this->title;
@@ -20,8 +20,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'layout' => "{summary}\n<div class=\"table-wrapper\">\n{items}\n</div>\n{pager}",
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        'dataProvider' => $data_provider,
+        'filterModel' => $search_model,
         'columns' => [
             [
                 'attribute' => 'id',

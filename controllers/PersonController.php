@@ -3,16 +3,13 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Person;
-use app\models\PersonSearch;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\Person;
+use app\models\PersonSearch;
 
-/**
- * PersonController implements the CRUD actions for Person model.
- */
 class PersonController extends Controller
 {
     /**
@@ -36,12 +33,12 @@ class PersonController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new PersonSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $search_model = new PersonSearch();
+        $data_provider = $search_model->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'search_model' => $search_model,
+            'data_provider' => $data_provider,
         ]);
     }
 
@@ -164,6 +161,6 @@ class PersonController extends Controller
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException('找不到相关成员。');
     }
 }
