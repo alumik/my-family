@@ -19,7 +19,7 @@
     
 - 关系管理模块
 
-    ![新增家庭关系](https://github.com/AlumiK/project-img-lib/raw/master/my-family-yii2/relationship_create.png)
+    ![新增家庭关系](https://github.com/AlumiK/project-img-lib/raw/master/my-family-yii2/relation_create.png)
     
 - 计算模块
 
