@@ -1,10 +1,10 @@
 <?php
 
-use yii\helpers\Html;
-use yii\widgets\DetailView;
-
 /* @var $this yii\web\View */
 /* @var $model app\models\Relation */
+
+use yii\helpers\Html;
+use yii\widgets\DetailView;
 
 $this->title = $model->parent_name . ' - ' . $model->child_name;
 $this->params['breadcrumbs'][] = ['label' => '家庭关系', 'url' => ['index']];

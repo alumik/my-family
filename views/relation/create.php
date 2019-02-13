@@ -1,9 +1,9 @@
 <?php
 
-use yii\helpers\Html;
-
 /* @var $this yii\web\View */
 /* @var $model app\models\Relation */
+
+use yii\helpers\Html;
 
 $this->title = '添加新关系';
 $this->params['breadcrumbs'][] = ['label' => '家庭关系', 'url' => ['index']];

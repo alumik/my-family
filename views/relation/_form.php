@@ -1,13 +1,12 @@
 <?php
 
-use yii\helpers\Html;
-use yii\widgets\ActiveForm;
-
 /* @var $this yii\web\View */
 /* @var $model app\models\Relation */
 /* @var $form yii\widgets\ActiveForm */
-?>
 
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+?>
 <div class="relation-form">
 
     <?php $form = ActiveForm::begin(); ?>
