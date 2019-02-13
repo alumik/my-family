@@ -4,7 +4,6 @@ namespace app\models;
 
 use Yii;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 
 /**
  * This is the model class for table "person".
@@ -24,13 +23,9 @@ use yii\helpers\Html;
  * @property string $full_name
  * @property string $lunar_birth_date
  * @property int $age
- * @property string $gender_name
- * @property string $blood_type_name
  *
- * @property BloodType $bloodType
+ * @property BloodType $blood_type0
  * @property Gender $gender0
- * @property Relation[] $relations
- * @property Relation[] $relations0
  * @property Person[] $children
  * @property Person[] $parents
  * @property Person[] $wives
@@ -84,44 +79,20 @@ class Person extends \yii\db\ActiveRecord
             'full_name' => '姓名',
             'lunar_birth_date' => '出生日期（农历）',
             'age' => '年龄',
-            'gender_name' => '性别',
-            'blood_type_name' => 'ABO血型',
         ];
     }
 
     /**
+     * check
      * @return \yii\db\ActiveQuery
      */
-    public function getBloodType()
+    public function getBlood_type0()
     {
         return $this->hasOne(BloodType::className(), ['id' => 'blood_type']);
     }
 
     /**
-     * @return string
-     */
-    public function getBlood_type_name()
-    {
-        return $this->bloodType->name;
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getRelations()
-    {
-        return $this->hasMany(Relation::className(), ['parent' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getRelations0()
-    {
-        return $this->hasMany(Relation::className(), ['child' => 'id']);
-    }
-
-    /**
+     * check
      * @return string
      */
     public function getFull_name()
@@ -130,6 +101,7 @@ class Person extends \yii\db\ActiveRecord
     }
 
     /**
+     * check
      * @return \yii\db\ActiveQuery
      */
     public function getGender0()
@@ -138,35 +110,28 @@ class Person extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return string
-     */
-    public function getGender_name()
-    {
-        return $this->gender0->name;
-    }
-
-    /**
+     * check
      * @return string|integer
      */
     public function getAge()
     {
-        if ($this->alive == 0) {
+        if (!$this->alive) {
             return '<span class="gray-text">(已去世)</span>';
         }
         if ($this->birth_date && !$this->inaccurate_birth_date) {
-            $birth_date = $this->birth_date;
-            list($birth_year, $birth_month, $birth_day) = explode('-', $birth_date);
-            $cm = date('n');
-            $cd = date('j');
-            $age = date('Y') - $birth_year - 1;
-            if ($cm > $birth_month || $cm == $birth_month && $cd > $birth_day) $age++;
+            list($year, $month, $day) = explode('-', $this->birth_date);
+            $this_month = date('m');
+            $this_day = date('d');
+            $age = date('Y') - $year - 1;
+            if ($this_month > $month || $this_month == $month && $this_day > $day) {
+                $age++;
+            }
             return $age;
         }
         return '';
     }
 
     /**
-     * checked
      * @return \yii\db\ActiveQuery
      * @throws \yii\base\InvalidConfigException
      */
@@ -182,7 +147,6 @@ class Person extends \yii\db\ActiveRecord
     }
 
     /**
-     * checked
      * @return \yii\db\ActiveQuery
      * @throws \yii\base\InvalidConfigException
      */
@@ -198,7 +162,6 @@ class Person extends \yii\db\ActiveRecord
     }
 
     /**
-     * checked
      * @return \yii\db\ActiveQuery
      * @throws \yii\base\InvalidConfigException
      */
@@ -214,7 +177,6 @@ class Person extends \yii\db\ActiveRecord
     }
 
     /**
-     * checked
      * @return \yii\db\ActiveQuery
      * @throws \yii\base\InvalidConfigException
      */
@@ -234,16 +196,16 @@ class Person extends \yii\db\ActiveRecord
      */
     public static function getPersonList()
     {
-        $result = [];
-        $list = Person::find()
-            ->select(['id', "CONCAT(family_name, given_name, ' [' , id, ']') as full_name"])
+        $list = [];
+        $result = Person::find()
+            ->select(['id', "concat(family_name, given_name, ' [' , id, ']') as full_name"])
             ->orderBy('family_name asc, given_name asc')
             ->asArray()
             ->all();
-        if (!empty($list)) {
-            $result = ArrayHelper::map($list, 'id', 'full_name');
+        if (!empty($result)) {
+            $list = ArrayHelper::map($result, 'id', 'full_name');
         }
-        return $result;
+        return $list;
     }
 
     /**
@@ -267,7 +229,6 @@ class Person extends \yii\db\ActiveRecord
     }
 
     /**
-     * checked
      * @return integer
      */
     public static function getPeopleCount()
@@ -282,8 +243,8 @@ class Person extends \yii\db\ActiveRecord
     {
         if ($this->birth_date && !$this->inaccurate_birth_date) {
             $calendar = new \Overtrue\ChineseCalendar\Calendar();
-            $date_str = explode('-', $this->birth_date);
-            $date = $calendar->solar(intval($date_str[0]), intval($date_str[1]), intval($date_str[2]));
+            list($year, $month, $day) = explode('-', $this->birth_date);
+            $date = $calendar->solar(intval($year), intval($month), intval($day));
             return $date['ganzhi_year'] . $date['animal'] . '年' . $date['lunar_month_chinese'] . $date['lunar_day_chinese'];
         }
         return '<span class="not-set">(不可用)</span>';

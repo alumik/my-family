@@ -31,7 +31,10 @@ use \yii\grid\GridView;
             'attribute' => 'age',
             'format' => 'raw',
         ],
-        'gender_name',
+        [
+            'attribute' => 'gender',
+            'value' => 'gender0.name',
+        ],
         'my_relation',
         'alive:boolean',
     ],

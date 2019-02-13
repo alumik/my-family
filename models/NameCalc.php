@@ -47,7 +47,6 @@ class NameCalc extends Model
     }
 
     /**
-     * checked
      * @return array
      */
     public function getName()

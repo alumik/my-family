@@ -56,11 +56,11 @@ $this->params['breadcrumbs'][] = $model->id;
             ],
             [
                 'attribute' => 'gender',
-                'value' => $model->gender_name,
+                'value' => $model->gender0->name,
             ],
             [
                 'attribute' => 'blood_type',
-                'value' => $model->blood_type_name,
+                'value' => $model->blood_type0->name,
             ],
             'id_card',
             'alive:boolean',

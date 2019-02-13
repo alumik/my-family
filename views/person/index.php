@@ -59,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'gender',
-                'value' => 'gender_name',
+                'value' => 'gender0.name',
                 'filter' => \app\models\Gender::getGenderList(),
             ],
             'my_relation',

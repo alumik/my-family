@@ -12,10 +12,6 @@ use yii\helpers\ArrayHelper;
  * @property string $name
  * @property int $generation
  * @property int $gender
- *
- * @property NameGraph[] $nameGraphs
- * @property NameNode[] $nodes
- * @property Gender $gender0
  */
 class NameType extends \yii\db\ActiveRecord
 {
@@ -40,37 +36,11 @@ class NameType extends \yii\db\ActiveRecord
     }
 
     /**
-     * checked
      * @return array
      */
     public static function getNameTypeList()
     {
         $result = self::find()->all();
         return ArrayHelper::getColumn($result, 'name');
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getNameGraphs()
-    {
-        return $this->hasMany(NameGraph::className(), ['type' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     * @throws \yii\base\InvalidConfigException
-     */
-    public function getNodes()
-    {
-        return $this->hasMany(NameNode::className(), ['id' => 'node'])->viaTable('name_graph', ['type' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getGender0()
-    {
-        return $this->hasOne(Gender::className(), ['id' => 'gender']);
     }
 }

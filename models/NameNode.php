@@ -42,7 +42,6 @@ class NameNode extends \yii\db\ActiveRecord
     }
 
     /**
-     * checked
      * @param $type
      * @return array|NameGraph|null
      */
