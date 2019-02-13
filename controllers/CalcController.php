@@ -38,6 +38,7 @@ class CalcController extends Controller
             'error_level' => 0,
             'data' => '计算结果将显示在此处。',
         ];
+        $relation_types = NameType::getNameTypeList();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $result = $model->getName();
@@ -46,7 +47,7 @@ class CalcController extends Controller
         return $this->render('name', [
             'model' => $model,
             'result' => $result,
-            'relation_types' => NameType::getNameTypeList(),
+            'relation_types' => $relation_types,
         ]);
     }
 }
