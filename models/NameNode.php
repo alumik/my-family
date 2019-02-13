@@ -42,15 +42,13 @@ class NameNode extends \yii\db\ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
+     * checked
+     * @param $type
+     * @return array|NameGraph|null
      */
-    public function attributeLabels()
+    public function getNameGraph($type)
     {
-        return [
-            'id' => 'ID',
-            'name' => 'Name',
-            'gender' => 'Gender',
-        ];
+        return $this->hasMany(NameGraph::className(), ['node' => 'id'])->where(['type' => $type])->one();
     }
 
     /**
@@ -102,15 +100,5 @@ class NameNode extends \yii\db\ActiveRecord
     public function getGender0()
     {
         return $this->hasOne(Gender::className(), ['id' => 'gender']);
-    }
-
-    /**
-     * checked
-     * @param $type
-     * @return array|NameGraph|null
-     */
-    public function getNameGraph($type)
-    {
-        return $this->hasMany(NameGraph::className(), ['node' => 'id'])->where(['type' => $type])->one();
     }
 }
