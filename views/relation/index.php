@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'child_name',
             [
                 'attribute' => 'type',
-                'value' => 'type_name',
+                'value' => 'type0.name',
                 'filter' => \app\models\RelationType::getRelationTypeList(),
             ],
 

@@ -47,6 +47,10 @@ class Relation extends \yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * @param $attribute
+     * @param $params
+     */
     public function validatePair($attribute, $params)
     {
         if (!$this->hasErrors()) {
@@ -115,15 +119,6 @@ class Relation extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return string
-     */
-    public function getType_name()
-    {
-        return $this->type0->name;
-    }
-
-    /**
-     * checked
      * @return integer
      */
     public static function getRelationsCount()
