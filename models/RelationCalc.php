@@ -124,7 +124,7 @@ class RelationCalc extends Model
             }
         }
 
-        $all_relations = Relationship::find()->asArray()->all();
+        $all_relations = Relation::find()->asArray()->all();
         foreach ($all_relations as $relation) {
             $parent = Person::findOne($relation['parent']);
             $child = Person::findOne($relation['child']);
@@ -238,18 +238,18 @@ class RelationCalc extends Model
     {
         $base_gender = Person::findOne($base)->gender;
 
-        $parents = Relationship::find()
+        $parents = Relation::find()
             ->select('parent')
             ->where(['child' => $base, 'type' => RelationType::$QINZI])
             ->asArray()
             ->aLL();
         $parents = ArrayHelper::getColumn($parents, 'parent');
 
-        $siblings = Relationship::find()
+        $siblings = Relation::find()
             ->select('child')
-            ->leftJoin('person', 'relationship.child = person.id')
+            ->leftJoin('person', 'relation.child = person.id')
             ->where(['parent' => $parents, 'type' => RelationType::$QINZI, 'gender' => $base_gender])
-            ->groupBy('relationship.child')
+            ->groupBy('relation.child')
             ->orderBy('person.birth_date')
             ->asArray()
             ->all();

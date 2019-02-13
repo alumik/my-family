@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Relationship */
+/* @var $model app\models\Relation */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="relationship-form">
+<div class="relation-form">
 
     <?php $form = ActiveForm::begin(); ?>
 

@@ -5,7 +5,7 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "relationship".
+ * This is the model class for table "relation".
  *
  * @property int $id
  * @property int $parent
@@ -19,14 +19,14 @@ use Yii;
  * @property Person $child0
  * @property RelationType $type0
  */
-class Relationship extends \yii\db\ActiveRecord
+class Relation extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'relationship';
+        return 'relation';
     }
 
     /**
@@ -50,7 +50,7 @@ class Relationship extends \yii\db\ActiveRecord
     public function validatePair($attribute, $params)
     {
         if (!$this->hasErrors()) {
-            if (Relationship::find()
+            if (Relation::find()
                 ->where(['parent' => $this->child, 'child' => $this->parent])
                 ->exists()) {
                 $this->addError($attribute, '成员的相反关系已存在。');
@@ -127,6 +127,6 @@ class Relationship extends \yii\db\ActiveRecord
      */
     public static function getRelationsCount()
     {
-        return Relationship::find()->count();
+        return Relation::find()->count();
     }
 }

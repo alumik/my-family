@@ -20,7 +20,7 @@ class PersonSearch extends Person
     {
         return [
             [['id', 'gender', 'alive'], 'integer'],
-            [['family_name', 'full_name', 'my_relationship'], 'safe'],
+            [['family_name', 'full_name', 'my_relation'], 'safe'],
         ];
     }
 
@@ -89,7 +89,7 @@ class PersonSearch extends Person
 
         $query->andFilterWhere(['like', 'family_name', $this->family_name])
             ->andFilterWhere(['like', 'given_name', $this->given_name])
-            ->andFilterWhere(['like', 'my_relationship', $this->my_relationship]);
+            ->andFilterWhere(['like', 'my_relation', $this->my_relation]);
 
         $query->andWhere('family_name LIKE "%' . $this->full_name . '%" OR given_name LIKE "%' . $this->full_name . '%"');
 

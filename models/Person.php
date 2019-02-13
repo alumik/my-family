@@ -18,7 +18,7 @@ use yii\helpers\Html;
  * @property int $blood_type
  * @property string $id_card
  * @property int $alive
- * @property string $my_relationship
+ * @property string $my_relation
  * @property string $phone
  *
  * @property string $full_name
@@ -29,8 +29,8 @@ use yii\helpers\Html;
  *
  * @property BloodType $bloodType
  * @property Gender $gender0
- * @property Relationship[] $relationships
- * @property Relationship[] $relationships0
+ * @property Relation[] $relations
+ * @property Relation[] $relations0
  * @property Person[] $children
  * @property Person[] $parents
  * @property Person[] $wives
@@ -57,7 +57,7 @@ class Person extends \yii\db\ActiveRecord
             [['inaccurate_birth_date', 'gender', 'blood_type', 'alive'], 'integer'],
             [['family_name', 'given_name'], 'string', 'max' => 10],
             [['id_card'], 'string', 'max' => 18],
-            [['my_relationship'], 'string', 'max' => 255],
+            [['my_relation'], 'string', 'max' => 255],
             [['phone'], 'string', 'max' => 20],
             [['gender'], 'exist', 'skipOnError' => true, 'targetClass' => Gender::className(), 'targetAttribute' => ['gender' => 'id']],
         ];
@@ -78,7 +78,7 @@ class Person extends \yii\db\ActiveRecord
             'blood_type' => 'ABO血型',
             'id_card' => '身份证号码',
             'alive' => '是否健在',
-            'my_relationship' => '与我的关系',
+            'my_relation' => '与我的关系',
             'phone' => '电话号码',
 
             'full_name' => '姓名',
@@ -108,17 +108,17 @@ class Person extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getRelationships()
+    public function getRelations()
     {
-        return $this->hasMany(Relationship::className(), ['parent' => 'id']);
+        return $this->hasMany(Relation::className(), ['parent' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getRelationships0()
+    public function getRelations0()
     {
-        return $this->hasMany(Relationship::className(), ['child' => 'id']);
+        return $this->hasMany(Relation::className(), ['child' => 'id']);
     }
 
     /**
@@ -173,7 +173,7 @@ class Person extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Person::className(), ['id' => 'child'])
             ->viaTable(
-                'relationship', ['parent' => 'id'],
+                'relation', ['parent' => 'id'],
                 function ($query) {
                     $query->onCondition(['type' => RelationType::$QINZI]);
                 }
@@ -188,7 +188,7 @@ class Person extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Person::className(), ['id' => 'parent'])
             ->viaTable(
-                'relationship', ['child' => 'id'],
+                'relation', ['child' => 'id'],
                 function ($query) {
                     $query->onCondition(['type' => RelationType::$QINZI]);
                 }
@@ -203,7 +203,7 @@ class Person extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Person::className(), ['id' => 'child'])
             ->viaTable(
-                'relationship', ['parent' => 'id'],
+                'relation', ['parent' => 'id'],
                 function ($query) {
                     $query->onCondition(['type' => RelationType::$FUQI]);
                 }
@@ -218,7 +218,7 @@ class Person extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Person::className(), ['id' => 'parent'])
             ->viaTable(
-                'relationship', ['child' => 'id'],
+                'relation', ['child' => 'id'],
                 function ($query) {
                     $query->onCondition(['type' => RelationType::$FUQI]);
                 }

@@ -32,7 +32,7 @@ use \yii\grid\GridView;
             'format' => 'raw',
         ],
         'gender_name',
-        'my_relationship',
+        'my_relation',
         'alive:boolean',
     ],
 ]); ?>

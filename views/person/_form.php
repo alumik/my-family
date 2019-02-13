@@ -40,7 +40,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'alive')->dropDownList([1 => '是', 0 => '否'], ['prompt' => '请选择']) ?>
 
-    <?= $form->field($model, 'my_relationship')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'my_relation')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
 

@@ -33,7 +33,7 @@ $this->title = '我的家 ' . date('Y');
                 <p>通过管理基本的父母子女关系构建起家庭关系网。</p>
                 <p>共有 <strong><?= $total_relations ?></strong> 条关系</p>
 
-                <p><a class="btn btn-default" href="/relationship/index">家庭关系 &raquo;</a></p>
+                <p><a class="btn btn-default" href="/relation/index">家庭关系 &raquo;</a></p>
             </div>
             <div class="col-lg-4">
                 <h2>关系计算器</h2>

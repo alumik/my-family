@@ -54,7 +54,7 @@ class m190211_133057_create_basic_db extends Migration
             'blood_type' => $this->integer()->notNull(),
             'id_card' => $this->string(18)->null(),
             'alive' => $this->tinyInteger()->notNull(),
-            'my_relationship' => $this->string(255)->null(),
+            'my_relation' => $this->string(255)->null(),
             'phone' => $this->string(20)->null(),
         ]);
 
@@ -88,7 +88,7 @@ class m190211_133057_create_basic_db extends Migration
             ]
         );
 
-        $this->createTable('relationship', [
+        $this->createTable('relation', [
             'id' => $this->primaryKey(),
             'parent' => $this->integer()->notNull(),
             'child' => $this->integer()->notNull(),
@@ -96,32 +96,32 @@ class m190211_133057_create_basic_db extends Migration
         ]);
 
         $this->addForeignKey(
-            'relationship_person_id_fk',
-            'relationship',
+            'relation_person_id_fk',
+            'relation',
             'parent',
             'person',
             'id'
         );
 
         $this->addForeignKey(
-            'relationship_person_id_fk_2',
-            'relationship',
+            'relation_person_id_fk_2',
+            'relation',
             'child',
             'person',
             'id'
         );
 
         $this->addForeignKey(
-            'relationship_relation_type_id_fk',
-            'relationship',
+            'relation_relation_type_id_fk',
+            'relation',
             'type',
             'relation_type',
             'id'
         );
 
         $this->createIndex(
-            'relationship_uk',
-            'relationship',
+            'relation_uk',
+            'relation',
             ['parent', 'child'],
             true
         );

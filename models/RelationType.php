@@ -11,7 +11,7 @@ use yii\helpers\ArrayHelper;
  * @property int $id
  * @property string $name
  *
- * @property Relationship[] $relationships
+ * @property Relation[] $relations
  */
 class RelationType extends \yii\db\ActiveRecord
 {
@@ -51,9 +51,9 @@ class RelationType extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getRelationships()
+    public function getRelations()
     {
-        return $this->hasMany(Relationship::className(), ['type' => 'id']);
+        return $this->hasMany(Relation::className(), ['type' => 'id']);
     }
 
     /**

@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Relationship;
+use app\models\Relation;
 
 /**
- * RelationshipSearch represents the model behind the search form of `app\models\Relationship`.
+ * RelationSearch represents the model behind the search form of `app\models\Relation`.
  */
-class RelationshipSearch extends Relationship
+class RelationSearch extends Relation
 {
     public $parent_name;
     public $child_name;
@@ -43,7 +43,7 @@ class RelationshipSearch extends Relationship
      */
     public function search($params)
     {
-        $query = Relationship::find();
+        $query = Relation::find();
 
         // add conditions that should always apply here
 
@@ -87,8 +87,8 @@ class RelationshipSearch extends Relationship
             'type' => $this->type,
         ]);
 
-        $query->join('LEFT JOIN', 'person as a', 'relationship.parent = a.id');
-        $query->join('LEFT JOIN', 'person as b', 'relationship.child = b.id');
+        $query->join('LEFT JOIN', 'person as a', 'relation.parent = a.id');
+        $query->join('LEFT JOIN', 'person as b', 'relation.child = b.id');
         $query->andWhere('a.family_name LIKE "%' . $this->parent_name . '%" OR a.given_name LIKE "%' . $this->parent_name . '%"');
         $query->andWhere('b.family_name LIKE "%' . $this->child_name . '%" OR b.given_name LIKE "%' . $this->child_name . '%"');
 

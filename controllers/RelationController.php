@@ -6,8 +6,8 @@ use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\models\Relationship;
-use app\models\RelationshipSearch;
+use app\models\Relation;
+use app\models\RelationSearch;
 
 class RelationController extends Controller
 {
@@ -32,7 +32,7 @@ class RelationController extends Controller
      */
     public function actionIndex()
     {
-        $search_model = new RelationshipSearch();
+        $search_model = new RelationSearch();
         $data_provider = $search_model->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -61,7 +61,7 @@ class RelationController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Relationship();
+        $model = new Relation();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -112,12 +112,12 @@ class RelationController extends Controller
      * Finds the Relation model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Relationship the loaded model
+     * @return Relation the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Relationship::findOne($id)) !== null) {
+        if (($model = Relation::findOne($id)) !== null) {
             return $model;
         }
 
