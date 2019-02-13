@@ -1,11 +1,11 @@
 <?php
 
-use yii\helpers\Html;
-use yii\widgets\ActiveForm;
-
 /* @var $this yii\web\View */
 /* @var $relation_result string */
 /* @var $name_result array */
+
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 
 $this->title = '关系计算器';
 $this->params['breadcrumbs'][] = $this->title;

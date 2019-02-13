@@ -1,15 +1,14 @@
 <?php
 
-use yii\helpers\Html;
-use yii\widgets\ActiveForm;
-
 /* @var $this yii\web\View */
 /* @var $result array */
 /* @var $relation_types array */
 
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+
 $this->title = '称呼计算器';
 $this->params['breadcrumbs'][] = $this->title;
-
 ?>
 <div class="calc-relation">
 
