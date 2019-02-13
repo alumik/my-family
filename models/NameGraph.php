@@ -41,19 +41,6 @@ class NameGraph extends \yii\db\ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'node' => 'Node',
-            'related_node' => 'Related Node',
-            'type' => 'Type',
-        ];
-    }
-
-    /**
      * @return \yii\db\ActiveQuery
      */
     public function getNode0()
