@@ -4,7 +4,7 @@
 /* @var $total_people integer */
 /* @var $total_relations integer */
 
-$this->title = '我的家';
+$this->title = '我的家 ' . date('Y');
 ?>
 <div class="site-index">
 

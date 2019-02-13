@@ -2,5 +2,5 @@
 
 return [
     'adminEmail' => 'admin@example.com',
-    'version' => '2.2.1',
+    'version' => '2.2.2',
 ];
