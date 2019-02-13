@@ -76,6 +76,13 @@ class NameCalc extends Model
      */
     public function calculateName()
     {
+        if (!$this->query_code) {
+            return [
+                'error_level' => 2,
+                'data' => null,
+            ];
+        }
+
         $queries = [];
         $query_length = strlen($this->query_code);
         for ($i = 0; $i < $query_length; $i++) {

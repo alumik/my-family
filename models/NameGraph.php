@@ -11,10 +11,6 @@ use Yii;
  * @property int $node
  * @property int $related_node
  * @property int $type
- *
- * @property NameNode $node0
- * @property NameNode $relatedNode
- * @property NameType $type0
  */
 class NameGraph extends \yii\db\ActiveRecord
 {
@@ -38,29 +34,5 @@ class NameGraph extends \yii\db\ActiveRecord
             [['related_node'], 'exist', 'skipOnError' => true, 'targetClass' => NameNode::className(), 'targetAttribute' => ['related_node' => 'id']],
             [['type'], 'exist', 'skipOnError' => true, 'targetClass' => NameType::className(), 'targetAttribute' => ['type' => 'id']],
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getNode0()
-    {
-        return $this->hasOne(NameNode::className(), ['id' => 'node']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getRelatedNode()
-    {
-        return $this->hasOne(NameNode::className(), ['id' => 'related_node']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getType0()
-    {
-        return $this->hasOne(NameType::className(), ['id' => 'type']);
     }
 }

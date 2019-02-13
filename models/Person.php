@@ -83,7 +83,6 @@ class Person extends \yii\db\ActiveRecord
     }
 
     /**
-     * check
      * @return \yii\db\ActiveQuery
      */
     public function getBlood_type0()
@@ -92,7 +91,6 @@ class Person extends \yii\db\ActiveRecord
     }
 
     /**
-     * check
      * @return string
      */
     public function getFull_name()
@@ -101,7 +99,6 @@ class Person extends \yii\db\ActiveRecord
     }
 
     /**
-     * check
      * @return \yii\db\ActiveQuery
      */
     public function getGender0()
@@ -110,7 +107,6 @@ class Person extends \yii\db\ActiveRecord
     }
 
     /**
-     * check
      * @return string|integer
      */
     public function getAge()
