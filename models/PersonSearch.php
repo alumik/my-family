@@ -4,7 +4,6 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Person;
 
 /**
  * PersonSearch represents the model behind the search form of `app\models\Person`.
@@ -91,7 +90,7 @@ class PersonSearch extends Person
             ->andFilterWhere(['like', 'given_name', $this->given_name])
             ->andFilterWhere(['like', 'my_relation', $this->my_relation]);
 
-        $query->andWhere('family_name LIKE "%' . $this->full_name . '%" OR given_name LIKE "%' . $this->full_name . '%"');
+        $query->andWhere('family_name like "%' . $this->full_name . '%" or given_name like "%' . $this->full_name . '%"');
 
         return $dataProvider;
     }
