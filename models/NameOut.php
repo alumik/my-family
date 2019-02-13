@@ -11,8 +11,6 @@ use Yii;
  * @property int $generation
  * @property int $gender
  * @property string $name
- *
- * @property Gender $gender0
  */
 class NameOut extends \yii\db\ActiveRecord
 {
@@ -35,26 +33,5 @@ class NameOut extends \yii\db\ActiveRecord
             [['name'], 'string', 'max' => 255],
             [['gender'], 'exist', 'skipOnError' => true, 'targetClass' => Gender::className(), 'targetAttribute' => ['gender' => 'id']],
         ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'generation' => 'Generation',
-            'gender' => 'Gender',
-            'name' => 'Name',
-        ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getGender0()
-    {
-        return $this->hasOne(Gender::className(), ['id' => 'gender']);
     }
 }
