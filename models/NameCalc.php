@@ -28,9 +28,9 @@ class NameCalc extends Model
     /**
      * @return array
      */
-    public function calculateName()
+    public function getName()
     {
-        $name = $this->getName();
+        $name = $this->calculateName();
         if ($name['out'] == 0) {
             $name['name'] = str_replace('%number%', '大/.../幺', $name['name']);
             $name['name'] = str_replace('%order%', '', $name['name']);
@@ -43,15 +43,15 @@ class NameCalc extends Model
             $name_str = '抱歉，关系绕的路太遥远或有错误，无法计算称呼。';
         }
         return [
-            'name_str' => $name_str,
-            'out' => $name['out'],
+            'data' => $name_str,
+            'error_level' => $name['out'],
         ];
     }
 
     /**
      * @return array
      */
-    public function getName()
+    public function calculateName()
     {
         $queries = [];
         for ($i = 0, $l = strlen($this->query); $i < $l; $i++) {

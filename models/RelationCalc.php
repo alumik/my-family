@@ -37,14 +37,14 @@ class RelationCalc extends Model
         ];
     }
 
-    public function calculateName()
+    public function getName()
     {
         if (!$this->name_query) {
             return false;
         }
         $name_calc = new NameCalc();
         $name_calc->query = $this->name_query;
-        $name = $name_calc->getName();
+        $name = $name_calc->calculateName();
 
         if ($name['out'] == 0) {
             if ($this->order == -1) {
@@ -74,7 +74,7 @@ class RelationCalc extends Model
     /**
      * @return string
      */
-    public function calculateRelation()
+    public function getRelation()
     {
         $this->base_person = Person::findOne($this->base)->full_name;
         $this->target_person = Person::findOne($this->target)->full_name;

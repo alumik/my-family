@@ -20,8 +20,8 @@ class CalcController extends Controller
         ];
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $relation_result = $model->calculateRelation();
-            $name_result = $model->calculateName();
+            $relation_result = $model->getRelation();
+            $name_result = $model->getName();
         }
 
         return $this->render('relation', [
@@ -35,18 +35,18 @@ class CalcController extends Controller
     {
         $model = new NameCalc();
         $result = [
-            'out' => 0,
-            'name_str' => '计算结果将显示在此处。',
+            'error_level' => 0,
+            'data' => '计算结果将显示在此处。',
         ];
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $result = $model->calculateName();
+            $result = $model->getName();
         }
 
         return $this->render('name', [
             'model' => $model,
             'result' => $result,
-            'relations' => NameType::getNameTypeList(),
+            'relation_types' => NameType::getNameTypeList(),
         ]);
     }
 }

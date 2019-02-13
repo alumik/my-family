@@ -5,7 +5,7 @@ use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $result array */
-/* @var $relations array */
+/* @var $relation_types array */
 
 $this->title = '称呼计算器';
 $this->params['breadcrumbs'][] = $this->title;
@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= $form->field($model, 'query')->textInput(['id' => 'query', 'type' => 'hidden'])->label(false) ?>
 
         <div class="form-group">
-            <?php foreach ($relations as $k => $v): ?>
+            <?php foreach ($relation_types as $k => $v): ?>
                 <?= Html::button($v, ['class' => 'btn btn-default', 'onclick' => 'appendRelation(' . ($k + 1) . ')']); ?>
             <?php endforeach; ?>
             <?= Html::button('删除', ['class' => 'btn btn-danger', 'onclick' => 'deleteRelation()']) ?>
@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php ActiveForm::end(); ?>
 
         <script type="application/javascript">
-            let relations = <?= json_encode($relations) ?>;
+            let relation_types = <?= json_encode($relation_types) ?>;
 
             window.onload = () => {
                 refreshQueryStr();
@@ -54,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 let query_str = '我';
                 let query = $('#query').val().split('');
                 for (let relation of query) {
-                    query_str += '的' + relations[parseInt(relation) - 1];
+                    query_str += '的' + relation_types[parseInt(relation) - 1];
                 }
                 $('#query-str').val(query_str);
             }
@@ -85,9 +85,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="calc-result">
 
-        <?php if ($result['out'] == 0): ?>
+        <?php if ($result['error_level'] == 0): ?>
         <div class="panel panel-default">
-            <?php elseif ($result['out'] == 1): ?>
+            <?php elseif ($result['error_level'] == 1): ?>
             <div class="panel panel-warning">
                 <?php else: ?>
                 <div class="panel panel-danger">
@@ -98,7 +98,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         </h3>
                     </div>
                     <div class="panel-body">
-                        <p><?= $result['name_str'] ?></p>
+                        <p><?= $result['data'] ?></p>
                     </div>
                 </div>
             </div>
