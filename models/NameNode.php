@@ -103,4 +103,14 @@ class NameNode extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Gender::className(), ['id' => 'gender']);
     }
+
+    /**
+     * checked
+     * @param $type
+     * @return array|NameGraph|null
+     */
+    public function getNameGraph($type)
+    {
+        return $this->hasMany(NameGraph::className(), ['node' => 'id'])->where(['type' => $type])->one();
+    }
 }

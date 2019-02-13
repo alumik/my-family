@@ -6,45 +6,69 @@ use yii\base\Model;
 
 class NameCalc extends Model
 {
-    public $query_str;
     public $query;
+    public $query_code;
 
+    /**
+     * {@inheritdoc}
+     */
     public function rules()
     {
         return [
-            ['query_str', 'compare', 'compareValue' => '我', 'operator' => '!=', 'message' => '查询条件不能为空。'],
-            [['query_str', 'query'], 'safe'],
-        ];
-    }
-
-    public function attributeLabels()
-    {
-        return [
-            'query_str' => '查询条件',
-            'query' => '查询数据',
+            ['query', 'compare', 'compareValue' => '我', 'operator' => '!=', 'message' => '查询条件不能为空。'],
+            [['query', 'query_code'], 'safe'],
         ];
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'query' => '查询条件',
+            'query_code' => '查询代码',
+        ];
+    }
+
+    /**
+     * @param $order
+     * @param $empty
+     * @param $name
+     * @return mixed
+     */
+    public static function replaceOrder($order, $empty, $name)
+    {
+        $name = str_replace('%number%', $order, $name);
+        $name = str_replace('%order%', $empty, $name);
+        $name = str_replace('%second_number%', $order, $name);
+        $name = str_replace('%second_order%', $empty, $name);
+        return $name;
+    }
+
+    /**
+     * checked
      * @return array
      */
     public function getName()
     {
         $name = $this->calculateName();
-        if ($name['out'] == 0) {
-            $name['name'] = str_replace('%number%', '大/.../幺', $name['name']);
-            $name['name'] = str_replace('%order%', '', $name['name']);
-            $name['name'] = str_replace('%second_number%', '大/.../幺', $name['name']);
-            $name['name'] = str_replace('%second_order%', '', $name['name']);
-            $name_str = $this->query_str . '是我的<strong>' . $name['name'] . '</strong>。';
-        } else if ($name['out'] == 1) {
-            $name_str = '抱歉，关系绕的路太遥远或有错误，无法计算称呼。但是根据辈分可以叫做<strong>' . $name['name'] . '</strong>。';
-        } else {
-            $name_str = '抱歉，关系绕的路太遥远或有错误，无法计算称呼。';
+
+        switch ($name['error_level']) {
+            case 0:
+                $data = self::replaceOrder('大/.../幺', '', $name['data']);
+                $data = $this->query . '是我的<strong>' . $data . '</strong>。';
+                break;
+            case 1:
+                $data = '抱歉，关系绕的路太遥远或有错误，无法计算称呼。但是根据辈分可以叫做<strong>' . $name['data'] . '</strong>。';
+                break;
+            default:
+                $data = '抱歉，关系绕的路太遥远或有错误，无法计算称呼。';
         }
+
         return [
-            'data' => $name_str,
-            'error_level' => $name['out'],
+            'error_level' => $name['error_level'],
+            'data' => $data,
         ];
     }
 
@@ -54,47 +78,45 @@ class NameCalc extends Model
     public function calculateName()
     {
         $queries = [];
-        for ($i = 0, $l = strlen($this->query); $i < $l; $i++) {
-            $queries[] = intval($this->query[$i]);
+        $query_length = strlen($this->query_code);
+        for ($i = 0; $i < $query_length; $i++) {
+            $queries[] = intval($this->query_code[$i]);
         }
         $current_node = 1;
         $generation = 0;
         $gender = 1;
-        $out = 0;
+        $error_level = 0;
+
         foreach ($queries as $query) {
-            if (!$out) {
-                $related_node = NameGraph::find()
-                    ->select('related_node')
-                    ->where(['node' => $current_node, 'type' => $query])
-                    ->asArray()
-                    ->one();
-                if ($related_node) {
-                    $current_node = $related_node['related_node'];
+            if ($error_level == 0) {
+                $node = NameNode::findOne($current_node);
+                $name_graph = $node->getNameGraph($query);
+                if ($name_graph) {
+                    $current_node = $name_graph->related_node;
                 } else {
-                    $out = 1;
+                    $error_level = 1;
                 }
             }
-            $type = NameType::findOne($query);
-            $generation += $type->generation;
-            $gender = $type->gender;
+            $name_type = NameType::findOne($query);
+            $generation += $name_type->generation;
+            $gender = $name_type->gender;
         }
 
-        if ($out) {
-            $name = NameOut::find()
-                ->where(['generation' => $generation, 'gender' => $gender])
-                ->asArray()
-                ->one();
-            if (!$name) {
-                $out = 2;
+        $data = '';
+        if ($error_level) {
+            $name_out = NameOut::findOne(['generation' => $generation, 'gender' => $gender]);
+            if (!$name_out) {
+                $error_level = 2;
             } else {
-                $name = $name['name'];
+                $data = $name_out->name;
             }
         } else {
-            $name = NameNode::findOne($current_node)->name;
+            $data = NameNode::findOne($current_node)->name;
         }
+
         return [
-            'out' => $out,
-            'name' => $name,
+            'error_level' => $error_level,
+            'data' => $data,
         ];
     }
 }

@@ -37,16 +37,20 @@ class RelationCalc extends Model
         ];
     }
 
+    /**
+     * checked
+     * @return array|bool
+     */
     public function getName()
     {
         if (!$this->name_query) {
             return false;
         }
         $name_calc = new NameCalc();
-        $name_calc->query = $this->name_query;
+        $name_calc->query_code = $this->name_query;
         $name = $name_calc->calculateName();
 
-        if ($name['out'] == 0) {
+        if ($name['error_level'] == 0) {
             if ($this->order == -1) {
                 $order_str = '';
             } else {
@@ -55,23 +59,24 @@ class RelationCalc extends Model
             if ($this->second_order != -1) {
                 $order_str = RelationCalc::$ORDER[$this->second_order];
             }
-            $name['name'] = str_replace('%number%', $order_str, $name['name']);
-            $name['name'] = str_replace('%order%', $order_str, $name['name']);
-            $name['name'] = str_replace('%second_number%', $order_str, $name['name']);
-            $name['name'] = str_replace('%second_order%', $order_str, $name['name']);
-            $name_str = '<strong>' . $this->base_person . '</strong>是<strong>' . $this->target_person . '</strong>的<strong>' . $name['name'] . '</strong>。';
-        } else if ($name['out'] == 1) {
-            $name_str = '无法计算称呼。但是根据辈分可以叫做<strong>' . $name['name'] . '</strong>。';
+            $name['data'] = str_replace('%number%', $order_str, $name['data']);
+            $name['data'] = str_replace('%order%', $order_str, $name['data']);
+            $name['data'] = str_replace('%second_number%', $order_str, $name['data']);
+            $name['data'] = str_replace('%second_order%', $order_str, $name['data']);
+            $name_str = '<strong>' . $this->base_person . '</strong>是<strong>' . $this->target_person . '</strong>的<strong>' . $name['data'] . '</strong>。';
+        } else if ($name['error_level'] == 1) {
+            $name_str = '无法计算称呼。但是根据辈分可以叫做<strong>' . $name['data'] . '</strong>。';
         } else {
             $name_str = '无法计算称呼。';
         }
         return [
             'data' => $name_str,
-            'error_level' => $name['out'],
+            'error_level' => $name['error_level'],
         ];
     }
 
     /**
+     * checked
      * @return string
      */
     public function getRelation()

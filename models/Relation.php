@@ -123,6 +123,7 @@ class Relation extends \yii\db\ActiveRecord
     }
 
     /**
+     * checked
      * @return integer
      */
     public static function getRelationsCount()

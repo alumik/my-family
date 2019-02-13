@@ -37,7 +37,7 @@ class BloodType extends \yii\db\ActiveRecord
      */
     public static function getBloodTypeList()
     {
-        $result = BloodType::find()->all();
+        $result = self::find()->all();
         return ArrayHelper::map($result, 'id', 'name');
     }
 }

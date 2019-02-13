@@ -166,6 +166,7 @@ class Person extends \yii\db\ActiveRecord
     }
 
     /**
+     * checked
      * @return \yii\db\ActiveQuery
      * @throws \yii\base\InvalidConfigException
      */
@@ -181,6 +182,7 @@ class Person extends \yii\db\ActiveRecord
     }
 
     /**
+     * checked
      * @return \yii\db\ActiveQuery
      * @throws \yii\base\InvalidConfigException
      */
@@ -196,6 +198,7 @@ class Person extends \yii\db\ActiveRecord
     }
 
     /**
+     * checked
      * @return \yii\db\ActiveQuery
      * @throws \yii\base\InvalidConfigException
      */
@@ -211,6 +214,7 @@ class Person extends \yii\db\ActiveRecord
     }
 
     /**
+     * checked
      * @return \yii\db\ActiveQuery
      * @throws \yii\base\InvalidConfigException
      */
@@ -263,6 +267,7 @@ class Person extends \yii\db\ActiveRecord
     }
 
     /**
+     * checked
      * @return integer
      */
     public static function getPeopleCount()

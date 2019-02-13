@@ -19,9 +19,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?php $form = ActiveForm::begin(); ?>
 
-        <?= $form->field($model, 'query_str')->textInput(['id' => 'query-str', 'readonly' => 'true', 'value' => '我']) ?>
+        <?= $form->field($model, 'query')->textInput(['id' => 'query', 'readonly' => 'true', 'value' => '我']) ?>
 
-        <?= $form->field($model, 'query')->textInput(['id' => 'query', 'type' => 'hidden'])->label(false) ?>
+        <?= $form->field($model, 'query_code')->textInput(['id' => 'query-code', 'type' => 'hidden'])->label(false) ?>
 
         <div class="form-group">
             <?php foreach ($relation_types as $k => $v): ?>
@@ -41,35 +41,35 @@ $this->params['breadcrumbs'][] = $this->title;
             let relation_types = <?= json_encode($relation_types) ?>;
 
             window.onload = () => {
-                refreshQueryStr();
+                refreshQuery();
             };
 
             function appendRelation(relation) {
-                let query = $('#query');
-                query.val(query.val() + relation);
-                refreshQueryStr();
+                let query_code = $('#query-code');
+                query_code.val(query_code.val() + relation);
+                refreshQuery();
             }
 
-            function refreshQueryStr() {
-                let query_str = '我';
-                let query = $('#query').val().split('');
-                for (let relation of query) {
-                    query_str += '的' + relation_types[parseInt(relation) - 1];
+            function refreshQuery() {
+                let query = '我';
+                let query_code = $('#query-code').val().split('');
+                for (let relation of query_code) {
+                    query += '的' + relation_types[parseInt(relation) - 1];
                 }
-                $('#query-str').val(query_str);
+                $('#query').val(query);
             }
 
             function deleteRelation() {
-                let query = $('#query');
-                if (query.val()) {
-                    query.val(query.val().substring(0, query.val().length - 1));
+                let query_code = $('#query-code');
+                if (query_code.val()) {
+                    query_code.val(query_code.val().substring(0, query_code.val().length - 1));
                 }
                 refreshQueryStr();
             }
 
             function clearRelation() {
-                $('#query').val('');
-                refreshQueryStr();
+                $('#query-code').val('');
+                refreshQuery();
             }
         </script>
 

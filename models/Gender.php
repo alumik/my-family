@@ -41,7 +41,7 @@ class Gender extends \yii\db\ActiveRecord
      */
     public static function getGenderList()
     {
-        $result = Gender::find()->all();
+        $result = self::find()->all();
         return ArrayHelper::map($result, 'id', 'name');
     }
 }

@@ -60,6 +60,10 @@ class NameType extends \yii\db\ActiveRecord
         return $this->hasMany(NameGraph::className(), ['type' => 'id']);
     }
 
+    /**
+     * checked
+     * @return array
+     */
     public static function getNameTypeList()
     {
         $result = NameType::find()
