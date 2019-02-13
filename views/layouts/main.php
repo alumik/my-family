@@ -1,14 +1,13 @@
 <?php
 
 /* @var $this \yii\web\View */
-
 /* @var $content string */
 
-use app\widgets\Alert;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
+use app\widgets\Alert;
 use app\assets\AppAsset;
 
 AppAsset::register($this);
@@ -45,7 +44,6 @@ AppAsset::register($this);
             ['label' => '称呼计算器', 'url' => ['/calc/name']],
             ['label' => '关于', 'url' => ['/site/about']],
 
-//            登录用代码
 //            Yii::$app->user->isGuest ? (
 //                ['label' => 'Login', 'url' => ['/site/login']]
 //            ) : (
@@ -74,9 +72,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; 我的家 <?= date('Y') ?></p>
-
-        <p class="pull-right"><?= Yii::powered() ?></p>
+        <p class="text-center">&copy; 我的家 <?= date('Y') ?></p>
     </div>
 </footer>
 
