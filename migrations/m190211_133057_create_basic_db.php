@@ -2,9 +2,6 @@
 
 use yii\db\Migration;
 
-/**
- * Class m190211_133057_create_basic_db
- */
 class m190211_133057_create_basic_db extends Migration
 {
     /**
@@ -136,19 +133,4 @@ class m190211_133057_create_basic_db extends Migration
 
         return false;
     }
-
-    /*
-    // Use up()/down() to run migration code without a transaction.
-    public function up()
-    {
-
-    }
-
-    public function down()
-    {
-        echo "m190211_133057_create_basic_db cannot be reverted.\n";
-
-        return false;
-    }
-    */
 }

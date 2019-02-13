@@ -2,9 +2,6 @@
 
 use yii\db\Migration;
 
-/**
- * Class m190211_171945_create_name_node_db_part_1
- */
 class m190211_171945_create_other_name_db extends Migration
 {
     /**
@@ -149,19 +146,4 @@ class m190211_171945_create_other_name_db extends Migration
 
         $this->dropTable('name_out');
     }
-
-    /*
-    // Use up()/down() to run migration code without a transaction.
-    public function up()
-    {
-
-    }
-
-    public function down()
-    {
-        echo "m190211_171945_create_name_node_db_part_1 cannot be reverted.\n";
-
-        return false;
-    }
-    */
 }
