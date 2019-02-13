@@ -1,8 +1,8 @@
 <?php
 
 /* @var $this yii\web\View */
-/* @var $total_people integer */
-/* @var $total_relations integer */
+/* @var $people_count integer */
+/* @var $relations_count integer */
 
 $this->title = '我的家 ' . date('Y');
 ?>
@@ -23,7 +23,7 @@ $this->title = '我的家 ' . date('Y');
                 <h2>家庭成员</h2>
 
                 <p>管理所有家庭成员的详细信息。</p>
-                <p>共有 <strong><?= $total_people ?></strong> 个家庭成员</p>
+                <p>共有 <strong><?= $people_count ?></strong> 个家庭成员</p>
 
                 <p><a class="btn btn-default" href="/person/index">家庭成员 &raquo;</a></p>
             </div>
@@ -31,7 +31,7 @@ $this->title = '我的家 ' . date('Y');
                 <h2>家庭关系</h2>
 
                 <p>通过管理基本的父母子女关系构建起家庭关系网。</p>
-                <p>共有 <strong><?= $total_relations ?></strong> 条关系</p>
+                <p>共有 <strong><?= $relations_count ?></strong> 条关系</p>
 
                 <p><a class="btn btn-default" href="/relation/index">家庭关系 &raquo;</a></p>
             </div>
