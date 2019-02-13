@@ -10,8 +10,6 @@ use yii\helpers\ArrayHelper;
  *
  * @property int $id
  * @property string $name
- *
- * @property Person[] $people
  */
 class BloodType extends \yii\db\ActiveRecord
 {
@@ -35,31 +33,11 @@ class BloodType extends \yii\db\ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
+     * @return array
      */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'name' => 'Name',
-        ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getPeople()
-    {
-        return $this->hasMany(Person::className(), ['blood_type' => 'id']);
-    }
-
     public static function getBloodTypeList()
     {
-        $result = [];
-        $list = BloodType::find()->all();
-        if (!empty($list)) {
-            $result = ArrayHelper::map($list, 'id', 'name');
-        }
-        return $result;
+        $result = BloodType::find()->all();
+        return ArrayHelper::map($result, 'id', 'name');
     }
 }
