@@ -4,7 +4,6 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Relation;
 
 /**
  * RelationSearch represents the model behind the search form of `app\models\Relation`.
@@ -87,10 +86,10 @@ class RelationSearch extends Relation
             'type' => $this->type,
         ]);
 
-        $query->join('LEFT JOIN', 'person as a', 'relation.parent = a.id');
-        $query->join('LEFT JOIN', 'person as b', 'relation.child = b.id');
-        $query->andWhere('a.family_name LIKE "%' . $this->parent_name . '%" OR a.given_name LIKE "%' . $this->parent_name . '%"');
-        $query->andWhere('b.family_name LIKE "%' . $this->child_name . '%" OR b.given_name LIKE "%' . $this->child_name . '%"');
+        $query->join('left join', 'person as a', 'relation.parent = a.id');
+        $query->join('left join', 'person as b', 'relation.child = b.id');
+        $query->andWhere('a.family_name like "%' . $this->parent_name . '%" or a.given_name like "%' . $this->parent_name . '%"');
+        $query->andWhere('b.family_name like "%' . $this->child_name . '%" or b.given_name like "%' . $this->child_name . '%"');
 
         return $dataProvider;
     }
