@@ -2,11 +2,11 @@
 
 namespace app\controllers;
 
-use app\models\NameType;
 use Yii;
 use yii\web\Controller;
 use app\models\RelationCalc;
 use app\models\NameCalc;
+use app\models\NameType;
 
 class CalcController extends Controller
 {
@@ -15,12 +15,12 @@ class CalcController extends Controller
         $model = new RelationCalc();
         $relation_result = '关系计算结果将显示在此处。';
         $name_result = [
-            'out' => 0,
-            'name_str' => '称呼计算结果将显示在此处。',
+            'error_level' => 0,
+            'data' => '称呼计算结果将显示在此处。',
         ];
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $relation_result = $model->calculateRelationship();
+            $relation_result = $model->calculateRelation();
             $name_result = $model->calculateName();
         }
 

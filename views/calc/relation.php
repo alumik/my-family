@@ -44,9 +44,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 <p><?= $relation_result ?></p>
             </div>
         </div>
-        <?php if ($name_result['out'] == 0): ?>
+        <?php if ($name_result['error_level'] == 0): ?>
         <div class="panel panel-default">
-            <?php elseif ($name_result['out'] == 1): ?>
+            <?php elseif ($name_result['error_level'] == 1): ?>
             <div class="panel panel-warning">
                 <?php else: ?>
                 <div class="panel panel-danger">
@@ -57,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         </h3>
                     </div>
                     <div class="panel-body">
-                        <p><?= $name_result['name_str'] ?></p>
+                        <p><?= $name_result['data'] ?></p>
                     </div>
                 </div>
             </div>

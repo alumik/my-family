@@ -66,15 +66,15 @@ class RelationCalc extends Model
             $name_str = '无法计算称呼。';
         }
         return [
-            'name_str' => $name_str,
-            'out' => $name['out'],
+            'data' => $name_str,
+            'error_level' => $name['out'],
         ];
     }
 
     /**
      * @return string
      */
-    public function calculateRelationship()
+    public function calculateRelation()
     {
         $this->base_person = Person::findOne($this->base)->full_name;
         $this->target_person = Person::findOne($this->target)->full_name;
