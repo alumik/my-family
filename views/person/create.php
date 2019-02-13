@@ -1,9 +1,9 @@
 <?php
 
-use yii\helpers\Html;
-
 /* @var $this yii\web\View */
 /* @var $model app\models\Person */
+
+use yii\helpers\Html;
 
 $this->title = '添加新成员';
 $this->params['breadcrumbs'][] = ['label' => '家庭成员', 'url' => ['index']];

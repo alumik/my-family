@@ -1,9 +1,9 @@
 <?php
 
-use yii\helpers\Html;
-
 /* @var $this yii\web\View */
 /* @var $model app\models\Person */
+
+use yii\helpers\Html;
 
 $this->title = '修改成员: ' . $model->full_name;
 $this->params['breadcrumbs'][] = ['label' => '家庭成员', 'url' => ['index']];

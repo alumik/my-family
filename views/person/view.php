@@ -1,14 +1,11 @@
 <?php
 
-use yii\helpers\Html;
-use yii\widgets\DetailView;
-
 /* @var $this yii\web\View */
 /* @var $model app\models\Person */
-/* @var $parents \yii\data\ActiveDataProvider */
-/* @var $children \yii\data\ActiveDataProvider */
-/* @var $wives \yii\data\ActiveDataProvider */
-/* @var $husbands \yii\data\ActiveDataProvider */
+/* @var $related_people array */
+
+use yii\helpers\Html;
+use yii\widgets\DetailView;
 
 $this->title = $model->full_name;
 $this->params['breadcrumbs'][] = ['label' => '家庭成员', 'url' => ['index']];
@@ -38,7 +35,7 @@ $this->params['breadcrumbs'][] = $model->id;
             'given_name',
             [
                 'attribute' => 'birth_date',
-                'value' => function($model) {
+                'value' => function ($model) {
                     if ($model->inaccurate_birth_date) {
                         return $model->birth_date . ' <span class="not-set">(不准确)</span>';
                     }
@@ -69,28 +66,12 @@ $this->params['breadcrumbs'][] = $model->id;
         ],
     ]) ?>
 
-    <?php if ($parents): ?>
-        <p><strong>父母</strong></p>
-        <?= $this->render('_related_people', ['data_provider' => $parents]) ?>
-        <br/>
-    <?php endif; ?>
-
-    <?php if ($children): ?>
-        <p><strong>子女</strong></p>
-        <?= $this->render('_related_people', ['data_provider' => $children]) ?>
-        <br/>
-    <?php endif; ?>
-
-    <?php if ($husbands): ?>
-        <p><strong>丈夫</strong></p>
-        <?= $this->render('_related_people', ['data_provider' => $husbands]) ?>
-        <br/>
-    <?php endif; ?>
-
-    <?php if ($wives): ?>
-        <p><strong>妻子</strong></p>
-        <?= $this->render('_related_people', ['data_provider' => $wives]) ?>
-        <br/>
-    <?php endif; ?>
+    <?php foreach ($related_people as $type => $data_provider): ?>
+        <?php if ($data_provider): ?>
+            <p><strong><?= $type ?></strong></p>
+            <?= $this->render('_related_people', ['data_provider' => $data_provider]) ?>
+            <br/>
+        <?php endif; ?>
+    <?php endforeach; ?>
 
 </div>

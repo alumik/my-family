@@ -52,41 +52,39 @@ class PersonController extends Controller
     public function actionView($id)
     {
         $model = $this->findModel($id);
+        $related_people = [];
 
         $parents = $model->getParents();
         if ($parents->exists()) {
-            $parents = new ActiveDataProvider(['query' => $parents, 'sort' => false]);
+            $related_people['父母'] = new ActiveDataProvider(['query' => $parents, 'sort' => false]);
         } else {
-            $parents = null;
+            $related_people['父母'] = null;
         }
 
         $children = $model->getChildren();
         if ($children->exists()) {
-            $children = new ActiveDataProvider(['query' => $children, 'sort' => false]);
+            $related_people['子女'] = new ActiveDataProvider(['query' => $children, 'sort' => false]);
         } else {
-            $children = null;
+            $related_people['子女'] = null;
         }
 
         $husbands = $model->getHusbands();
         if ($husbands->exists()) {
-            $husbands = new ActiveDataProvider(['query' => $husbands, 'sort' => false]);
+            $related_people['丈夫'] = new ActiveDataProvider(['query' => $husbands, 'sort' => false]);
         } else {
-            $husbands = null;
+            $related_people['丈夫'] = null;
         }
 
         $wives = $model->getWives();
         if ($wives->exists()) {
-            $wives = new ActiveDataProvider(['query' => $wives, 'sort' => false]);
+            $related_people['妻子'] = new ActiveDataProvider(['query' => $wives, 'sort' => false]);
         } else {
-            $wives = null;
+            $related_people['妻子'] = null;
         }
 
         return $this->render('view', [
             'model' => $model,
-            'parents' => $parents,
-            'children' => $children,
-            'wives' => $wives,
-            'husbands' => $husbands,
+            'related_people' => $related_people,
         ]);
     }
 

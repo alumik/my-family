@@ -1,11 +1,11 @@
 <?php
 
-use yii\helpers\Html;
-use yii\grid\GridView;
-
 /* @var $this yii\web\View */
 /* @var $search_model app\models\PersonSearch */
 /* @var $data_provider yii\data\ActiveDataProvider */
+
+use yii\helpers\Html;
+use yii\grid\GridView;
 
 $this->title = '家庭成员';
 $this->params['breadcrumbs'][] = $this->title;

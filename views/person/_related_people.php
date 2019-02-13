@@ -1,10 +1,10 @@
 <?php
 
-use \yii\helpers\Html;
-use \yii\grid\GridView;
-
 /* @var $this yii\web\View */
 /* @var $data_provider \yii\data\ActiveDataProvider */
+
+use \yii\helpers\Html;
+use \yii\grid\GridView;
 ?>
 
 <?= GridView::widget([
