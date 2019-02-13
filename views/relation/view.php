@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $model->id;
             ],
             [
                 'attribute' => 'type',
-                'value' => $model->type_name,
+                'value' => $model->type0->name,
             ],
         ],
     ]) ?>
