@@ -3,16 +3,13 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Relationship;
-use app\models\RelationshipSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\Relationship;
+use app\models\RelationshipSearch;
 
-/**
- * RelationshipController implements the CRUD actions for Relationship model.
- */
-class RelationshipController extends Controller
+class RelationController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,22 +27,22 @@ class RelationshipController extends Controller
     }
 
     /**
-     * Lists all Relationship models.
+     * Lists all Relation models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new RelationshipSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $search_model = new RelationshipSearch();
+        $data_provider = $search_model->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'search_model' => $search_model,
+            'data_provider' => $data_provider,
         ]);
     }
 
     /**
-     * Displays a single Relationship model.
+     * Displays a single Relation model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,7 +55,7 @@ class RelationshipController extends Controller
     }
 
     /**
-     * Creates a new Relationship model.
+     * Creates a new Relation model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
@@ -76,7 +73,7 @@ class RelationshipController extends Controller
     }
 
     /**
-     * Updates an existing Relationship model.
+     * Updates an existing Relation model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -96,7 +93,7 @@ class RelationshipController extends Controller
     }
 
     /**
-     * Deletes an existing Relationship model.
+     * Deletes an existing Relation model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param $id
      * @return \yii\web\Response
@@ -112,7 +109,7 @@ class RelationshipController extends Controller
     }
 
     /**
-     * Finds the Relationship model based on its primary key value.
+     * Finds the Relation model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
      * @return Relationship the loaded model
@@ -124,6 +121,6 @@ class RelationshipController extends Controller
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException('找不到相关关系。');
     }
 }

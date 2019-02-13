@@ -40,7 +40,7 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => '家庭成员', 'url' => ['/person/index']],
-            ['label' => '家庭关系', 'url' => ['/relationship/index']],
+            ['label' => '家庭关系', 'url' => ['/relation/index']],
             ['label' => '关系计算器', 'url' => ['/calc/relation']],
             ['label' => '称呼计算器', 'url' => ['/calc/name']],
             ['label' => '关于', 'url' => ['/site/about']],
