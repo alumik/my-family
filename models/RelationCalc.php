@@ -117,7 +117,7 @@ class RelationCalc extends Model
         };
 
         $current = $this->target;
-        $second_last_node = null;
+        $second_last_node = $current;
         $relation = '';
 
         while ($path[$current]['from']) {
