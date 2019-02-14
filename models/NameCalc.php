@@ -39,10 +39,10 @@ class NameCalc extends Model
      */
     public static function replaceOrder($order, $empty, $name)
     {
-        $name = str_replace('%number%', $order, $name);
-        $name = str_replace('%order%', $empty, $name);
-        $name = str_replace('%second_number%', $order, $name);
-        $name = str_replace('%second_order%', $empty, $name);
+        $name = str_replace('%mandatory%', $order, $name);
+        $name = str_replace('%optional%', $empty, $name);
+        $name = str_replace('%conjugal_mandatory%', $order, $name);
+        $name = str_replace('%conjugal_optional%', $empty, $name);
         return $name;
     }
 
