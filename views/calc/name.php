@@ -63,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 if (query_code.val()) {
                     query_code.val(query_code.val().substring(0, query_code.val().length - 1));
                 }
-                refreshQueryStr();
+                refreshQuery();
             }
 
             function clearRelation() {
