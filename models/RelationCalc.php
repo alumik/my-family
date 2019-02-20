@@ -14,7 +14,7 @@ class RelationCalc extends Model
     private $target_name;
     private $relation;
 
-    public static $order = ['幺', '大', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
+//    public static $order = ['幺', '大', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
 
     /**
      * {@inheritdoc}
@@ -58,22 +58,22 @@ class RelationCalc extends Model
         }
         $query = substr($this->relation['result'], 3);
         $names = NameCalc::calculateName(['text' => $query, 'sex' => $gender]);
-        $order = $this->relation['order'];
+//        $order = $this->relation['order'];
 
         if ($names) {
             $error_level = 0;
-            if ($order != -1) {
-                if ($order >= count(self::$order)) {
-                    $order_prefix = $order;
-                } else {
-                    $order_prefix = self::$order[$order];
-                }
-            } else {
-                $order_prefix = '';
-            }
-            foreach ($names as &$name) {
-                $name = $order_prefix . $name;
-            }
+//            if ($order != -1) {
+//                if ($order >= count(self::$order)) {
+//                    $order_prefix = $order;
+//                } else {
+//                    $order_prefix = self::$order[$order];
+//                }
+//            } else {
+//                $order_prefix = '';
+//            }
+//            foreach ($names as &$name) {
+//                $name = $order_prefix . $name;
+//            }
             $data = implode('</strong>或<strong>', $names);
             $data = '<strong>' . $this->base_name . '</strong>是<strong>' . $this->target_name . '</strong>的<strong>' . $data . '</strong>。';
         } else {
@@ -105,7 +105,6 @@ class RelationCalc extends Model
 
     /**
      * @return bool|string
-     * @throws \yii\base\InvalidConfigException
      */
     private function calculateRelation()
     {
@@ -118,28 +117,28 @@ class RelationCalc extends Model
         };
 
         $current = $this->target;
-        $second_last_node = $current;
+//        $second_last_node = $current;
         $relation = '';
 
         while ($path[$current]['from']) {
             $relation .= '的' . $path[$current]['type'];
             $current = $path[$current]['from'];
 
-            if ($path[$current]['from']) {
-                $second_last_node = $current;
-            }
+//            if ($path[$current]['from']) {
+//                $second_last_node = $current;
+//            }
         }
 
-        if ($path[$second_last_node]['type'] == '丈夫' || $path[$second_last_node]['type'] == '妻子') {
-            $order = RelationCalc::getOrder($second_last_node);
-        } else {
-            $order = RelationCalc::getOrder($this->base);
-        }
+//        if ($path[$second_last_node]['type'] == '丈夫' || $path[$second_last_node]['type'] == '妻子') {
+//            $order = RelationCalc::getOrder($second_last_node);
+//        } else {
+//            $order = RelationCalc::getOrder($this->base);
+//        }
 
         $this->relation = [
             'result' => $relation,
             'gender' => Person::findOne($this->target)->gender,
-            'order' => $order,
+//            'order' => $order,
         ];
 
         return $relation;
