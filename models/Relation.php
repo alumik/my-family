@@ -65,6 +65,24 @@ class Relation extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+    public function fields()
+    {
+        return [
+            'parent' => function ($model) {
+                return $model->parent_name;
+            },
+            'child' => function ($model) {
+                return $model->child_name;
+            },
+            'type' => function ($model) {
+                return $model->type0->name;
+            },
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function attributeLabels()
     {
         return [

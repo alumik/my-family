@@ -56,7 +56,10 @@ $config = [
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>' => '<controller>/index',
                 '<controller:\w+>/<id:\d+>/<action:\w+>' => '<controller>/<action>',
-                ['class' => 'yii\rest\UrlRule', 'controller' => ['api/person']],
+                ['class' => 'yii\rest\UrlRule', 'controller' => [
+                    'api/person',
+                    'api/relation'
+                ]],
             ],
         ],
     ],
