@@ -12,7 +12,10 @@ class CalcController extends Controller
     public function actionRelation()
     {
         $model = new RelationCalc();
-        $relation_result = '关系计算结果将显示在此处。';
+        $relation_result = [
+            'error_level' => 0,
+            'data' => '关系计算结果将显示在此处。',
+        ];
         $name_result = [
             'error_level' => 0,
             'data' => '称呼计算结果将显示在此处。',
