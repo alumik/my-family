@@ -309,6 +309,9 @@ class RelationCalc extends Model
                     $min_node = $k;
                 }
             }
+            if ($min_node == -1) {
+                break;
+            }
             $current = $min_node;
             $marked[$min_node] = true;
             if ($marked[$this->target]) {
