@@ -168,20 +168,44 @@ class RelationCalc extends Model
                     if ($child_1 != $child_2) {
                         switch ($child_1->gender) {
                             case Gender::$MALE:
-                                $type_1_to_2 = '兄弟';
+                                if ($child_1->birth_date > $child_2->birth_date) {
+                                    $type_1_to_2 = '弟弟';
+                                } else if ($child_1->birth_date < $child_2->birth_date) {
+                                    $type_1_to_2 = '哥哥';
+                                } else {
+                                    $type_1_to_2 = '兄弟';
+                                }
                                 break;
                             case Gender::$FEMALE:
-                                $type_1_to_2 = '姐妹';
+                                if ($child_1->birth_date > $child_2->birth_date) {
+                                    $type_1_to_2 = '妹妹';
+                                } else if ($child_1->birth_date < $child_2->birth_date) {
+                                    $type_1_to_2 = '姐姐';
+                                } else {
+                                    $type_1_to_2 = '姐妹';
+                                }
                                 break;
                             default:
                                 $type_1_to_2 = null;
                         }
                         switch ($child_2->gender) {
                             case Gender::$MALE:
-                                $type_2_to_1 = '兄弟';
+                                if ($child_1->birth_date < $child_2->birth_date) {
+                                    $type_2_to_1 = '弟弟';
+                                } else if ($child_1->birth_date > $child_2->birth_date) {
+                                    $type_2_to_1 = '哥哥';
+                                } else {
+                                    $type_2_to_1 = '兄弟';
+                                }
                                 break;
                             case Gender::$FEMALE:
-                                $type_2_to_1 = '姐妹';
+                                if ($child_1->birth_date < $child_2->birth_date) {
+                                    $type_2_to_1 = '妹妹';
+                                } else if ($child_1->birth_date > $child_2->birth_date) {
+                                    $type_2_to_1 = '姐姐';
+                                } else {
+                                    $type_2_to_1 = '姐妹';
+                                }
                                 break;
                             default:
                                 $type_2_to_1 = null;
