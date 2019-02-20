@@ -9,6 +9,9 @@ use app\models\NameCalc;
 
 class CalcController extends Controller
 {
+    /**
+     * @return array
+     */
     public function actionRelation()
     {
         $model = new RelationCalc();
@@ -33,6 +36,9 @@ class CalcController extends Controller
         ];
     }
 
+    /**
+     * @return array
+     */
     public function actionName()
     {
         $model = new NameCalc();
