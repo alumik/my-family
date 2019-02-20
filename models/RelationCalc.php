@@ -12,7 +12,7 @@ class RelationCalc extends Model
 
     private $base_name;
     private $target_name;
-    private $relation;
+    private $relation = null;
 
 //    public static $order = ['幺', '大', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
 
@@ -46,6 +46,13 @@ class RelationCalc extends Model
      */
     public function getName()
     {
+        if (!$this->relation) {
+            return [
+                'error_level' => 2,
+                'data' => '抱歉，关系绕的路太遥远或有错误，无法计算称呼。',
+            ];
+        }
+
         switch ($this->relation['gender']) {
             case 2:
                 $gender = 1;
