@@ -2,6 +2,7 @@
 
 /* @var $this yii\web\View */
 /* @var $result array */
+
 /* @var $relation_types array */
 
 use yii\helpers\Html;
@@ -18,13 +19,18 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?php $form = ActiveForm::begin(); ?>
 
-        <?= $form->field($model, 'query')->textInput(['id' => 'query', 'readonly' => 'true', 'value' => '我']) ?>
-
-        <?= $form->field($model, 'query_code')->textInput(['id' => 'query-code', 'type' => 'hidden'])->label(false) ?>
+        <?= $form->field($model, 'query', ['template' => '
+            {label}
+            <div class="input-group">
+                <span class="input-group-addon">我</span>
+                {input}
+            </div>
+            {error}
+            {hint}'])->textInput(['id' => 'query', 'readonly' => 'true']) ?>
 
         <div class="form-group">
             <?php foreach ($relation_types as $k => $v): ?>
-                <?= Html::button($v, ['class' => 'btn btn-default', 'onclick' => 'appendRelation(' . ($k + 1) . ')']); ?>
+                <?= Html::button($v, ['class' => 'btn btn-default', 'onclick' => 'appendRelation(' . $k . ')']); ?>
             <?php endforeach; ?>
             <?= Html::button('删除', ['class' => 'btn btn-danger', 'onclick' => 'deleteRelation()']) ?>
             <?= Html::button('清空', ['class' => 'btn btn-danger', 'onclick' => 'clearRelation()']) ?>
@@ -40,35 +46,23 @@ $this->params['breadcrumbs'][] = $this->title;
             let relation_types = <?= json_encode($relation_types) ?>;
 
             window.onload = () => {
-                refreshQuery();
+                $('#query').val('<?= $model->query ?>');
             };
 
             function appendRelation(relation) {
-                let query_code = $('#query-code');
-                query_code.val(query_code.val() + relation);
-                refreshQuery();
-            }
-
-            function refreshQuery() {
-                let query = '我';
-                let query_code = $('#query-code').val().split('');
-                for (let relation of query_code) {
-                    query += '的' + relation_types[parseInt(relation) - 1];
-                }
-                $('#query').val(query);
+                let query = $('#query');
+                query.val(query.val() + '的' + relation_types[parseInt(relation)]);
             }
 
             function deleteRelation() {
-                let query_code = $('#query-code');
-                if (query_code.val()) {
-                    query_code.val(query_code.val().substring(0, query_code.val().length - 1));
+                let query = $('#query');
+                if (query.val()) {
+                    query.val(query.val().substring(0, query.val().length - 3));
                 }
-                refreshQuery();
             }
 
             function clearRelation() {
-                $('#query-code').val('');
-                refreshQuery();
+                $('#query').val('');
             }
         </script>
 
@@ -102,9 +96,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
 
-            <p>注1：假设“我”为男性。</p>
-
-            <p>注2：计算优先选择查询条件没有经过的人。（例如“我的父亲的儿子”是“我的兄弟”，而不是“本人”，因为“本人”已经经过了。）</p>
+            <p>注：假设“我”为男性。</p>
 
         </div>
     </div>

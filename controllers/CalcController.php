@@ -6,7 +6,6 @@ use Yii;
 use yii\web\Controller;
 use app\models\RelationCalc;
 use app\models\NameCalc;
-use app\models\NameType;
 
 class CalcController extends Controller
 {
@@ -38,7 +37,7 @@ class CalcController extends Controller
             'error_level' => 0,
             'data' => '计算结果将显示在此处。',
         ];
-        $relation_types = NameType::getNameTypeList();
+        $relation_types = NameCalc::$name_types;
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $result = $model->getName();

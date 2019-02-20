@@ -357,5 +357,7 @@ class m190211_171945_create_other_name_db extends Migration
         $this->dropTable('name_node');
 
         $this->dropTable('name_out');
+
+        $this->dropTable('name_type');
     }
 }
