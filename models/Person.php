@@ -83,6 +83,41 @@ class Person extends \yii\db\ActiveRecord
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function fields()
+    {
+        return [
+            'id',
+            'family_name',
+            'given_name',
+            'birth_date',
+            'lunar_birth_date',
+            'age',
+            'gender' => function ($model) {
+                return $model->gender0->name;
+            },
+            'blood_type' => function ($model) {
+                return $model->blood_type0->name;
+            },
+            'id_card',
+            'alive' => function ($model) {
+                return $model->alive ? '是' : '否';
+            },
+            'my_relation',
+            'phone',
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function extraFields()
+    {
+        return ['parents', 'children', 'husbands', 'wives'];
+    }
+
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getBlood_type0()
