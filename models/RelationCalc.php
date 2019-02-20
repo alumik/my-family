@@ -95,8 +95,7 @@ class RelationCalc extends Model
     }
 
     /**
-     * @return string
-     * @throws \yii\base\InvalidConfigException
+     * @return array
      */
     public function getRelation()
     {
@@ -105,9 +104,15 @@ class RelationCalc extends Model
         $relation = $this->calculateRelation();
 
         if ($relation) {
-            return '<strong>' . $this->base_name . '</strong>是<strong>' . $this->target_name . '</strong>' . $relation . '。';
+            return [
+                'error_level' => 0,
+                'data' => '<strong>' . $this->base_name . '</strong>是<strong>' . $this->target_name . '</strong>' . $relation . '。',
+            ];
         }
-        return '抱歉，无法计算<strong>' . $this->base_name . '</strong>与<strong>' . $this->target_name . '</strong>的联系。';
+        return [
+            'error_level' => 1,
+            'data' => '抱歉，无法计算<strong>' . $this->base_name . '</strong>与<strong>' . $this->target_name . '</strong>的联系。',
+        ];
     }
 
     /**
