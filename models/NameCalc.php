@@ -954,11 +954,11 @@ class NameCalc extends Model
     public function getName()
     {
         $query = substr($this->query, 3);
-        $name = self::calculateName(['text' => $query, 'sex' => 1]);
+        $names = self::calculateName(['text' => $query, 'sex' => 1]);
 
-        if ($name) {
+        if ($names) {
             $error_level = 0;
-            $name = implode('</strong>或<strong>', $name);
+            $name = implode('</strong>或<strong>', $names);
             $data = '我的' . $query . '是我的<strong>' . $name . '</strong>。';
         } else {
             $error_level = 2;

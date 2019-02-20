@@ -12,11 +12,9 @@ class RelationCalc extends Model
 
     private $base_name;
     private $target_name;
-    private $name_query_code = '';
-    private $order = -1;
-    private $second_order = -1;
+    private $relation;
 
-    public static $ORDER = ['幺', '大', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
+    public static $order = ['幺', '大', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
 
     /**
      * {@inheritdoc}
@@ -48,40 +46,43 @@ class RelationCalc extends Model
      */
     public function getName()
     {
-        $name_calc = new NameCalc();
-        $name_calc->query_code = $this->name_query_code;
-        $name = $name_calc->calculateName();
-
-        switch ($name['error_level']) {
-            case 0:
-                if ($this->second_order != -1) {
-                    if ($this->second_order >= count(self::$ORDER)) {
-                        $order = $this->second_order;
-                    } else {
-                        $order = self::$ORDER[$this->second_order];
-                    }
-                } else if ($this->order != -1) {
-                    if ($this->order >= count(self::$ORDER)) {
-                        $order = $this->order;
-                    } else {
-                        $order = self::$ORDER[$this->order];
-                    }
-                } else {
-                    $order = '';
-                }
-
-                $data = NameCalc::replaceOrder($order, $order, $name['data']);
-                $data = '<strong>' . $this->base_name . '</strong>是<strong>' . $this->target_name . '</strong>的<strong>' . $data . '</strong>。';
+        switch ($this->relation['gender']) {
+            case 2:
+                $gender = 1;
                 break;
-            case 1:
-                $data = '无法计算称呼。但是根据辈分可以叫做<strong>' . $name['data'] . '</strong>。';
+            case 3:
+                $gender = 0;
                 break;
             default:
-                $data = '无法计算称呼。';
+                $gender = -1;
+        }
+        $query = substr($this->relation['result'], 3);
+        $names = NameCalc::calculateName(['text' => $query, 'sex' => $gender]);
+        $order = $this->relation['order'];
+
+        if ($names) {
+            $error_level = 0;
+            if ($order != -1) {
+                if ($order >= count(self::$order)) {
+                    $order_prefix = $order;
+                } else {
+                    $order_prefix = self::$order[$order];
+                }
+            } else {
+                $order_prefix = '';
+            }
+            foreach ($names as &$name) {
+                $name = $order_prefix . $name;
+            }
+            $data = implode('</strong>或<strong>', $names);
+            $data = '<strong>' . $this->base_name . '</strong>是<strong>' . $this->target_name . '</strong>的<strong>' . $data . '</strong>。';
+        } else {
+            $error_level = 2;
+            $data = '抱歉，关系绕的路太遥远或有错误，无法计算称呼。';
         }
 
         return [
-            'error_level' => $name['error_level'],
+            'error_level' => $error_level,
             'data' => $data,
         ];
     }
@@ -121,7 +122,6 @@ class RelationCalc extends Model
         $relation = '';
 
         while ($path[$current]['from']) {
-            $this->appendQueryCode($path[$current]['type']);
             $relation .= '的' . $path[$current]['type'];
             $current = $path[$current]['from'];
 
@@ -131,27 +131,18 @@ class RelationCalc extends Model
         }
 
         if ($path[$second_last_node]['type'] == '丈夫' || $path[$second_last_node]['type'] == '妻子') {
-            $this->second_order = RelationCalc::getOrder($second_last_node);
+            $order = RelationCalc::getOrder($second_last_node);
         } else {
-            $this->order = RelationCalc::getOrder($this->base);
+            $order = RelationCalc::getOrder($this->base);
         }
+
+        $this->relation = [
+            'result' => $relation,
+            'gender' => Person::findOne($this->target)->gender,
+            'order' => $order,
+        ];
 
         return $relation;
-    }
-
-    /**
-     * @param $name
-     */
-    private function appendQueryCode($name)
-    {
-        if ($this->name_query_code != -1) {
-            $name_type = NameType::findOne(['name' => $name]);
-            if ($name_type) {
-                $this->name_query_code .= $name_type->id;
-            } else {
-                $this->name_query_code = -1;
-            }
-        }
     }
 
     /**
