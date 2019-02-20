@@ -4,6 +4,11 @@ namespace app\models;
 
 use yii\base\Model;
 
+/**
+ * 亲戚关系数据来自 https://github.com/mumuy/relationship
+ * Class NameCalc
+ * @package app\models
+ */
 class NameCalc extends Model
 {
     public $query;
