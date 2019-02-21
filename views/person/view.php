@@ -45,10 +45,24 @@ $this->params['breadcrumbs'][] = $model->id;
             ],
             [
                 'attribute' => 'lunar_birth_date',
+                'value' => function ($model) {
+                    if (!$model->lunar_birth_date) {
+                        return '<span class="not-set">(不可用)</span>';
+                    }
+                    return $model->lunar_birth_date;
+                },
                 'format' => 'raw',
             ],
             [
                 'attribute' => 'age',
+                'value' => function ($model) {
+                    if ($model->age == -1) {
+                        return '<span class="gray-text">(已去世)</span>';
+                    } else if ($model->age == -2) {
+                        return '';
+                    }
+                    return $model->age;
+                },
                 'format' => 'raw',
             ],
             [

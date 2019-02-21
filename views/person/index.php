@@ -55,6 +55,14 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'age',
+                'value' => function ($model) {
+                    if ($model->age == -1) {
+                        return '<span class="gray-text">(已去世)</span>';
+                    } else if ($model->age == -2) {
+                        return '';
+                    }
+                    return $model->age;
+                },
                 'format' => 'raw',
             ],
             [

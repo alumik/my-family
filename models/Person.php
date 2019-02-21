@@ -147,7 +147,7 @@ class Person extends \yii\db\ActiveRecord
     public function getAge()
     {
         if (!$this->alive) {
-            return '<span class="gray-text">(已去世)</span>';
+            return -1;
         }
         if ($this->birth_date && !$this->inaccurate_birth_date) {
             list($year, $month, $day) = explode('-', $this->birth_date);
@@ -159,7 +159,7 @@ class Person extends \yii\db\ActiveRecord
             }
             return $age;
         }
-        return '';
+        return -2;
     }
 
     /**
@@ -278,6 +278,6 @@ class Person extends \yii\db\ActiveRecord
             $date = $calendar->solar(intval($year), intval($month), intval($day));
             return $date['ganzhi_year'] . $date['animal'] . '年' . $date['lunar_month_chinese'] . $date['lunar_day_chinese'];
         }
-        return '<span class="not-set">(不可用)</span>';
+        return false;
     }
 }
