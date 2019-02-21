@@ -12,17 +12,22 @@ use kartik\select2\Select2;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'parent')->widget(Select2::classname(), [
-        'bsVersion' => '3.x',
-        'data' => \app\models\Person::getPersonList(),
-        'options' => ['placeholder' => '请选择'],
-    ]) ?>
-
-    <?= $form->field($model, 'child')->widget(Select2::classname(), [
-        'bsVersion' => '3.x',
-        'data' => \app\models\Person::getPersonList(),
-        'options' => ['placeholder' => '请选择'],
-    ]) ?>
+    <div class="row">
+        <div class="col-md-6">
+            <?= $form->field($model, 'parent')->widget(Select2::classname(), [
+                'bsVersion' => '3.x',
+                'data' => \app\models\Person::getPersonList(),
+                'options' => ['placeholder' => '请选择'],
+            ]) ?>
+        </div>
+        <div class="col-md-6">
+            <?= $form->field($model, 'child')->widget(Select2::classname(), [
+                'bsVersion' => '3.x',
+                'data' => \app\models\Person::getPersonList(),
+                'options' => ['placeholder' => '请选择'],
+            ]) ?>
+        </div>
+    </div>
 
     <?= $form->field($model, 'type')->widget(Select2::classname(), [
         'hideSearch' => true,
