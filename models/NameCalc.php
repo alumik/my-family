@@ -1002,6 +1002,14 @@ class NameCalc extends Model
     }
 
     /**
+     * @return array
+     */
+    public static function getGeneralResult($options)
+    {
+        return self::calculateName($options);
+    }
+
+    /**
      * @param $params
      * @return array
      */

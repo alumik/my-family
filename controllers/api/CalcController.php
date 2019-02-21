@@ -49,4 +49,18 @@ class CalcController extends Controller
             'relation_types' => $relation_types,
         ];
     }
+
+    /**
+     * @return array
+     */
+    public function actionGeneral()
+    {
+        $result = [];
+
+        if (Yii::$app->request->post()) {
+            $result = NameCalc::getGeneralResult(Yii::$app->request->post());
+        }
+
+        return $result;
+    }
 }
