@@ -47,7 +47,7 @@ class Person extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['birth_date', 'inaccurate_birth_date', 'gender', 'blood_type', 'alive'], 'required'],
+            [['family_name', 'given_name', 'birth_date', 'inaccurate_birth_date', 'gender', 'blood_type', 'alive'], 'required'],
             [['birth_date'], 'safe'],
             [['inaccurate_birth_date', 'gender', 'blood_type', 'alive'], 'integer'],
             [['family_name', 'given_name'], 'string', 'max' => 10],

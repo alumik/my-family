@@ -43,8 +43,8 @@ class m190211_133057_create_basic_db extends Migration
 
         $this->createTable('person', [
             'id' => $this->primaryKey(),
-            'family_name' => $this->string(10)->null(),
-            'given_name' => $this->string(10)->null(),
+            'family_name' => $this->string(10)->notNull(),
+            'given_name' => $this->string(10)->notNull(),
             'birth_date' => $this->date()->notNull(),
             'inaccurate_birth_date' => $this->tinyInteger()->notNull(),
             'gender' => $this->integer()->notNull(),
