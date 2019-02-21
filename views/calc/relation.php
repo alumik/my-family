@@ -7,6 +7,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\select2\Select2;
 
 $this->title = '关系计算器';
 $this->params['breadcrumbs'][] = $this->title;
@@ -19,9 +20,17 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?php $form = ActiveForm::begin(); ?>
 
-        <?= $form->field($model, 'base')->dropDownList(\app\models\Person::getPersonList(), ['prompt' => '请选择']) ?>
+        <?= $form->field($model, 'base')->widget(Select2::classname(), [
+            'bsVersion' => '3.x',
+            'data' => \app\models\Person::getPersonList(),
+            'options' => ['placeholder' => '请选择'],
+        ]) ?>
 
-        <?= $form->field($model, 'target')->dropDownList(\app\models\Person::getPersonList(), ['prompt' => '请选择']) ?>
+        <?= $form->field($model, 'target')->widget(Select2::classname(), [
+            'bsVersion' => '3.x',
+            'data' => \app\models\Person::getPersonList(),
+            'options' => ['placeholder' => '请选择'],
+        ]) ?>
 
         <p>注：名字后方括号内的数字是对应成员的编号。</p>
 
