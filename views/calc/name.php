@@ -6,7 +6,7 @@
 /* @var $relation_types array */
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
 
 $this->title = '称呼计算器';
 $this->params['breadcrumbs'][] = $this->title;
@@ -17,7 +17,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="calc-form">
 
-        <?php $form = ActiveForm::begin(); ?>
+        <?php $form = ActiveForm::begin([
+            'options' => [
+                'autocomplete' => 'off',
+            ],
+        ]); ?>
 
         <?= $form->field($model, 'query', ['template' => '
             {label}
@@ -26,9 +30,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 {input}
             </div>
             {error}
-            {hint}'])->textInput(['id' => 'query', 'readonly' => 'true']) ?>
+            {hint}'])->textInput(['id' => 'query']) ?>
 
-        <?= $form->field($model, 'gender')->radioList([-1 => '未知', 1 => '男', 0 => '女']); ?>
+        <p>注：查询条件需用“的”字进行分割。</p>
+
+        <?= $form->field($model, 'gender', ['enableClientValidation' => false])
+            ->inline()
+            ->radioList([-1 => '未知', 1 => '男', 0 => '女']); ?>
 
         <div class="form-group">
             <?php foreach ($relation_types as $k => $v): ?>
