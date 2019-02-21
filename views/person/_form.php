@@ -5,7 +5,8 @@
 /* @var $form yii\widgets\ActiveForm */
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
+use kartik\select2\Select2;
 ?>
 
 <div class="person-form">
@@ -16,9 +17,14 @@ use yii\widgets\ActiveForm;
         ],
     ]); ?>
 
-    <?= $form->field($model, 'family_name')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'given_name')->textInput(['maxlength' => true]) ?>
+    <div class="row">
+        <div class="col-md-6">
+            <?= $form->field($model, 'family_name')->textInput(['maxlength' => true])->label('姓氏') ?>
+        </div>
+        <div class="col-md-6">
+            <?= $form->field($model, 'given_name')->textInput(['maxlength' => true])->label('名字') ?>
+        </div>
+    </div>
 
     <?= $form->field($model, 'birth_date')->widget(\nex\datepicker\DatePicker::className(), [
         'language' => 'zh-CN',
@@ -28,15 +34,33 @@ use yii\widgets\ActiveForm;
         ],
     ]) ?>
 
-    <?= $form->field($model, 'inaccurate_birth_date')->checkbox() ?>
+    <?= $form->field($model, 'inaccurate_birth_date', ['enableClientValidation' => false])->inline()->checkbox() ?>
 
-    <?= $form->field($model, 'gender')->dropDownList(\app\models\Gender::getGenderList(), ['prompt' => '请选择']) ?>
-
-    <?= $form->field($model, 'blood_type')->dropDownList(\app\models\BloodType::getBloodTypeList(), ['prompt' => '请选择']) ?>
+    <div class="row">
+        <div class="col-md-4">
+            <?= $form->field($model, 'gender')->widget(Select2::classname(), [
+                'hideSearch' => true,
+                'bsVersion' => '3.x',
+                'data' => \app\models\Gender::getGenderList(),
+            ]) ?>
+        </div>
+        <div class="col-md-4">
+            <?= $form->field($model, 'blood_type')->widget(Select2::classname(), [
+                'hideSearch' => true,
+                'bsVersion' => '3.x',
+                'data' => \app\models\BloodType::getBloodTypeList(),
+            ]) ?>
+        </div>
+        <div class="col-md-4">
+            <?= $form->field($model, 'alive')->widget(Select2::classname(), [
+                'hideSearch' => true,
+                'bsVersion' => '3.x',
+                'data' => [1 => '是', 0 => '否'],
+            ]) ?>
+        </div>
+    </div>
 
     <?= $form->field($model, 'id_card')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'alive')->dropDownList([1 => '是', 0 => '否'], ['prompt' => '请选择']) ?>
 
     <?= $form->field($model, 'my_relation')->textInput(['maxlength' => true]) ?>
 

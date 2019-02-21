@@ -52,10 +52,24 @@ class Person extends \yii\db\ActiveRecord
             [['inaccurate_birth_date', 'gender', 'blood_type', 'alive'], 'integer'],
             [['family_name', 'given_name'], 'string', 'max' => 10],
             [['id_card'], 'string', 'max' => 18],
+            ['id_card', 'validateIDCard'],
             [['my_relation'], 'string', 'max' => 255],
             [['phone'], 'string', 'max' => 20],
             [['gender'], 'exist', 'skipOnError' => true, 'targetClass' => Gender::className(), 'targetAttribute' => ['gender' => 'id']],
         ];
+    }
+
+    /**
+     * @param $attribute
+     * @param $params
+     */
+    public function validateIDCard($attribute, $params)
+    {
+        if (!$this->hasErrors()) {
+            if (!preg_match('/^(\d{15}$)|(^\d{17}([0-9]|X))$/isu', $this->id_card)) {
+                $this->addError($attribute, '身份证号码不正确。');
+            }
+        }
     }
 
     /**
