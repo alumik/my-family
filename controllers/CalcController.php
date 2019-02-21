@@ -16,8 +16,8 @@ class CalcController extends Controller
         $name_result = ['error_level' => -1];
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $relation_result = $model->getRelation();
-            $name_result = $model->getName();
+            $relation_result = RelationCalc::formatRelationResult($model->getRelation());
+            $name_result = NameCalc::formatNameResult($model->getName());
         }
 
         return $this->render('relation', [
@@ -34,7 +34,7 @@ class CalcController extends Controller
         $relation_types = NameCalc::$name_types;
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $result = $model->getName();
+            $result = NameCalc::formatNameResult($model->getName());
         } else {
             $model->gender = -1;
         }

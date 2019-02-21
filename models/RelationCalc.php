@@ -14,8 +14,6 @@ class RelationCalc extends Model
     private $target_name;
     private $relation = null;
 
-//    public static $order = ['幺', '大', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
-
     /**
      * {@inheritdoc}
      */
@@ -42,15 +40,12 @@ class RelationCalc extends Model
     }
 
     /**
-     * @return array
+     * @return array|bool
      */
     public function getName()
     {
         if (!$this->relation) {
-            return [
-                'error_level' => 2,
-                'data' => '抱歉，关系绕的路太遥远或有错误，无法计算称呼。',
-            ];
+            return false;
         }
 
         switch ($this->relation['gender']) {
@@ -65,32 +60,34 @@ class RelationCalc extends Model
         }
         $query = substr($this->relation['result'], 3);
         $names = NameCalc::calculateName(['text' => $query, 'sex' => $gender]);
-//        $order = $this->relation['order'];
-
-        if ($names) {
-            $error_level = 0;
-//            if ($order != -1) {
-//                if ($order >= count(self::$order)) {
-//                    $order_prefix = $order;
-//                } else {
-//                    $order_prefix = self::$order[$order];
-//                }
-//            } else {
-//                $order_prefix = '';
-//            }
-//            foreach ($names as &$name) {
-//                $name = $order_prefix . $name;
-//            }
-            $data = implode('</strong>或<strong>', $names);
-            $data = '<strong>' . $this->base_name . '</strong>是<strong>' . $this->target_name . '</strong>的<strong>' . $data . '</strong>。';
-        } else {
-            $error_level = 2;
-            $data = '抱歉，关系绕的路太遥远或有错误，无法计算称呼。';
-        }
 
         return [
-            'error_level' => $error_level,
-            'data' => $data,
+            'base' => $this->base_name,
+            'target' => $this->target_name,
+            'names' => $names,
+        ];
+    }
+
+    /**
+     * @param $result
+     * @return array
+     */
+    public static function formatRelationResult($result)
+    {
+        $base_name = $result['base'];
+        $target_name = $result['target'];
+        $relation = $result['relation'];
+
+        if ($relation) {
+            $relation = substr($relation, 3);
+            return [
+                'error_level' => 0,
+                'data' => $base_name . '是' . $target_name . '的<strong>' . $relation . '</strong>。',
+            ];
+        }
+        return [
+            'error_level' => 1,
+            'data' => '抱歉，无法计算' . $base_name . '与' . $target_name . '的联系。',
         ];
     }
 
@@ -103,15 +100,10 @@ class RelationCalc extends Model
         $this->target_name = Person::findOne($this->target)->full_name;
         $relation = $this->calculateRelation();
 
-        if ($relation) {
-            return [
-                'error_level' => 0,
-                'data' => '<strong>' . $this->base_name . '</strong>是<strong>' . $this->target_name . '</strong>' . $relation . '。',
-            ];
-        }
         return [
-            'error_level' => 1,
-            'data' => '抱歉，无法计算<strong>' . $this->base_name . '</strong>与<strong>' . $this->target_name . '</strong>的联系。',
+            'base' => $this->base_name,
+            'target' => $this->target_name,
+            'relation' => $relation,
         ];
     }
 
@@ -129,28 +121,16 @@ class RelationCalc extends Model
         };
 
         $current = $this->target;
-//        $second_last_node = $current;
         $relation = '';
 
         while ($path[$current]['from']) {
             $relation .= '的' . $path[$current]['type'];
             $current = $path[$current]['from'];
-
-//            if ($path[$current]['from']) {
-//                $second_last_node = $current;
-//            }
         }
-
-//        if ($path[$second_last_node]['type'] == '丈夫' || $path[$second_last_node]['type'] == '妻子') {
-//            $order = RelationCalc::getOrder($second_last_node);
-//        } else {
-//            $order = RelationCalc::getOrder($this->base);
-//        }
 
         $this->relation = [
             'result' => $relation,
             'gender' => Person::findOne($this->target)->gender,
-//            'order' => $order,
         ];
 
         return $relation;
@@ -328,41 +308,5 @@ class RelationCalc extends Model
             'marked' => $marked[$this->target],
             'path' => $path,
         ];
-    }
-
-    /**
-     * @param $base
-     * @return int
-     * @throws \yii\base\InvalidConfigException
-     */
-    public static function getOrder($base)
-    {
-        $parents = Person::findOne($base)->getParents()->asArray()->all();
-        $parents = ArrayHelper::getColumn($parents, 'id');
-
-        $siblings = Relation::find()
-            ->select('child')
-            ->leftJoin('person', 'relation.child = person.id')
-            ->where([
-                'parent' => $parents,
-                'type' => RelationType::$QINZI,
-                'gender' => Person::findOne($base)->gender,
-            ])
-            ->groupBy('relation.child')
-            ->orderBy('person.birth_date')
-            ->asArray()
-            ->all();
-
-        if ($siblings && count($siblings) != 1) {
-            $siblings = ArrayHelper::getColumn($siblings, 'child');
-            $siblings = array_flip($siblings);
-            $order = $siblings[$base] + 1;
-            if ($order == count($siblings)) {
-                $order = 0;
-            }
-            return $order;
-        }
-
-        return -1;
     }
 }

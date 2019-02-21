@@ -952,6 +952,37 @@ class NameCalc extends Model
     }
 
     /**
+     * @param $result
+     * @return array
+     */
+    public static function formatNameResult($result)
+    {
+        if (!$result) {
+            return [
+                'error_level' => 2,
+                'data' => '抱歉，关系绕的路太遥远或有错误，无法计算称呼。',
+            ];
+        }
+        $base = $result['base'];
+        $target = $result['target'];
+        $names = $result['names'];
+
+        if ($names) {
+            $error_level = 0;
+            $name = implode('</strong>或<strong>', $names);
+            $data = $base . '是' . $target . '的<strong>' . $name . '</strong>。';
+        } else {
+            $error_level = 2;
+            $data = '抱歉，关系绕的路太遥远或有错误，无法计算称呼。';
+        }
+
+        return [
+            'error_level' => $error_level,
+            'data' => $data,
+        ];
+    }
+
+    /**
      * @return array
      */
     public function getName()
@@ -963,18 +994,10 @@ class NameCalc extends Model
         }
         $names = self::calculateName(['text' => $query, 'sex' => $gender]);
 
-        if ($names) {
-            $error_level = 0;
-            $name = implode('</strong>或<strong>', $names);
-            $data = '我的' . $query . '是我的<strong>' . $name . '</strong>。';
-        } else {
-            $error_level = 2;
-            $data = '抱歉，关系绕的路太遥远或有错误，无法计算称呼。';
-        }
-
         return [
-            'error_level' => $error_level,
-            'data' => $data,
+            'base' => '我的' . $query,
+            'target' => '我',
+            'names' => $names,
         ];
     }
 
