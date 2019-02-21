@@ -35,36 +35,38 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="relation-calc-result">
 
-        <?php if ($relation_result['error_level'] == 0): ?>
-        <div class="panel panel-default">
+        <?php if ($relation_result['error_level'] != -1): ?>
+            <?php if ($relation_result['error_level'] == 0): ?>
+                <div class="panel panel-default">
             <?php else: ?>
-            <div class="panel panel-danger">
-                <?php endif; ?>
+                <div class="panel panel-danger">
+            <?php endif; ?>
                 <div class="panel-heading">
-                    <h3 class="panel-title">
-                        关系
-                    </h3>
+                    <h3 class="panel-title">关系</h3>
                 </div>
                 <div class="panel-body">
                     <p><?= $relation_result['data'] ?></p>
                 </div>
             </div>
-            <?php if ($name_result['error_level'] == 0): ?>
-            <div class="panel panel-default">
-                <?php elseif ($name_result['error_level'] == 1): ?>
-                <div class="panel panel-warning">
-                    <?php else: ?>
-                    <div class="panel panel-danger">
-                        <?php endif; ?>
-                        <div class="panel-heading">
-                            <h3 class="panel-title">
-                                称呼
-                            </h3>
-                        </div>
-                        <div class="panel-body">
-                            <p><?= $name_result['data'] ?></p>
-                        </div>
-                    </div>
-                </div>
+        <?php endif; ?>
 
+        <?php if ($name_result['error_level'] != -1): ?>
+            <?php if ($name_result['error_level'] == 0): ?>
+                <div class="panel panel-default">
+            <?php elseif ($name_result['error_level'] == 1): ?>
+                <div class="panel panel-warning">
+            <?php else: ?>
+                <div class="panel panel-danger">
+            <?php endif; ?>
+                <div class="panel-heading">
+                    <h3 class="panel-title">称呼</h3>
+                </div>
+                <div class="panel-body">
+                    <p><?= $name_result['data'] ?></p>
+                </div>
             </div>
+        <?php endif; ?>
+
+    </div>
+
+</div>

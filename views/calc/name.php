@@ -79,24 +79,22 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
     <div class="calc-result">
-
-        <?php if ($result['error_level'] == 0): ?>
-        <div class="panel panel-default">
+        <?php if ($result['error_level'] != -1): ?>
+            <?php if ($result['error_level'] == 0): ?>
+                <div class="panel panel-default">
             <?php elseif ($result['error_level'] == 1): ?>
-            <div class="panel panel-warning">
-                <?php else: ?>
+                <div class="panel panel-warning">
+            <?php else: ?>
                 <div class="panel panel-danger">
-                    <?php endif; ?>
-                    <div class="panel-heading">
-                        <h3 class="panel-title">
-                            计算结果
-                        </h3>
-                    </div>
-                    <div class="panel-body">
-                        <p><?= $result['data'] ?></p>
-                    </div>
+            <?php endif; ?>
+                <div class="panel-heading">
+                    <h3 class="panel-title">计算结果</h3>
+                </div>
+                <div class="panel-body">
+                    <p><?= $result['data'] ?></p>
                 </div>
             </div>
-        </div>
-
+        <?php endif; ?>
     </div>
+
+</div>
