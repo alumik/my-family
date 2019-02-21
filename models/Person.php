@@ -73,7 +73,7 @@ class Person extends \yii\db\ActiveRecord
             'blood_type' => 'ABO血型',
             'id_card' => '身份证号码',
             'alive' => '是否健在',
-            'my_relation' => '与我的关系',
+            'my_relation' => '备注',
             'phone' => '电话号码',
 
             'full_name' => '姓名',

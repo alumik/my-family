@@ -70,7 +70,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => 'gender0.name',
                 'filter' => \app\models\Gender::getGenderList(),
             ],
-            'my_relation',
             [
                 'attribute' => 'alive',
                 'format' => 'boolean',

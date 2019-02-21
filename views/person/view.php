@@ -75,8 +75,8 @@ $this->params['breadcrumbs'][] = $model->id;
             ],
             'id_card',
             'alive:boolean',
-            'my_relation',
             'phone',
+            'my_relation',
         ],
     ]) ?>
 
