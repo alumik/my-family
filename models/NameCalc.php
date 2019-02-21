@@ -12,6 +12,7 @@ use yii\base\Model;
 class NameCalc extends Model
 {
     public $query;
+    public $gender;
 
     private static $filters = [
         [
@@ -933,8 +934,9 @@ class NameCalc extends Model
     public function rules()
     {
         return [
-            ['query', 'required'],
+            [['query', 'gender'], 'required'],
             ['query', 'safe'],
+            ['gender', 'integer'],
         ];
     }
 
@@ -945,6 +947,7 @@ class NameCalc extends Model
     {
         return [
             'query' => '查询条件',
+            'gender' => '我的性别',
         ];
     }
 
@@ -954,7 +957,11 @@ class NameCalc extends Model
     public function getName()
     {
         $query = substr($this->query, 3);
-        $names = self::calculateName(['text' => $query, 'sex' => 1]);
+        $gender = $this->gender;
+        if ($gender != 0 && $gender != 1) {
+            $gender = -1;
+        }
+        $names = self::calculateName(['text' => $query, 'sex' => $gender]);
 
         if ($names) {
             $error_level = 0;

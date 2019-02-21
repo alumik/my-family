@@ -28,6 +28,8 @@ $this->params['breadcrumbs'][] = $this->title;
             {error}
             {hint}'])->textInput(['id' => 'query', 'readonly' => 'true']) ?>
 
+        <?= $form->field($model, 'gender')->radioList([-1 => '未知', 1 => '男', 0 => '女']); ?>
+
         <div class="form-group">
             <?php foreach ($relation_types as $k => $v): ?>
                 <?= Html::button($v, ['class' => 'btn btn-default', 'onclick' => 'appendRelation(' . $k . ')']); ?>
@@ -95,8 +97,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                 </div>
             </div>
-
-            <p>注：假设“我”为男性。</p>
-
         </div>
+
     </div>

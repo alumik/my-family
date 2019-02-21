@@ -44,6 +44,8 @@ class CalcController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $result = $model->getName();
+        } else {
+            $model->gender = -1;
         }
 
         return $this->render('name', [
