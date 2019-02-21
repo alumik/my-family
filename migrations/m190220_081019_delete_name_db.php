@@ -17,6 +17,8 @@ class m190220_081019_delete_name_db extends Migration
         $this->dropTable('name_node');
 
         $this->dropTable('name_out');
+
+        $this->dropTable('name_type');
     }
 
     /**
