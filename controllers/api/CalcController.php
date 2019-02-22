@@ -6,6 +6,7 @@ use Yii;
 use yii\rest\Controller;
 use app\models\RelationCalc;
 use app\models\NameCalc;
+use app\models\CalendarCalc;
 
 class CalcController extends Controller
 {
@@ -62,5 +63,25 @@ class CalcController extends Controller
         }
 
         return $result;
+    }
+
+    /**
+     * @return array
+     */
+    public function actionCalendar()
+    {
+        $model = new CalendarCalc();
+        $result = ['error_level' => -1];
+
+        if ($model->load(Yii::$app->request->post(), '') && $model->validate()) {
+            $result = $model->getDateData();
+        } else {
+            $model->type = 'solar';
+        }
+
+        return [
+            'model' => $model,
+            'result' => $result,
+        ];
     }
 }

@@ -26,6 +26,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 <p>太远的关系可能无法计算。</p>
                 <p><a class="btn btn-default" href="/calc/name">称呼计算器 &raquo;</a></p>
             </div>
+            <div class="col-lg-4">
+                <h2>农历阳历互转</h2>
+                <p>输入阳历或农历日期读取当天信息。</p>
+                <p><a class="btn btn-default" href="/calc/calendar">农历阳历互转 &raquo;</a></p>
+            </div>
         </div>
     </div>
 
