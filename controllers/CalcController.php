@@ -37,6 +37,7 @@ class CalcController extends Controller
             $result = NameCalc::formatNameResult($model->getName());
         } else {
             $model->gender = -1;
+            $model->type = 'default';
         }
 
         return $this->render('name', [

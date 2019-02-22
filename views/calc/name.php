@@ -38,6 +38,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ->inline()
             ->radioList([-1 => '未知', 1 => '男', 0 => '女']); ?>
 
+        <?= $form->field($model, 'type', ['enableClientValidation' => false])
+            ->inline()
+            ->radioList(['default' => '查询称呼', 'chain' => '查询关系']); ?>
+
         <div class="form-group">
             <?php foreach ($relation_types as $k => $v): ?>
                 <?= Html::button($v, ['class' => 'btn btn-default', 'onclick' => 'appendRelation(' . $k . ')']); ?>

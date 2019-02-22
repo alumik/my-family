@@ -13,6 +13,7 @@ class NameCalc extends Model
 {
     public $query;
     public $gender;
+    public $type;
 
     private static $filters = [
         [
@@ -934,8 +935,8 @@ class NameCalc extends Model
     public function rules()
     {
         return [
-            [['query', 'gender'], 'required'],
-            ['query', 'safe'],
+            [['query', 'gender', 'type'], 'required'],
+            [['query', 'type'], 'safe'],
             ['gender', 'integer'],
         ];
     }
@@ -948,6 +949,7 @@ class NameCalc extends Model
         return [
             'query' => '查询条件',
             'gender' => '我的性别',
+            'type' => '查询类型',
         ];
     }
 
@@ -992,7 +994,12 @@ class NameCalc extends Model
         if ($gender != 0 && $gender != 1) {
             $gender = -1;
         }
-        $names = self::calculateName(['text' => $query, 'sex' => $gender]);
+        $type = $this->type;
+        if ($type != 'chain' && $type != 'default')
+        {
+            $type = 'default';
+        }
+        $names = self::calculateName(['text' => $query, 'sex' => $gender, 'type' => $type]);
 
         return [
             'base' => '我的' . $query,
@@ -1002,6 +1009,7 @@ class NameCalc extends Model
     }
 
     /**
+     * @param $options
      * @return array
      */
     public static function getGeneralResult($options)
