@@ -17,7 +17,7 @@ use yii\helpers\ArrayHelper;
  * @property int $blood_type
  * @property string $id_card
  * @property int $alive
- * @property string $my_relation
+ * @property string $comment
  * @property string $phone
  *
  * @property string $full_name
@@ -53,7 +53,7 @@ class Person extends \yii\db\ActiveRecord
             [['family_name', 'given_name'], 'string', 'max' => 10],
             [['id_card'], 'string', 'max' => 18],
             ['id_card', 'validateIDCard'],
-            [['my_relation'], 'string', 'max' => 255],
+            [['comment'], 'string', 'max' => 255],
             [['phone'], 'string', 'max' => 20],
             [['gender'], 'exist', 'skipOnError' => true, 'targetClass' => Gender::className(), 'targetAttribute' => ['gender' => 'id']],
         ];
@@ -87,7 +87,7 @@ class Person extends \yii\db\ActiveRecord
             'blood_type' => 'ABO血型',
             'id_card' => '身份证号码',
             'alive' => '是否健在',
-            'my_relation' => '备注',
+            'comment' => '备注',
             'phone' => '电话号码',
 
             'full_name' => '姓名',
@@ -118,7 +118,7 @@ class Person extends \yii\db\ActiveRecord
             'alive' => function ($model) {
                 return $model->alive ? '是' : '否';
             },
-            'my_relation',
+            'comment',
             'phone',
         ];
     }

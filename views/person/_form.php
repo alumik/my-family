@@ -62,9 +62,9 @@ use kartik\select2\Select2;
 
     <?= $form->field($model, 'id_card')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'my_relation')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'comment')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('保存', ['class' => 'btn btn-success']) ?>

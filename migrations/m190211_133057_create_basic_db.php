@@ -51,7 +51,7 @@ class m190211_133057_create_basic_db extends Migration
             'blood_type' => $this->integer()->notNull(),
             'id_card' => $this->string(18)->null(),
             'alive' => $this->tinyInteger()->notNull(),
-            'my_relation' => $this->string(255)->null(),
+            'comment' => $this->string(255)->null(),
             'phone' => $this->string(20)->null(),
         ]);
 
