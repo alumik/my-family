@@ -42,7 +42,6 @@ AppAsset::register($this);
             ['label' => '家庭关系', 'url' => ['/relation/index']],
             ['label' => '关系计算器', 'url' => ['/calc/relation']],
             ['label' => '称呼计算器', 'url' => ['/calc/name']],
-            ['label' => '关于', 'url' => ['/site/about']],
 
 //            Yii::$app->user->isGuest ? (
 //                ['label' => 'Login', 'url' => ['/site/login']]
@@ -72,7 +71,8 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="text-center">&copy; 我的家 <?= date('Y') ?></p>
+        <p class="pull-left">&copy; 我的家 <?= date('Y') ?></p>
+        <p class="pull-right"><?= '版本 ' . Yii::$app->params['version'] ?></p>
     </div>
 </footer>
 
