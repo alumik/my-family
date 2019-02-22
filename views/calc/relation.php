@@ -10,6 +10,7 @@ use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
 
 $this->title = '关系计算器';
+$this->params['breadcrumbs'][] = ['label' => '工具箱', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="relation-calc-index">

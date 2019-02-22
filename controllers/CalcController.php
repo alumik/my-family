@@ -9,6 +9,17 @@ use app\models\NameCalc;
 
 class CalcController extends Controller
 {
+    /**
+     * @return string
+     */
+    public function actionIndex()
+    {
+        return $this->render('index');
+    }
+
+    /**
+     * @return string
+     */
     public function actionRelation()
     {
         $model = new RelationCalc();
@@ -27,6 +38,9 @@ class CalcController extends Controller
         ]);
     }
 
+    /**
+     * @return string
+     */
     public function actionName()
     {
         $model = new NameCalc();

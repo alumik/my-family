@@ -40,8 +40,7 @@ AppAsset::register($this);
         'items' => [
             ['label' => '家庭成员', 'url' => ['/person/index']],
             ['label' => '家庭关系', 'url' => ['/relation/index']],
-            ['label' => '关系计算器', 'url' => ['/calc/relation']],
-            ['label' => '称呼计算器', 'url' => ['/calc/name']],
+            ['label' => '工具箱', 'url' => ['/calc/index']],
 
 //            Yii::$app->user->isGuest ? (
 //                ['label' => 'Login', 'url' => ['/site/login']]

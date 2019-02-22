@@ -9,6 +9,7 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
 $this->title = '称呼计算器';
+$this->params['breadcrumbs'][] = ['label' => '工具箱', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="calc-relation">
