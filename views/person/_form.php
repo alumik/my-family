@@ -7,11 +7,14 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use kartik\select2\Select2;
+
+rmrevin\yii\fontawesome\AssetBundle::register($this);
 ?>
 
 <div class="person-form">
 
     <?php $form = ActiveForm::begin([
+        'fieldClass' => 'justinvoelker\awesomebootstrapcheckbox\ActiveField',
         'options' => [
             'autocomplete' => 'off',
         ],

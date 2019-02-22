@@ -21,7 +21,9 @@
         "yiisoft/yii2-swiftmailer": "~2.0.0",
         "nex/yii2-datepicker": "*",
         "overtrue/chinese-calendar": "^0.0.10",
-        "kartik-v/yii2-widget-select2": "dev-master"
+        "kartik-v/yii2-widget-select2": "dev-master",
+        "justinvoelker/yii2-awesomebootstrapcheckbox": "*",
+        "rmrevin/yii2-fontawesome": "~2.17"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

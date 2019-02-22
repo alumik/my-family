@@ -122,3 +122,8 @@ a.desc:after {
 .grid-view .table-wrapper {
     overflow-x: auto;
 }
+
+.radio input[type="radio"]:focus + label::before,
+.checkbox input[type="checkbox"]:focus + label::before{
+    outline: none;
+}

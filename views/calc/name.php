@@ -18,6 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="calc-form">
 
         <?php $form = ActiveForm::begin([
+            'fieldClass' => 'justinvoelker\awesomebootstrapcheckbox\ActiveField',
             'options' => [
                 'autocomplete' => 'off',
             ],
