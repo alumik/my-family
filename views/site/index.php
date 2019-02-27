@@ -35,6 +35,8 @@ $this->title = '我的家 ' . date('Y');
 
                 <p><a class="btn btn-default" href="/relation/index">家庭关系 &raquo;</a></p>
             </div>
+        </div>
+        <div class="row">
             <div class="col-lg-4">
                 <h2>关系计算器</h2>
 
@@ -44,8 +46,6 @@ $this->title = '我的家 ' . date('Y');
                 <p><a class="btn btn-default" href="/calc/relation">关系计算器 &raquo;</a>
                 </p>
             </div>
-        </div>
-        <div class="row">
             <div class="col-lg-4">
                 <h2>称呼计算器</h2>
 
